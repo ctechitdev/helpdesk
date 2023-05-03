@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2023 at 05:25 AM
+-- Generation Time: May 03, 2023 at 05:52 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -218,7 +218,6 @@ CREATE TABLE `tbl_user` (
   `user_password` varchar(30) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL,
   `depart_id` int(11) DEFAULT NULL,
-  `br_id` int(11) DEFAULT NULL,
   `user_status` int(11) DEFAULT NULL,
   `add_by` int(11) DEFAULT NULL,
   `date_register` date DEFAULT NULL
@@ -228,14 +227,14 @@ CREATE TABLE `tbl_user` (
 -- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_user` (`usid`, `full_name`, `user_name`, `user_password`, `role_id`, `depart_id`, `br_id`, `user_status`, `add_by`, `date_register`) VALUES
-(1, 'ຊຸບເປິແອັດມີນ', 'superadmin', '123', 1, 1, 1, 1, 1, '2023-03-13'),
-(2, 'ບັນຊີ', 'accountant', '123', 2, 2, 1, 1, 1, '2023-03-13'),
-(3, 'ແອັດມີນສາງ', 'adminstock', '123', 3, 3, 1, 1, 1, '2023-03-13'),
-(4, 'ແອັດມິນລະບົບ', 'adminsystem', '123', 4, 1, 1, 1, 1, '2023-03-13'),
-(5, 'ການຂາຍ', 'sale', '123', 5, 4, 1, 1, 1, '2023-03-13'),
-(6, 'ສາຂາໜອງດ້ວງ', 'nongduang', '123', 6, 5, 2, 1, 1, '2023-03-13'),
-(7, 'billy', 'billy', '123', 7, 5, 2, 1, 6, '2023-03-13');
+INSERT INTO `tbl_user` (`usid`, `full_name`, `user_name`, `user_password`, `role_id`, `depart_id`, `user_status`, `add_by`, `date_register`) VALUES
+(1, 'ຊຸບເປິແອັດມີນ', 'superadmin', '123', 1, 1, 1, 1, '2023-03-13'),
+(2, 'ບັນຊີ', 'accountant', '123', 2, 2, 1, 1, '2023-03-13'),
+(3, 'ແອັດມີນສາງ', 'adminstock', '123', 3, 3, 1, 1, '2023-03-13'),
+(4, 'ແອັດມິນລະບົບ', 'adminsystem', '123', 4, 1, 1, 1, '2023-03-13'),
+(5, 'ການຂາຍ', 'sale', '123', 5, 4, 1, 1, '2023-03-13'),
+(6, 'ສາຂາໜອງດ້ວງ', 'nongduang', '123', 6, 5, 1, 1, '2023-03-13'),
+(7, 'billy', 'billy', '123', 7, 5, 1, 6, '2023-03-13');
 
 --
 -- Indexes for dumped tables
@@ -339,7 +338,7 @@ ALTER TABLE `tbl_sub_title`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `usid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `usid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

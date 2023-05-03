@@ -121,31 +121,8 @@ $usid = $_GET['usid'];
                                                             while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
                                                         ?>
                                                                 <option value="<?php echo $row5['dp_id']; ?>" <?php if ($user_rows['depart_id'] == $row5['dp_id']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>> <?php echo $row5['dp_name']; ?></option>
-                                                        <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-lg-12">
-                                                <label class="text-dark font-weight-medium">ສາຂາ</label>
-                                                <div class="form-group">
-
-                                                    <select class=" form-control font" name="br_id" id="br_id">
-                                                        <option value=""> <?php echo $user_rows['br_id']; ?></option>
-                                                        <?php
-                                                        $stmt5 = $conn->prepare(" SELECT * FROM tbl_branch ");
-                                                        $stmt5->execute();
-                                                        if ($stmt5->rowCount() > 0) {
-                                                            while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
-                                                        ?>
-                                                                <option value="<?php echo $row5['br_id']; ?>" <?php if ($user_rows['br_id'] == $row5['br_id']) {
                                                                                                                     echo "selected";
-                                                                                                                } ?>> <?php echo $row5['br_name']; ?></option>
+                                                                                                                } ?>> <?php echo $row5['dp_name']; ?></option>
                                                         <?php
                                                             }
                                                         }
@@ -153,16 +130,8 @@ $usid = $_GET['usid'];
                                                     </select>
                                                 </div>
                                             </div>
-
 
                                         </div>
-
-
-
-
-
-
-
 
                                 </div>
 
@@ -178,255 +147,255 @@ $usid = $_GET['usid'];
                     </div>
                 </div>
             </div>
-   
-  
-    <div class="content-wrapper">
-        <div class="content-wrapper">
-            <div class="content">
-                <!-- For Components documentaion -->
-                <div class="card card-default">
-
-                <div class="card card-default">
 
 
-                    <div class="card-body">
-                        <table id="productsTable" class="table table-hover table-product" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>ເລກລຳດັບ</th>
-                                    <th>ຊື່ຜູ້ໃຊ້</th>
-                                    <th>ຢູສເຊີ້</th>
-                                    <th>ພະແນກ</th>
+            <div class="content-wrapper">
+                <div class="content-wrapper">
+                    <div class="content">
+                        <!-- For Components documentaion -->
+                        <div class="card card-default">
 
-                                    <th>ສະຖານະ</th>
-                                    <th>ສິດຈັດການ</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                            <div class="card card-default">
 
 
-                                <?php
+                                <div class="card-body">
+                                    <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ເລກລຳດັບ</th>
+                                                <th>ຊື່ຜູ້ໃຊ້</th>
+                                                <th>ຢູສເຊີ້</th>
+                                                <th>ພະແນກ</th>
 
-                                if ($role_level == 5) {
-                                    $syntax_user = " where role_level = 5 and br_id = '$br_id' ";
-                                } else {
-                                    $syntax_user = "";
-                                }
+                                                <th>ສະຖານະ</th>
+                                                <th>ສິດຈັດການ</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
 
-                                $stmt4 = $conn->prepare(" select usid,full_name,user_name,dp_name,role_name,
+                                            <?php
+
+                                            if ($role_level == 5) {
+                                                $syntax_user = " where role_level = 5 and br_id = '$br_id' ";
+                                            } else {
+                                                $syntax_user = "";
+                                            }
+
+
+                                            $stmt4 = $conn->prepare(" select usid,full_name,user_name,dp_name,role_name,
 									(case when user_status = 1 then 'ເປີດນຳໃຊ້' else 'ປິດນຳໃຊ້' end) as user_status,date_register
 									from tbl_user a
 									LEFT JOIN tbl_depart b on a.depart_id = b.dp_id
 									LEFT join tbl_roles c on a.role_id = c.r_id 
 									$syntax_user ");
-                                $stmt4->execute();
-                                if ($stmt4->rowCount() > 0) {
-                                    while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                        $usid = $row4['usid'];
-                                        $full_name = $row4['full_name'];
-                                        $user_name = $row4['user_name'];
-                                        $dp_name = $row4['dp_name'];
-                                        $user_status = $row4['user_status'];
-                                        $role_name = $row4['role_name'];
+                                            $stmt4->execute();
+                                            if ($stmt4->rowCount() > 0) {
+                                                while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+                                                    $usid = $row4['usid'];
+                                                    $full_name = $row4['full_name'];
+                                                    $user_name = $row4['user_name'];
+                                                    $dp_name = $row4['dp_name'];
+                                                    $user_status = $row4['user_status'];
+                                                    $role_name = $row4['role_name'];
 
-                                ?>
-
-
-
-                                        <tr>
-                                            <td><?php echo "$usid"; ?></td>
-                                            <td><?php echo "$full_name"; ?></td>
-                                            <td><?php echo "$user_name"; ?></td>
-                                            <td><?php echo "$dp_name"; ?></td>
-                                            <td> <span class="badge <?php
-                                                                    if ($user_status == 'ປິດນຳໃຊ້') {
-                                                                        echo "badge-secondary";
-                                                                    } else {
-                                                                        echo "badge-success";
-                                                                    }
-
-                                                                    ?>">
-                                                    <?php echo "$user_status"; ?></span></td>
-                                            <td><?php echo "$role_name"; ?></td>
+                                            ?>
 
 
 
-                                            <td>
-                                                <div class="dropdown">
-                                                    <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                                    </a>
+                                                    <tr>
+                                                        <td><?php echo "$usid"; ?></td>
+                                                        <td><?php echo "$full_name"; ?></td>
+                                                        <td><?php echo "$user_name"; ?></td>
+                                                        <td><?php echo "$dp_name"; ?></td>
+                                                        <td> <span class="badge <?php
+                                                                                if ($user_status == 'ປິດນຳໃຊ້') {
+                                                                                    echo "badge-secondary";
+                                                                                } else {
+                                                                                    echo "badge-success";
+                                                                                }
 
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                        <a class="dropdown-item" href="edit-staff-user.php?usid=<?php echo "$usid"; ?>">ແກ້ໄຂ</a>
-                                                        <a class="dropdown-item" type="button" id="deleteuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm" >ລືບ</a>
-                                                        <a class="dropdown-item" type="button" id="activestaffuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm">ເປິດນຳໃຊ້</a>
-                                                        <a class="dropdown-item" type="button" id="inactivestaffuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm">ປິດນຳໃຊ້</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-
-                                <?php
-                                    }
-                                }
-                                ?>
+                                                                                ?>">
+                                                                <?php echo "$user_status"; ?></span></td>
+                                                        <td><?php echo "$role_name"; ?></td>
 
 
-                            </tbody>
-                        </table>
+
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                                                </a>
+
+                                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                                    <a class="dropdown-item" href="edit-staff-user.php?usid=<?php echo "$usid"; ?>">ແກ້ໄຂ</a>
+                                                                    <a class="dropdown-item" type="button" id="deleteuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
+                                                                    <a class="dropdown-item" type="button" id="activestaffuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm">ເປິດນຳໃຊ້</a>
+                                                                    <a class="dropdown-item" type="button" id="inactivestaffuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm">ປິດນຳໃຊ້</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+
+                        </div>
 
                     </div>
+
+
+                    <?php include "footer.php"; ?>
                 </div>
-
-
             </div>
 
-        </div>
+            <?php include("../setting/calljs.php"); ?>
+
+            <script>
+                // edit staff user 
+                $(document).on("submit", "#editstaffuserFrm", function() {
+                    $.post("../query/update-user-staff.php", $(this).serialize(), function(data) {
+                        if (data.res == "success") {
+                            Swal.fire(
+                                'ສຳເລັດ',
+                                'ແກ້ໄຂຂໍ້ມູນສຳເລັດ',
+                                'success'
+                            )
+                            setTimeout(
+                                function() {
+                                    window.location.href = 'user-staff.php';
+                                }, 1000);
+                        }
+                    }, 'json')
+                    return false;
+                });
 
 
-        <?php include "footer.php"; ?>
-    </div>
-    </div>
+                // delete 
+                $(document).on("click", "#deleteuser", function(e) {
+                    e.preventDefault();
+                    var usid = $(this).data("id");
+                    $.ajax({
+                        type: "post",
+                        url: "../query/delete-user.php",
+                        dataType: "json",
+                        data: {
+                            usid: usid
+                        },
+                        cache: false,
+                        success: function(data) {
+                            if (data.res == "success") {
+                                Swal.fire(
+                                    'ສຳເລັດ',
+                                    'ລືບສຳເລັດ',
+                                    'success'
+                                )
+                                setTimeout(
+                                    function() {
+                                        window.location.href = 'user-staff.php';
+                                    }, 1000);
 
-    <?php include("../setting/calljs.php"); ?>
+                            }
+                        },
+                        error: function(xhr, ErrorStatus, error) {
+                            console.log(status.error);
+                        }
 
-    <script>
-        // edit staff user 
-        $(document).on("submit", "#editstaffuserFrm", function() {
-            $.post("../query/update-user-staff.php", $(this).serialize(), function(data) {
-                if (data.res == "success") {
-                    Swal.fire(
-                        'ສຳເລັດ',
-                        'ແກ້ໄຂຂໍ້ມູນສຳເລັດ',
-                        'success'
-                    )
-                    setTimeout(
-                        function() {
-                            window.location.href = 'user-staff.php';
-                        }, 1000);
-                }
-            }, 'json')
-            return false;
-        });
-
-
-        // delete 
-        $(document).on("click", "#deleteuser", function(e) {
-            e.preventDefault();
-            var usid = $(this).data("id");
-            $.ajax({
-                type: "post",
-                url: "../query/delete-user.php",
-                dataType: "json",
-                data: {
-                    usid: usid
-                },
-                cache: false,
-                success: function(data) {
-                    if (data.res == "success") {
-                        Swal.fire(
-                            'ສຳເລັດ',
-                            'ລືບສຳເລັດ',
-                            'success'
-                        )
-                        setTimeout(
-                            function() {
-                                window.location.href = 'user-staff.php';
-                            }, 1000);
-
-                    }
-                },
-                error: function(xhr, ErrorStatus, error) {
-                    console.log(status.error);
-                }
-
-            });
+                    });
 
 
-            return false;
-        });
+                    return false;
+                });
 
 
-        // active user
-        $(document).on("click", "#activestaffuser", function(e) {
-            e.preventDefault();
-            var id = $(this).data("id");
-            $.ajax({
-                type: "post",
-                url: "../query/activestaffuser.php",
-                dataType: "json",
-                data: {
-                    id: id
-                },
-                cache: false,
-                success: function(data) {
-                    if (data.res == "success") {
-                        Swal.fire(
-                            'ສຳເລັດ',
-                            'ເປີດນຳໃຊ້ສຳເລັດ',
-                            'success'
-                        )
-                        setTimeout(
-                            function() {
-                                window.location.href = 'user-staff.php';
-                            }, 1000);
+                // active user
+                $(document).on("click", "#activestaffuser", function(e) {
+                    e.preventDefault();
+                    var id = $(this).data("id");
+                    $.ajax({
+                        type: "post",
+                        url: "../query/activestaffuser.php",
+                        dataType: "json",
+                        data: {
+                            id: id
+                        },
+                        cache: false,
+                        success: function(data) {
+                            if (data.res == "success") {
+                                Swal.fire(
+                                    'ສຳເລັດ',
+                                    'ເປີດນຳໃຊ້ສຳເລັດ',
+                                    'success'
+                                )
+                                setTimeout(
+                                    function() {
+                                        window.location.href = 'user-staff.php';
+                                    }, 1000);
 
-                    }
-                },
-                error: function(xhr, ErrorStatus, error) {
-                    console.log(status.error);
-                }
+                            }
+                        },
+                        error: function(xhr, ErrorStatus, error) {
+                            console.log(status.error);
+                        }
 
-            });
+                    });
 
 
 
-            return false;
-        });
+                    return false;
+                });
 
 
-        // inactive user
-        $(document).on("click", "#inactivestaffuser", function(e) {
-            e.preventDefault();
-            var id = $(this).data("id");
-            $.ajax({
-                type: "post",
-                url: "../query/inactivestaffuser.php",
-                dataType: "json",
-                data: {
-                    id: id
-                },
-                cache: false,
-                success: function(data) {
-                    if (data.res == "success") {
-                        Swal.fire(
-                            'ສຳເລັດ',
-                            'ປິດນຳໃຊ້ສຳເລັດ',
-                            'success'
-                        )
-                        setTimeout(
-                            function() {
-                                window.location.href = 'user-staff.php';
-                            }, 1000);
+                // inactive user
+                $(document).on("click", "#inactivestaffuser", function(e) {
+                    e.preventDefault();
+                    var id = $(this).data("id");
+                    $.ajax({
+                        type: "post",
+                        url: "../query/inactivestaffuser.php",
+                        dataType: "json",
+                        data: {
+                            id: id
+                        },
+                        cache: false,
+                        success: function(data) {
+                            if (data.res == "success") {
+                                Swal.fire(
+                                    'ສຳເລັດ',
+                                    'ປິດນຳໃຊ້ສຳເລັດ',
+                                    'success'
+                                )
+                                setTimeout(
+                                    function() {
+                                        window.location.href = 'user-staff.php';
+                                    }, 1000);
 
-                    }
-                },
-                error: function(xhr, ErrorStatus, error) {
-                    console.log(status.error);
-                }
+                            }
+                        },
+                        error: function(xhr, ErrorStatus, error) {
+                            console.log(status.error);
+                        }
 
-            });
+                    });
 
 
 
-            return false;
-        });
-    </script>
+                    return false;
+                });
+            </script>
 
-    <!--  -->
+            <!--  -->
 
 
 </body>

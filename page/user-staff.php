@@ -106,62 +106,26 @@ $header_click = "3";
 													</select>
 												</div>
 											</div>
-											<?php
+											<div class="form-group col-lg-12">
+												<label class="text-dark font-weight-medium">ພະແນກ</label>
+												<div class="form-group">
 
-											if ($br_id == 1) {
-											?>
-												<div class="form-group col-lg-12">
-													<label class="text-dark font-weight-medium">ພະແນກ</label>
-													<div class="form-group">
-
-														<select class=" form-control font" name="dp_id" id="dp_id">
-															<option value=""> ເລືອກພະແນກ </option>
-															<?php
-															$stmt5 = $conn->prepare(" SELECT * FROM tbl_depart ");
-															$stmt5->execute();
-															if ($stmt5->rowCount() > 0) {
-																while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
-															?>
-																	<option value="<?php echo $row5['dp_id']; ?>"> <?php echo $row5['dp_name']; ?></option>
-															<?php
-																}
+													<select class=" form-control font" name="dp_id" id="dp_id">
+														<option value=""> ເລືອກພະແນກ </option>
+														<?php
+														$stmt5 = $conn->prepare(" SELECT * FROM tbl_depart ");
+														$stmt5->execute();
+														if ($stmt5->rowCount() > 0) {
+															while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
+														?>
+																<option value="<?php echo $row5['dp_id']; ?>"> <?php echo $row5['dp_name']; ?></option>
+														<?php
 															}
-															?>
-														</select>
-													</div>
+														}
+														?>
+													</select>
 												</div>
-
-												<div class="form-group col-lg-12">
-													<label class="text-dark font-weight-medium">ສາຂາ</label>
-													<div class="form-group">
-
-														<select class=" form-control font" name="br_id" id="br_id">
-															<option value=""> ເລືອກສາຂາ </option>
-															<?php
-															$stmt5 = $conn->prepare(" SELECT * FROM tbl_branch ");
-															$stmt5->execute();
-															if ($stmt5->rowCount() > 0) {
-																while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
-															?>
-																	<option value="<?php echo $row5['br_id']; ?>"> <?php echo $row5['br_name']; ?></option>
-															<?php
-																}
-															}
-															?>
-														</select>
-													</div>
-												</div>
-
-											<?php
-											} else {
-											?>
-												<input type="hidden" class="form-control" id="dp_id" name="dp_id" value='<?php echo "$depart_id"; ?>'>
-												<input type="hidden" class="form-control" id="br_id" name="br_id" value='<?php echo "$br_id"; ?>'>
-											<?php
-											}
-
-											?>
-
+											</div>
 										</div>
 
 										<div class="d-flex justify-content-end mt-6">
@@ -177,7 +141,7 @@ $header_click = "3";
 					</div>
 				</div>
 
-			</div> 
+			</div>
 
 			<div class="content-wrapper">
 				<div class="content">
@@ -206,9 +170,9 @@ $header_click = "3";
 
 									<?php
 
-									 if($role_level == 5) {
+									if ($role_level == 5) {
 										$syntax_user = " where role_level = 5 and br_id = '$br_id' ";
-									}else{
+									} else {
 										$syntax_user = "";
 									}
 
@@ -258,7 +222,7 @@ $header_click = "3";
 
 														<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
 															<a class="dropdown-item" href="edit-staff-user.php?usid=<?php echo "$usid"; ?>">ແກ້ໄຂ</a>
-															<a class="dropdown-item" type="button" id="deleteuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm" >ລືບ</a>
+															<a class="dropdown-item" type="button" id="deleteuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
 															<a class="dropdown-item" type="button" id="activestaffuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm">ເປິດນຳໃຊ້</a>
 															<a class="dropdown-item" type="button" id="inactivestaffuser" data-id='<?php echo $row4['usid']; ?>' class="btn btn-danger btn-sm">ປິດນຳໃຊ້</a>
 														</div>
@@ -314,41 +278,41 @@ $header_click = "3";
 			}, 'json')
 			return false;
 		});
-		 // delete 
-		 $(document).on("click", "#deleteuser", function(e) {
-                    e.preventDefault();
-                    var usid = $(this).data("id");
-                    $.ajax({
-                        type: "post",
-                        url: "../query/delete-user.php",
-                        dataType: "json",
-                        data: {
-                            usid: usid
-                        },
-                        cache: false,
-                        success: function(data) {
-                            if (data.res == "success") {
-                                Swal.fire(
-                                    'ສຳເລັດ',
-                                    'ລືບສຳເລັດ',
-                                    'success'
-                                )
-                                setTimeout(
-                                    function() {
-                                        window.location.href = 'user-staff.php';
-                                    }, 1000);
+		// delete 
+		$(document).on("click", "#deleteuser", function(e) {
+			e.preventDefault();
+			var usid = $(this).data("id");
+			$.ajax({
+				type: "post",
+				url: "../query/delete-user.php",
+				dataType: "json",
+				data: {
+					usid: usid
+				},
+				cache: false,
+				success: function(data) {
+					if (data.res == "success") {
+						Swal.fire(
+							'ສຳເລັດ',
+							'ລືບສຳເລັດ',
+							'success'
+						)
+						setTimeout(
+							function() {
+								window.location.href = 'user-staff.php';
+							}, 1000);
 
-                            }
-                        },
-                        error: function(xhr, ErrorStatus, error) {
-                            console.log(status.error);
-                        }
+					}
+				},
+				error: function(xhr, ErrorStatus, error) {
+					console.log(status.error);
+				}
 
-                    });
+			});
 
 
-                    return false;
-                });
+			return false;
+		});
 
 
 
