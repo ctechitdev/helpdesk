@@ -28,7 +28,7 @@ create or replace table tbl_issue_request(
     rate_point int
 );
 
-create or replace table tbl_issue_histoty(
+create or replace table tbl_issue_history(
     ih_id int not null PRIMARY KEY AUTO_INCREMENT,
     ir_id int,
     ir_state int,
@@ -58,8 +58,7 @@ create or replace table tbl_request_status(
 );
 
 create or replace table tbl_request_use_item(
-    rui_id int not null PRIMARY KEY AUTO_INCREMENT,
-    rui_bill_number varchar(30),
+    rui_id int not null PRIMARY KEY AUTO_INCREMENT, 
     rs_id int,
     depart_id int,
     request_by int,
