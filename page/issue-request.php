@@ -112,7 +112,7 @@ $header_click = "4";
 
                                                 </div>
 
-                                                <div class="form-group col-lg-6">
+                                                <div class="form-group col-lg-12">
                                                     <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
                                                     <input type="text" class="form-control" id="ir_detail" name="ir_detail" required>
                                                 </div>
