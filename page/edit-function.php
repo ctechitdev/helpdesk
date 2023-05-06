@@ -116,7 +116,6 @@ $pt_id = $_GET['pt_id']
 				</div>
 
 			</div>
-
 			<div class="content-wrapper">
 				<div class="content">
 					<!-- For Components documentaion -->

@@ -15,7 +15,7 @@ include("../setting/conn.php");
     
 	if ($insCourse) {
 
-        $insert2 = $conn->query("INSERT INTO tbl_issue_histoty(ir_id,ir_state,ih_detail)
+        $insert2 = $conn->query("INSERT INTO tbl_issue_history(ir_id,ir_state,ih_detail)
         VALUES('$lastid','1','$ir_detail') ");
 
         $res = array("res" => "success");

@@ -1,10 +1,11 @@
+
 <?php
 include("../setting/checksession.php");
 include("../setting/conn.php");
 
-$header_name = "ແຈ້ງບ້ນຫາ";
+$header_name = "ອັຟເດດບັນຫາ";
 $header_click = "4";
-
+$ih_id = $_GET['ih_id'];
 ?>
 
 <!DOCTYPE html>
@@ -31,25 +32,6 @@ $header_click = "4";
 <body class="navbar-fixed sidebar-fixed" id="body">
 
 
-<script>
-	$(function() {
-
-
-
-		$('#isc_id').change(function() {
-			var isc_id = $('#isc_id').val();
-			$.post('../function/dynamic_dropdown/get_district_name.php', {
-                isc_id: isc_id
-				},
-				function(output) {
-					$('#ist_id').html(output).show();
-				});
-		});
- 
-
-	});
-</script>
-
 
     <div class="wrapper">
 
@@ -69,64 +51,63 @@ $header_click = "4";
                             <div class="col-xxl-12">
                                 <div class="email-right-column  email-body p-4 p-xl-5">
                                     <div class="email-body-head mb-5 ">
-                                        <h4 class="text-dark">ແຈ້ງບ້ນຫາ</h4>
+                                        <h4 class="text-dark">ແກ້ໄຂອັຟເດດບັນຫາ</h4>
+                                        <?php
+                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_history where ih_id = '$ih_id' ") ->fetch(PDO::FETCH_ASSOC); 
+                                        
+                                        ?>
 
 
 
                                     </div>
-                                    <form method="post" id="addrequest">
+                                    <form method="post" id="edithistoty">
+                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $histoty_rows['ir_id']; ?>" required>
 
 
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="row">
+                                            
                                                     <div class="form-group  col-lg-12">
-                                                        <label class="text-dark font-weight-medium">ປະເພດບັນຫາ</label>
-                                                        <div class="form-group">
-                                                            <select class=" form-control font" name="isc_id" id="isc_id">
-                                                                <option value=""> ເລືອກປະເພດບັນຫາ </option>
-                                                                <?php
-                                                                $stmt = $conn->prepare(" SELECT isc_id ,isc_name FROM tbl_issue_category order by isc_name");
-                                                                $stmt->execute();
-                                                                if ($stmt->rowCount() > 0) {
-                                                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                                                ?> <option value="<?php echo $row['isc_id']; ?>"> <?php echo $row['isc_name']; ?></option>
-                                                                <?php
-                                                                    }
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+												<label class="text-dark font-weight-medium">ລະດັບສິດ</label>
+												<div class="form-group">
 
-                                                    <div class="form-group col-lg-12">
-                                                        <label class="text-dark font-weight-medium">ປະເພດລະບົບ</label>
-                                                        <div class="form-group">
+													<select class=" form-control font" name="ir_state" id="ir_state">
+														<option value=""> ເລືອກລະດັບ </option>
+														<?php
+														$stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
+														$stmt5->execute();
+														if ($stmt5->rowCount() > 0) {
+															while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
+														?>
+																<option value="<?php echo $row5['is_id']; ?>  <?php if ($histoty_rows['is_id'] == $row5['is_id']) {
+                                                            echo "selected";
+                                                        } ?>"> <?php echo $row5['is_name']; ?></option>
+														<?php
+															}
+														}
+														?>
+													</select>
+												</div>
+											</div>
 
-                                                            <select class="form-control  font" name="ist_id" id="ist_id">
-                                                                <option value=""> ເລືອກປະເພດ </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
+                                        
 
                                                 </div>
 
-                                                <div class="form-group col-lg-12">
+                                                <div class="form-group col-lg-6">
                                                     <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
-                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" required>
+                                                    <input type="text" class="form-control" id="ih_detail" name="ih_detail" value="<?php echo $history_rows['ih_detail']; ?>" required>
                                                 </div>
                                             </div>
 
 
                                         </div>
                                         <div class="d-flex justify-content-end mt-6">
-                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ແຈ້ງບ້ນຫາ</button>
+                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ແກ້ໄຂອັຟເດດບັນຫາ</button>
                                         </div>
 
                                     </form>
-
-
                                 </div>
                             </div>
                         </div>
@@ -134,7 +115,7 @@ $header_click = "4";
                 </div>
 
             </div>
-
+    
             <div class="content-wrapper">
                 <div class="content">
                     <!-- For Components documentaion -->
@@ -148,7 +129,7 @@ $header_click = "4";
                                 <thead>
                                     <tr>
                                         <th>ເລກທີ</th>
-                                        <th>ປະເພດລະບົບ</th>
+                                        <th>ສະຖານະຂອງບັນຫາ </th>
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ວັນທີແຈ້ງບັນຫາ</th>
 
@@ -158,34 +139,34 @@ $header_click = "4";
 
 
                                     <?php
-                                    $stmt4 = $conn->prepare("SELECT  ir_id,ist_name,ir_detail,request_date
-									FROM tbl_issue_request a
-									left join tbl_issue_type b on a.ist_id = b.ist_id order by ir_id desc ");
+                                    $stmt4 = $conn->prepare("SELECT  ih_id,is_name ,ih_detail,update_date
+									FROM tbl_issue_history a
+									left join tbl_issue_status b on a.ir_state = b.is_id order by ih_id desc ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                            $ir_id = $row4['ir_id'];
-                                            $ist_name = $row4['ist_name'];
-                                            $ir_detail = $row4['ir_detail'];
-                                            $request_date = $row4['request_date'];
+                                            $ih_id = $row4['ih_id'];
+                                            $is_name = $row4['is_name'];
+                                            $ih_detail = $row4['ih_detail'];
+                                            $update_date = $row4['update_date'];
 
                                     ?>
 
 
 
                                             <tr>
-                                                <td><?php echo "$ir_id"; ?></td>
-                                                <td><?php echo "$ist_name"; ?></td>
-                                                <td><?php echo "$ir_detail"; ?></td>
-                                                <td><?php echo "$request_date"; ?></td>
+                                                <td><?php echo "$ih_id"; ?></td>
+                                                <td><?php echo "$is_name"; ?></td>
+                                                <td><?php echo "$ih_detail"; ?></td>
+                                                <td><?php echo "$update_date"; ?></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="edit-issue-request.php?ir_id=<?php echo $row4['ir_id']; ?>">ແກ້ໄຂ</a>
-                                                            <a class="dropdown-item" type="button" id="deleterequest" data-id='<?php echo $row4['ir_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
+                                                            <a class="dropdown-item" href="edit-issue-history.php?ih_id=<?php echo $row4['ih_id']; ?>">ແກ້ໄຂ</a>
+                                                            <a class="dropdown-item" type="button" id="deletehistory" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
 
                                                         </div>
                                                     </div>
@@ -222,8 +203,8 @@ $header_click = "4";
 
     <script>
         // Add staff user 
-        $(document).on("submit", "#addrequest", function() {
-            $.post("../query/add-issue-request.php", $(this).serialize(), function(data) {
+        $(document).on("submit", "#edithistoty", function() {
+            $.post("../query/edit-issue-history.php", $(this).serialize(), function(data) {
                 if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',
@@ -232,22 +213,22 @@ $header_click = "4";
                     )
                     setTimeout(
                         function() {
-                            location.reload();
+                            window.location.href = 'page-issue-history.php';
                         }, 1000);
                 }
             }, 'json')
             return false;
         });
         // delete 
-        $(document).on("click", "#deleterequest", function(e) {
+        $(document).on("click", "#deletehistory", function(e) {
             e.preventDefault();
-            var ir_id = $(this).data("id");
+            var ih_id = $(this).data("id");
             $.ajax({
                 type: "post",
-                url: "../query/delete-issue-request.php",
+                url: "../query/delete-issue-history.php",
                 dataType: "json",
                 data: {
-                    ir_id: ir_id
+                    ih_id: ih_id
                 },
                 cache: false,
                 success: function(data) {
@@ -259,7 +240,7 @@ $header_click = "4";
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'issue-request.php';
+                                window.location.href = 'page-issue-history.php';
                             }, 1000);
 
                     }
