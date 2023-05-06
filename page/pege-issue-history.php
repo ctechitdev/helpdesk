@@ -69,7 +69,7 @@ $ir_id = $_GET['ir_id'];
 
                                     <?php
                                     $stmt4 = $conn->prepare("SELECT  ih_id,is_name ,ih_detail,update_date
-									FROM tbl_issue_histoty a
+									FROM tbl_issue_history a
 									left join tbl_issue_status b on a.ir_state = b.is_id order by ih_id desc ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
@@ -89,7 +89,7 @@ $ir_id = $_GET['ir_id'];
                                                 <td><?php echo "$ih_detail"; ?></td>
                                                 <td><?php echo "$update_date"; ?></td>
                                                 <td><div class="d-flex justify-content-end">
-                                            <a button type="submit" class="btn btn-primary mb-2 btn-pill" href="issue_histoty.php?ih_id=<?php echo $ih_id; ?>">ອັຟເດດບັນຫາ</a>
+                                            <a button type="submit" class="btn btn-primary mb-2 btn-pill" href="issue_history.php?ih_id=<?php echo $ih_id; ?>">ອັຟເດດບັນຫາ</a>
                                         </div></td>
                                                 <td>
                                                     <div class="dropdown">
@@ -97,7 +97,7 @@ $ir_id = $_GET['ir_id'];
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="edit-issue-histoty.php?ih_id=<?php echo $row4['ih_id']; ?>">ແກ້ໄຂ</a>
+                                                            <a class="dropdown-item" href="edit-issue-history.php?ih_id=<?php echo $row4['ih_id']; ?>">ແກ້ໄຂ</a>
                                                             <a class="dropdown-item" type="button" id="deletehistoty" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
 
                                                         </div>
@@ -132,12 +132,12 @@ $ir_id = $_GET['ir_id'];
     <script>
        
         // delete 
-        $(document).on("click", "#deletehistoty", function(e) {
+        $(document).on("click", "#deletehistory", function(e) {
             e.preventDefault();
             var ih_id = $(this).data("id");
             $.ajax({
                 type: "post",
-                url: "../query/delete-issue_histoty.php",
+                url: "../query/delete-issue_history.php",
                 dataType: "json",
                 data: {
                     ih_id: ih_id
@@ -152,7 +152,7 @@ $ir_id = $_GET['ir_id'];
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'page-issue-histoty.php';
+                                window.location.href = 'page-issue-history.php';
                             }, 1000);
 
                     }

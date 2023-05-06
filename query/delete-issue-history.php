@@ -9,10 +9,12 @@ extract($_POST);
 
 $insCourse = $conn->query(" 
 
-delete from tbl_issue_histoty where ih_id = '$ih_id'
+delete from tbl_issue_history where ih_id = '$ih_id'
  
     ");
 if ($insCourse) {
+
+    
     $res = array("res" => "success");
 } else {
     $res = array("res" => "failed");
