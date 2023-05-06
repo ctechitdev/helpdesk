@@ -66,7 +66,7 @@ $r_id = $_GET['r_id'];
 
 
 										<div class="row">
-
+											
 											<div class="col-lg-6">
 												<div class="form-group">
 													<label for="firstName">ຊື່ສິດ</label>
