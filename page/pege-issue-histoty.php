@@ -5,7 +5,7 @@ include("../setting/conn.php");
 
 $header_name = "ອັຟເດດບັນຫາ";
 $header_click = "4";
-$ih_id = $_GET['ih_id'];
+$ir_id = $_GET['ir_id'];
 ?>
 
 <!DOCTYPE html>
@@ -42,78 +42,8 @@ $ih_id = $_GET['ih_id'];
             <?php
             include "header.php";
             ?>
-            <div class="content-wrapper">
-                <div class="content">
-                    <div class="email-wrapper rounded border bg-white">
-                        <div class="row no-gutters justify-content-center">
-
-
-                            <div class="col-xxl-12">
-                                <div class="email-right-column  email-body p-4 p-xl-5">
-                                    <div class="email-body-head mb-5 ">
-                                        <h4 class="text-dark">ອັຟເດດບັນຫາ</h4>
-                                        <?php
-                                        $histoty_rows = $conn->query("SELECT * FROM tbl_issue_histoty where ih_id = '$ih_id' ") ->fetch(PDO::FETCH_ASSOC); 
-                                        
-                                        ?>
-
-
-
-                                    </div>
-                                    <form method="post" id="addhistoty">
-                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $histoty_rows['ir_id']; ?>" required>
-
-
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                            
-                                                    <div class="form-group  col-lg-12">
-												<label class="text-dark font-weight-medium">ລະດັບສິດ</label>
-												<div class="form-group">
-
-													<select class=" form-control font" name="ir_state" id="ir_state">
-														<option value=""> ເລືອກລະດັບ </option>
-														<?php
-														$stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
-														$stmt5->execute();
-														if ($stmt5->rowCount() > 0) {
-															while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
-														?>
-																<option value="<?php echo $row5['is_id']; ?>"> <?php echo $row5['is_name']; ?></option>
-														<?php
-															}
-														}
-														?>
-													</select>
-												</div>
-											</div>
-
-                                        
-
-                                                </div>
-
-                                                <div class="form-group col-lg-6">
-                                                    <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
-                                                    <input type="text" class="form-control" id="ih_detail" name="ih_detail" value="<?php echo $histoty_rows['ih_detail']; ?>" required>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                        <div class="d-flex justify-content-end mt-6">
-                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ອັຟເດດບັນຫາ</button>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-    
+         
+      
             <div class="content-wrapper">
                 <div class="content">
                     <!-- For Components documentaion -->
@@ -130,6 +60,7 @@ $ih_id = $_GET['ih_id'];
                                         <th>ສະຖານະຂອງບັນຫາ </th>
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ວັນທີແຈ້ງບັນຫາ</th>
+                                        <th></th>
 
                                     </tr>
                                 </thead>
@@ -157,6 +88,9 @@ $ih_id = $_GET['ih_id'];
                                                 <td><?php echo "$is_name"; ?></td>
                                                 <td><?php echo "$ih_detail"; ?></td>
                                                 <td><?php echo "$update_date"; ?></td>
+                                                <td><div class="d-flex justify-content-end">
+                                            <a button type="submit" class="btn btn-primary mb-2 btn-pill" href="issue_histoty.php?ih_id=<?php echo $ih_id; ?>">ອັຟເດດບັນຫາ</a>
+                                        </div></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
@@ -192,38 +126,18 @@ $ih_id = $_GET['ih_id'];
             <?php include "footer.php"; ?>
         </div>
     </div>
-
-
-
-
-
+    
     <?php include("../setting/calljs.php"); ?>
 
     <script>
-        // Add staff user 
-        $(document).on("submit", "#addhistoty", function() {
-            $.post("../query/add-issue-histoty.php", $(this).serialize(), function(data) {
-                if (data.res == "success") {
-                    Swal.fire(
-                        'ສຳເລັດ',
-                        'ເພີ່ມຂໍ້ມູນສຳເລັດ',
-                        'success'
-                    )
-                    setTimeout(
-                        function() {
-                            window.location.href = 'page-issue-histoty.php';
-                        }, 1000);
-                }
-            }, 'json')
-            return false;
-        });
+       
         // delete 
         $(document).on("click", "#deletehistoty", function(e) {
             e.preventDefault();
             var ih_id = $(this).data("id");
             $.ajax({
                 type: "post",
-                url: "../query/delete-issue-histoty.php",
+                url: "../query/delete-issue_histoty.php",
                 dataType: "json",
                 data: {
                     ih_id: ih_id
