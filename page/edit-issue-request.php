@@ -4,7 +4,7 @@ include("../setting/conn.php");
 
 $header_name = "ແຈ້ງບ້ນຫາ";
 $header_click = "4";
-
+$ir_id = $_GET['ir_id'];
 ?>
 
 <!DOCTYPE html>
@@ -70,18 +70,20 @@ $header_click = "4";
                                 <div class="email-right-column  email-body p-4 p-xl-5">
                                     <div class="email-body-head mb-5 ">
                                         <h4 class="text-dark">ແຈ້ງບ້ນຫາ</h4>
-
-
+                                        <?php
+                                        $request_rows = $conn->query("SELECT * FROM tbl_issue_request where ir_id = '$ir_id' ") ->fetch(PDO::FETCH_ASSOC); 
+                                        
+                                        ?>
 
                                     </div>
                                     <form method="post" id="addrequest">
-
+                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $request_rows['ir_id']; ?>" required>
 
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="row">
                                                     <div class="form-group  col-lg-12">
-                                                        <label class="text-dark font-weight-medium">ປະເພດບັນຫາ</label>
+                                                        <label class="text-dark font-weight-medium">ແກ້ໄຂປະເພດບັນຫາ</label>
                                                         <div class="form-group">
                                                             <select class=" form-control font" name="isc_id" id="isc_id">
                                                                 <option value=""> ເລືອກປະເພດບັນຫາ </option>
@@ -90,7 +92,7 @@ $header_click = "4";
                                                                 $stmt->execute();
                                                                 if ($stmt->rowCount() > 0) {
                                                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                                                ?> <option value="<?php echo $row['isc_id']; ?>"> <?php echo $row['isc_name']; ?></option>
+                                                                ?> <option value="<?php echo $row['isc_id']; ?> "> <?php echo $row['isc_name']; ?></option>
                                                                 <?php
                                                                     }
                                                                 }
@@ -114,14 +116,14 @@ $header_click = "4";
 
                                                 <div class="form-group col-lg-12">
                                                     <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
-                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" required>
+                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>"  required>
                                                 </div>
                                             </div>
 
 
                                         </div>
                                         <div class="d-flex justify-content-end mt-6">
-                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ແຈ້ງບ້ນຫາ</button>
+                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ແກ້ໄຂການແຈ້ງບ້ນຫາ</button>
                                         </div>
 
                                     </form>
@@ -222,8 +224,8 @@ $header_click = "4";
 
     <script>
         // Add staff user 
-        $(document).on("submit", "#addrequest", function() {
-            $.post("../query/add-issue-request.php", $(this).serialize(), function(data) {
+        $(document).on("submit", "#editrequest", function() {
+            $.post("../query/update-issue-request.php", $(this).serialize(), function(data) {
                 if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',

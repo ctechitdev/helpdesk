@@ -61,7 +61,7 @@ $ih_id = $_GET['ih_id'];
 
                                     </div>
                                     <form method="post" id="edithistoty">
-                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $histoty_rows['ir_id']; ?>" required>
+                                    <input type="hidden" class="form-control" id="ih_id" name="ih_id" value="<?php echo $histoty_rows['ih_id']; ?>" required>
 
 
                                         <div class="row">
@@ -73,7 +73,7 @@ $ih_id = $_GET['ih_id'];
 												<div class="form-group">
 
 													<select class=" form-control font" name="ir_state" id="ir_state">
-														<option value=""> ເລືອກລະດັບ </option>
+														
 														<?php
 														$stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
 														$stmt5->execute();
@@ -204,11 +204,11 @@ $ih_id = $_GET['ih_id'];
     <script>
         // Add staff user 
         $(document).on("submit", "#edithistoty", function() {
-            $.post("../query/edit-issue-history.php", $(this).serialize(), function(data) {
+            $.post("../query/update-issue-history.php", $(this).serialize(), function(data) {
                 if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',
-                        'ເພີ່ມຂໍ້ມູນສຳເລັດ',
+                        'ແກ້ໄຂຂໍ້ມູນສຳເລັດ',
                         'success'
                     )
                     setTimeout(

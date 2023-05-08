@@ -4,7 +4,6 @@ include("../setting/checksession.php");
 include("../setting/conn.php");
  extract($_POST);
 
- 
 
 $delExam = $conn->query(" update tbl_issue_request set ir_state ='2'WHERE ir_id = '$ir_id'  ");
 if($delExam)
