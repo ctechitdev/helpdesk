@@ -5,7 +5,7 @@ include("../setting/conn.php");
 
 $header_name = "ອັຟເດດບັນຫາ";
 $header_click = "4";
-$ir_id = $_GET['ir_id'];
+$ih_id = $_GET['ih_id'];
 ?>
 
 <!DOCTYPE html>
@@ -42,8 +42,80 @@ $ir_id = $_GET['ir_id'];
             <?php
             include "header.php";
             ?>
-         
-      
+            <div class="content-wrapper">
+                <div class="content">
+                    <div class="email-wrapper rounded border bg-white">
+                        <div class="row no-gutters justify-content-center">
+
+
+                            <div class="col-xxl-12">
+                                <div class="email-right-column  email-body p-4 p-xl-5">
+                                    <div class="email-body-head mb-5 ">
+                                        <h4 class="text-dark">ແກ້ໄຂອັຟເດດບັນຫາ</h4>
+                                        <?php
+                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_history where ih_id = '$ih_id' ") ->fetch(PDO::FETCH_ASSOC); 
+                                        
+                                        ?>
+
+
+
+                                    </div>
+                                    <form method="post" id="edithistoty">
+                                    <input type="hidden" class="form-control" id="ih_id" name="ih_id" value="<?php echo $histoty_rows['ih_id']; ?>" required>
+
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="row">
+                                            
+                                                    <div class="form-group  col-lg-12">
+												<label class="text-dark font-weight-medium">ລະດັບສິດ</label>
+												<div class="form-group">
+
+													<select class=" form-control font" name="ir_state" id="ir_state">
+														
+														<?php
+														$stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
+														$stmt5->execute();
+														if ($stmt5->rowCount() > 0) {
+															while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
+														?>
+																<option value="<?php echo $row5['is_id']; ?>  <?php if ($histoty_rows['is_id'] == $row5['is_id']) {
+                                                            echo "selected";
+                                                        } ?>"> <?php echo $row5['is_name']; ?></option>
+														<?php
+															}
+														}
+														?>
+													</select>
+												</div>
+											</div>
+
+                                        
+
+                                                </div>
+
+                                                <div class="form-group col-lg-6">
+                                                    <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
+                                                    <input type="text" class="form-control" id="ih_detail" name="ih_detail" value="<?php echo $history_rows['ih_detail']; ?>" required>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-6">
+                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ແກ້ໄຂອັຟເດດບັນຫາ</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    
             <div class="content-wrapper">
                 <div class="content">
                     <!-- For Components documentaion -->
@@ -60,7 +132,6 @@ $ir_id = $_GET['ir_id'];
                                         <th>ສະຖານະຂອງບັນຫາ </th>
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ວັນທີແຈ້ງບັນຫາ</th>
-                                        <th></th>
 
                                     </tr>
                                 </thead>
@@ -69,7 +140,7 @@ $ir_id = $_GET['ir_id'];
 
                                     <?php
                                     $stmt4 = $conn->prepare("SELECT  ih_id,is_name ,ih_detail,update_date
-									FROM tbl_issue_histoty a
+									FROM tbl_issue_history a
 									left join tbl_issue_status b on a.ir_state = b.is_id order by ih_id desc ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
@@ -88,17 +159,14 @@ $ir_id = $_GET['ir_id'];
                                                 <td><?php echo "$is_name"; ?></td>
                                                 <td><?php echo "$ih_detail"; ?></td>
                                                 <td><?php echo "$update_date"; ?></td>
-                                                <td><div class="d-flex justify-content-end">
-                                            <a button type="submit" class="btn btn-primary mb-2 btn-pill" href="issue_histoty.php?ih_id=<?php echo $ih_id; ?>">ອັຟເດດບັນຫາ</a>
-                                        </div></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="edit-issue-histoty.php?ih_id=<?php echo $row4['ih_id']; ?>">ແກ້ໄຂ</a>
-                                                            <a class="dropdown-item" type="button" id="deletehistoty" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
+                                                            <a class="dropdown-item" href="edit-issue-history.php?ih_id=<?php echo $row4['ih_id']; ?>">ແກ້ໄຂ</a>
+                                                            <a class="dropdown-item" type="button" id="deletehistory" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
 
                                                         </div>
                                                     </div>
@@ -126,18 +194,38 @@ $ir_id = $_GET['ir_id'];
             <?php include "footer.php"; ?>
         </div>
     </div>
-    
+
+
+
+
+
     <?php include("../setting/calljs.php"); ?>
 
     <script>
-       
+        // Add staff user 
+        $(document).on("submit", "#edithistoty", function() {
+            $.post("../query/update-issue-history.php", $(this).serialize(), function(data) {
+                if (data.res == "success") {
+                    Swal.fire(
+                        'ສຳເລັດ',
+                        'ແກ້ໄຂຂໍ້ມູນສຳເລັດ',
+                        'success'
+                    )
+                    setTimeout(
+                        function() {
+                            window.location.href = 'page-issue-history.php';
+                        }, 1000);
+                }
+            }, 'json')
+            return false;
+        });
         // delete 
-        $(document).on("click", "#deletehistoty", function(e) {
+        $(document).on("click", "#deletehistory", function(e) {
             e.preventDefault();
             var ih_id = $(this).data("id");
             $.ajax({
                 type: "post",
-                url: "../query/delete-issue_histoty.php",
+                url: "../query/delete-issue-history.php",
                 dataType: "json",
                 data: {
                     ih_id: ih_id
@@ -152,7 +240,7 @@ $ir_id = $_GET['ir_id'];
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'page-issue-histoty.php';
+                                window.location.href = 'page-issue-history.php';
                             }, 1000);
 
                     }

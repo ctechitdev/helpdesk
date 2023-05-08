@@ -8,7 +8,7 @@ include("../setting/conn.php");
 
  
     
-	$insCourse = $conn->query("INSERT INTO tbl_issue_histoty(ir_id,ir_state,ih_detail,update_by,update_date)
+	$insCourse = $conn->query("INSERT INTO tbl_issue_history(ir_id,ir_state,ih_detail,update_by,update_date)
 	VALUES('$ir_id','$ir_state','$ih_detail','$id_users',now()) ");
 
   
