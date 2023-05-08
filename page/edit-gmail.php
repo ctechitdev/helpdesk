@@ -183,7 +183,7 @@ $re_id = $_GET['re_id'];
     <script>
         // Add staff user 
         $(document).on("submit", "#updategmail", function() {
-			$.post("../query/add-gmail.php", $(this).serialize(), function(data) {
+			$.post("../query/update-gmail.php", $(this).serialize(), function(data) {
 				if (data.res == "exist") {
 					Swal.fire(
 						'ລົງທະບຽນຊ້ຳ',
