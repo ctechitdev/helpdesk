@@ -4,7 +4,7 @@ include("../setting/conn.php");
 
 $header_name = "ລາຍລະອຽດຈີເມວ";
 $header_click = "4";
-$re_id = $_GET['re_id'];
+
 ?>
 
 <!DOCTYPE html>
