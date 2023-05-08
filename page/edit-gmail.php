@@ -75,15 +75,16 @@ $re_id = $_GET['re_id'];
                                                 </div>
                                                 
                                             </div>
-
-                                        </div>
-                                        <div class="col-lg-4">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label for="password">ລະຫັດ</label>
                                                     <input type="password" class="form-control" id="pass_email" name="pass_email"value="<?php echo $gmail['pass_email']; ?>" required>
                                                 </div>
                                                 
                                             </div>
+
+                                        </div>
+                                       
                                         <div class="d-flex justify-content-end mt-6">
                                             <button type="submit" class="btn btn-primary mb-2 btn-pill">ເພີ່ມຂໍ້ມູນ</button>
                                         </div>
