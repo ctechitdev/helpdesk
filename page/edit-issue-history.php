@@ -1,4 +1,3 @@
-
 <?php
 include("../setting/checksession.php");
 include("../setting/conn.php");
@@ -53,45 +52,45 @@ $ih_id = $_GET['ih_id'];
                                     <div class="email-body-head mb-5 ">
                                         <h4 class="text-dark">ແກ້ໄຂອັຟເດດບັນຫາ</h4>
                                         <?php
-                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_history where ih_id = '$ih_id' ") ->fetch(PDO::FETCH_ASSOC); 
-                                        
+                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_history where ih_id = '$ih_id' ")->fetch(PDO::FETCH_ASSOC);
+
                                         ?>
 
 
 
                                     </div>
-                                    <form method="post" id="edithistoty">
-                                    <input type="hidden" class="form-control" id="ih_id" name="ih_id" value="<?php echo $histoty_rows['ih_id']; ?>" required>
+                                    <form method="post" id="edithistory">
+                                        <input type="hidden" class="form-control" id="ih_id" name="ih_id" value="<?php echo $history_rows['ih_id']; ?>" required>
 
 
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="row">
-                                            
+
                                                     <div class="form-group  col-lg-12">
-												<label class="text-dark font-weight-medium">ລະດັບສິດ</label>
-												<div class="form-group">
+                                                        <label class="text-dark font-weight-medium">ສະຖານະຂອງບັນຫາ</label>
+                                                        <div class="form-group">
 
-													<select class=" form-control font" name="ir_state" id="ir_state">
-														
-														<?php
-														$stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
-														$stmt5->execute();
-														if ($stmt5->rowCount() > 0) {
-															while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
-														?>
-																<option value="<?php echo $row5['is_id']; ?>  <?php if ($histoty_rows['is_id'] == $row5['is_id']) {
-                                                            echo "selected";
-                                                        } ?>"> <?php echo $row5['is_name']; ?></option>
-														<?php
-															}
-														}
-														?>
-													</select>
-												</div>
-											</div>
+                                                            <select class=" form-control font" name="ir_state" id="ir_state">
 
-                                        
+                                                                <?php
+                                                                $stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
+                                                                $stmt5->execute();
+                                                                if ($stmt5->rowCount() > 0) {
+                                                                    while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
+                                                                ?>
+                                                                        <option value="<?php echo $row5['is_id']; ?>   <?php if ($history_rows['ir_state'] == $row5['is_id']) {
+                                                                                                                            echo "selected";
+                                                                                                                        } ?> "> <?php echo $row5['is_name']; ?></option>
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
 
                                                 </div>
 
@@ -115,7 +114,7 @@ $ih_id = $_GET['ih_id'];
                 </div>
 
             </div>
-    
+
             <div class="content-wrapper">
                 <div class="content">
                     <!-- For Components documentaion -->
@@ -203,7 +202,7 @@ $ih_id = $_GET['ih_id'];
 
     <script>
         // Add staff user 
-        $(document).on("submit", "#edithistoty", function() {
+        $(document).on("submit", "#edithistory", function() {
             $.post("../query/update-issue-history.php", $(this).serialize(), function(data) {
                 if (data.res == "success") {
                     Swal.fire(
