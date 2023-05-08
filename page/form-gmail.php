@@ -92,7 +92,7 @@ $header_click = "4";
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                                             <a class="dropdown-item" href="edit-gmail.php?re_id=<?php echo $row4['re_id']; ?>">ອະນຸຍາດນຳໃຊ້</a>
-                                                            <a class="dropdown-item" type="button" id="deletegmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm" >ລືບ</a>
+                                                            <a class="dropdown-item" type="button" id="deletegmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm" >ຍົກນຳໃຊ້</a>
 
                                                         </div>
                                                     </div>
