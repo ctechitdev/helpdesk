@@ -50,7 +50,7 @@ $header_click = "4";
                                     <!-- For Components documentaion -->
 
 
-                                    <div class="card card-default">
+                                  
 
                                         <div class="card-body">
 
@@ -106,7 +106,7 @@ $header_click = "4";
                                                 </tbody>
                                             </table>
 
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
