@@ -4,7 +4,7 @@ include("../setting/conn.php");
 
 $header_name = "ປິດບັນຫາແລະໃຫ້ຄະແນນ";
 $header_click = "4";
-
+$ih_id = $_GET['ih_id'];
 ?>
 
 <!DOCTYPE html>
@@ -63,6 +63,7 @@ $header_click = "4";
                                             <thead>
                                                 <tr>
                                                     <th>ເລກທີ</th>
+
                                                     <th>ສະຖານະຂອງບັນຫາ</th>
                                                     <th>ລາຍລະອຽດບັນຫາ</th>
                                                 </tr>
@@ -78,9 +79,9 @@ $header_click = "4";
                                                 if ($stmt4->rowCount() > 0) {
                                                     while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
                                                         $ih_id = $row4['ih_id'];
-                                                        $ir_id = $row4['ir_id'];
+
                                                         $ir_state = $row4['ir_state'];
-                                                        $ih_detail = $row4['ih_detail'];
+                                                        $issue_detail = $row4['ih_detail'];
 
                                                 ?>
 
@@ -88,26 +89,22 @@ $header_click = "4";
 
                                                         <tr>
                                                             <td><?php echo "$ih_id"; ?></td>
-                                                            <td><?php echo "$ir_id"; ?></td>
+
                                                             <td><?php echo "$ir_state"; ?></td>
-                                                            <td><?php echo "$ih_detail"; ?></td>
+                                                            <td><?php echo "$issue_detail"; ?></td>
                                                             <td>
                                                                 <div class="dropdown">
                                                                     <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                                                     </a>
-
                                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                                        <a class="dropdown-item" href="edit-issue_histoty3.php?ih_id=<?php echo $row4['ih_id']; ?>">ເລືອກລາຍການ</a>
-                                                                        
+                                                                        <a class="dropdown-item" href="edit-Closing and rating.php?ih_id=<?php echo $row4['ih_id']; ?>">ລາຍລະອຽດ</a>
+                                                                        <a class="dropdown-item" type="button" id="update" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ຍົກເລີກ</a>
 
 
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                         </tr>
-
-
-
                                                 <?php
                                                     }
                                                 }
@@ -117,52 +114,55 @@ $header_click = "4";
                                             </tbody>
                                         </table>
 
-                                    </form>
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php include "footer.php"; ?>
                 </div>
-
             </div>
+            <?php include("../setting/calljs.php"); ?>
+            <script>
+                // edit
+                $(document).on("click", "#update", function(e) {
+                    e.preventDefault();
+                    var id = $(this).data("id");
+                    $.ajax({
+                        type: "post",
+                        url: "../query/update-Closingcancel.php",
+                        dataType: "json",
+                        data: {
+                            ir_id: id
+                        },
+                        cache: false,
+                        success: function(data) {
+                            if (data.res == "success") {
+                                Swal.fire(
+                                    'ສຳເລັດ',
+                                    'cancel',
+                                    'success'
+                                )
+                                setTimeout(
+                                    function() {
+                                        location.reload();
+                                    }, 1000);
+
+                            }
+                        },
+                        error: function(xhr, ErrorStatus, error) {
+                            console.log(status.error);
+                        }
+
+                    });
+
+
+                    return false;
+                });
+            </script>
 
 
 
-            <?php include "footer.php"; ?>
-        </div>
-    </div>
-
-
-
-
-
-    <?php include("../setting/calljs.php"); ?>
-
-    <script>
-        // Add staff user 
-        $(document).on("submit", "#addhistoty3", function() {
-            $.post("../query/add-history3.php", $(this).serialize(), function(data) {
-                if (data.res == "success") {
-                    Swal.fire(
-                        'ສຳເລັດ',
-                        'ເພີ່ມຂໍ້ມູນສຳເລັດ',
-                        'success'
-                    )
-                    setTimeout(
-                        function() {
-                            location.reload();
-                        }, 1000);
-                }
-            }, 'json')
-            return false;
-        });
-        
-    </script>
-
-
-    <!--  -->
+            <!--  -->
 
 
 </body>
