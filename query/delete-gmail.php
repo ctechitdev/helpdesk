@@ -9,7 +9,7 @@ extract($_POST);
 
 $insCourse = $conn->query(" 
 
-delete from tbl_issue_history where ih_id = '$ih_id'
+delete from tbl_request_email where re_id = '$re_id'
  
     ");
 if ($insCourse) {
