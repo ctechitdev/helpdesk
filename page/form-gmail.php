@@ -51,7 +51,7 @@ $header_click = "4";
                     <!-- For Components documentaion -->
 
 
-                    <div class="card card-default">
+                    
 
                         <div class="card-body">
 
