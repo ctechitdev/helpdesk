@@ -4,7 +4,7 @@ include("../setting/conn.php");
 
 $header_name = "ຮັບບັນຫາ";
 $header_click = "4";
-$ir_id = $_GET['ir_id'];
+
 ?>
 
 <!DOCTYPE html>
