@@ -281,9 +281,9 @@ $header_click = "2";
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="edit-purchase-order.php?or_id=<?php echo  $row4['or_id']; ?>">ແກ້ໄຂ</a>
+                                                            <a class="dropdown-item" href="edit-purchase-order.php?or_id=<?php echo  $row4['rui_id']; ?>">ແກ້ໄຂ</a>
 
-                                                            <a class="dropdown-item" type="button" id="deleteitem" data-id='<?php echo $row4['or_id']; ?>' class="btn btn-danger btn-sm">ລຶບ</a>
+                                                            <a class="dropdown-item" type="button" id="deleteitem" data-id='<?php echo $row4['rui_id']; ?>' class="btn btn-danger btn-sm">ລຶບ</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -361,13 +361,13 @@ $header_click = "2";
         // Delete item
         $(document).on("click", "#deleteitem", function(e) {
             e.preventDefault();
-            var id = $(this).data("id");
+            var rui_id = $(this).data("id");
             $.ajax({
                 type: "post",
                 url: "../query/delete-request-use-item.php",
                 dataType: "json",
                 data: {
-                    id: id
+                    rui_id: rui_id
                 },
                 cache: false,
                 success: function(data) {

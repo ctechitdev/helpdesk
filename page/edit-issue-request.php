@@ -31,24 +31,24 @@ $ir_id = $_GET['ir_id'];
 <body class="navbar-fixed sidebar-fixed" id="body">
 
 
-<script>
-	$(function() {
+    <script>
+        $(function() {
 
 
 
-		$('#isc_id').change(function() {
-			var isc_id = $('#isc_id').val();
-			$.post('../function/dynamic_dropdown/get_district_name.php', {
-                isc_id: isc_id
-				},
-				function(output) {
-					$('#ist_id').html(output).show();
-				});
-		});
- 
+            $('#isc_id').change(function() {
+                var isc_id = $('#isc_id').val();
+                $.post('../function/dynamic_dropdown/get_district_name.php', {
+                        isc_id: isc_id
+                    },
+                    function(output) {
+                        $('#ist_id').html(output).show();
+                    });
+            });
 
-	});
-</script>
+
+        });
+    </script>
 
 
     <div class="wrapper">
@@ -71,13 +71,28 @@ $ir_id = $_GET['ir_id'];
                                     <div class="email-body-head mb-5 ">
                                         <h4 class="text-dark">ແຈ້ງບ້ນຫາ</h4>
                                         <?php
-                                        $request_rows = $conn->query("SELECT * FROM tbl_issue_request where ir_id = '$ir_id' ") ->fetch(PDO::FETCH_ASSOC); 
+                                        $request_rows = $conn->query("
+                                        SELECT ih_id,a.ir_id,isc_id,a.ist_id,ir_detail
+                                        FROM tbl_issue_request a
+                                        left join tbl_issue_type b on a.ist_id = b.ist_id 
+                                        left join tbl_issue_history c on a.ir_id = c.ir_id
+                                        where a.ir_id = '$ir_id' and a.ir_state = '1' ")->fetch(PDO::FETCH_ASSOC);
+
+                                        $issue_cate_id = $request_rows['isc_id'];
+                                        $issue_type_id = $request_rows['ist_id'];
+
+
+
+
                                         
                                         ?>
 
+                                        
+
                                     </div>
-                                    <form method="post" id="addrequest">
-                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $request_rows['ir_id']; ?>" required>
+                                    <form method="post" id="editrequest">
+                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $request_rows['ir_id']; ?>" required>
+                                        <input type="hidden" class="form-control" id="ih_id" name="ih_id" value="<?php echo $request_rows['ih_id']; ?>" required>
 
                                         <div class="row">
                                             <div class="col-lg-12">
@@ -92,7 +107,9 @@ $ir_id = $_GET['ir_id'];
                                                                 $stmt->execute();
                                                                 if ($stmt->rowCount() > 0) {
                                                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                                                ?> <option value="<?php echo $row['isc_id']; ?> "> <?php echo $row['isc_name']; ?></option>
+                                                                ?> <option value="<?php echo $row['isc_id']; ?> " <?php if ($issue_cate_id == $row['isc_id']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>> <?php echo $row['isc_name']; ?></option>
                                                                 <?php
                                                                     }
                                                                 }
@@ -105,8 +122,19 @@ $ir_id = $_GET['ir_id'];
                                                         <label class="text-dark font-weight-medium">ປະເພດລະບົບ</label>
                                                         <div class="form-group">
 
+                                                             
                                                             <select class="form-control  font" name="ist_id" id="ist_id">
-                                                                <option value=""> ເລືອກປະເພດ </option>
+                                                                <option value=""> ເລືອກປະເພດບັນຫາ </option>
+                                                                <?php
+                                                                $stmt = $conn->prepare(" SELECT  ist_id,ist_name FROM tbl_issue_type where isc_id = '$issue_cate_id' order by ist_name");
+                                                                $stmt->execute();
+                                                                if ($stmt->rowCount() > 0) {
+                                                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                                                ?> <option value="<?php echo $row['ist_id']; ?> " <?php if($issue_type_id == $row['ist_id']){echo "selected";} ?>> <?php echo $row['ist_name']; ?></option>
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -116,7 +144,7 @@ $ir_id = $_GET['ir_id'];
 
                                                 <div class="form-group col-lg-12">
                                                     <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
-                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>"  required>
+                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
                                                 </div>
                                             </div>
 
