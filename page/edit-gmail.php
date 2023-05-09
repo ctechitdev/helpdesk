@@ -199,7 +199,7 @@ $re_id = $_GET['re_id'];
 					)
 					setTimeout(
 						function() {
-						window.location.href= "form-gmail.php"
+						window.location.href= "form-email-update.php"
 						}, 1000);
 				}
 			}, 'json')
@@ -226,7 +226,7 @@ $re_id = $_GET['re_id'];
                                 )
                                 setTimeout(
                                     function() {
-                                        window.location.href = 'form-gmail.php';
+                                        window.location.href = 'form-email-update.php';
                                     }, 1000);
 
                             }

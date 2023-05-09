@@ -172,7 +172,7 @@ $header_click = "4";
                                 )
                                 setTimeout(
                                     function() {
-                                        window.location.href = 'form-gmail.php';
+                                        window.location.href = 'form-email-update.php';
                                     }, 1000);
 
                             }
