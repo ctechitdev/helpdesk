@@ -4,7 +4,7 @@ include("../setting/conn.php");
 
 $header_name = "ປິດບັນຫາແລະໃຫ້ຄະແນນ";
 $header_click = "4";
-$ih_id = $_GET['ih_id'];
+$ir_id = $_GET['ir_id'];
 ?>
 
 <!DOCTYPE html>
@@ -52,12 +52,12 @@ $ih_id = $_GET['ih_id'];
                                     <div class="email-body-head mb-5 ">
                                         <h4 class="text-dark">ປິດບັນຫາ</h4>
                                         <?php
-                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_history where ih_id = '$ih_id' ")->fetch(PDO::FETCH_ASSOC);
+                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_history where ir_id = '$ir_id' ")->fetch(PDO::FETCH_ASSOC);
 
                                         ?>
                                     </div>
                                     <form method="post" id="update">
-                                        <input type="hidden" class="form-control" id="ih_id" name="ih_id" value="<?php echo $history_rows['ih_id']; ?>" required>
+                                        
                                         <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
                                         <div class="row">
 
@@ -68,23 +68,7 @@ $ih_id = $_GET['ih_id'];
                                                 </div>
                                             </div>
 
-                                            <div class="form-group col-lg-6">
-                                                <label class="text-dark font-weight-medium">ຄະແນນ</label>
-                                                <div class="form-group">
-
-                                                    <select class=" form-control font" id="rate_point" name="rate_point" required>
-
-                                                        <option value="">ເລືອກຄະແນນ</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-
-                                                    </select>
-
-                                                </div>
-                                            </div>
+                                            
 
                                         </div>
                                         <div class="d-flex justify-content-end mt-6">
@@ -99,7 +83,7 @@ $ih_id = $_GET['ih_id'];
                 </div>
 
             </div>
-
+           
             
 
             <?php include "footer.php"; ?>
@@ -116,7 +100,7 @@ $ih_id = $_GET['ih_id'];
         // Add staff user 
         
         $(document).on("submit", "#update", function() {
-            $.post("../query/update-Closing and rating.php", $(this).serialize(), function(data) {
+            $.post("../query/update-Closing.php", $(this).serialize(), function(data) {
                 if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',
@@ -125,7 +109,7 @@ $ih_id = $_GET['ih_id'];
                     )
                     setTimeout(
                         function() {
-                            window.location.href = 'Closing and rating.php';
+                            window.location.href = 'Closing-rating.php';
                         }, 1000);
                 }
             }, 'json')
