@@ -57,14 +57,14 @@ $ir_id = $_GET['ir_id'];
                                         ?>
                                     </div>
                                     <form method="post" id="update">
-                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
+                                        
                                         <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
                                         <div class="row">
 
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="firstName">ລາຍລະອຽດບັນຫາ</label>
-                                                    <input type="button" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $history_rows['ir_detail']; ?>" required>
+                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $history_rows['ir_detail']; ?>" required>
                                                 </div>
                                             </div>
 
@@ -87,7 +87,6 @@ $ir_id = $_GET['ir_id'];
                                             </div>
 
                                         </div>
-                                        
                                         <div class="d-flex justify-content-end mt-6">
                                             <button type="submit" class="btn btn-primary mb-2 btn-pill">ປິດບ້ນຫາ</button>
                                         </div>
@@ -100,8 +99,8 @@ $ir_id = $_GET['ir_id'];
                 </div>
 
             </div>
-
-
+           
+            
 
             <?php include "footer.php"; ?>
         </div>
@@ -115,7 +114,7 @@ $ir_id = $_GET['ir_id'];
 
     <script>
         // Add staff user 
-
+        
         $(document).on("submit", "#update", function() {
             $.post("../query/update-Closing-rating.php", $(this).serialize(), function(data) {
                 if (data.res == "success") {
