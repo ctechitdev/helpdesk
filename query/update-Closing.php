@@ -6,7 +6,7 @@ include("../setting/conn.php");
 
  
 
-$delExam = $conn->query(" update tbl_issue_history set ir_state ='3'WHERE ir_id = '$ir_id'  ");
+$delExam = $conn->query(" update tbl_issue_history set ir_state ='3',ih_detail='$ih_detail'WHERE ir_id = '$ir_id'  ");
 if($delExam)
 {
 	$res = array("res" => "success");
@@ -19,4 +19,3 @@ else
 
 	echo json_encode($res);
  ?>
- 
