@@ -116,61 +116,7 @@ $header_click = "4";
 
                                             </tbody>
                                         </table>
-                                        <table id="productsTable" class="table table-hover table-product" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>ເລກທີ</th>
-
-                                                    <th>ສະຖານະຂອງບັນຫາ</th>
-                                                    <th>ລາຍລະອຽດບັນຫາ</th>
-                                                    
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-
-                                                <?php
-                                                $stmt4 = $conn->prepare(" SELECT ir_id,ir_state,ih_detail from tbl_issue_history  
-                                                
-                                              
-                                                 ");
-                                                $stmt4->execute();
-                                                if ($stmt4->rowCount() > 0) {
-                                                    while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                                        $ir_id = $row4['ir_id'];
-                                                        
-                                                        $ir_state = $row4['ir_state'];
-                                                        $ih_detail = $row4['ih_detail'];
-                                                ?>
-
-
-
-                                                        <tr>
-                                                            <td><?php echo "$ir_id"; ?></td>
-                                                            
-                                                            <td><?php echo "$ir_state"; ?></td>
-                                                            <td><?php echo "$ih_detail"; ?></td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                                                    </a>
-                                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                                        <a class="dropdown-item" href="etid-Closing.php?ir_id=<?php echo $row4['ir_id']; ?>">ລາຍລະອຽດ</a>
-                                                                        
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                <?php
-                                                    }
-                                                }
-                                                ?>
-
-
-                                            </tbody>
-                                        </table>
+                                        
                                 </div>
                             </div>
                         </div>
