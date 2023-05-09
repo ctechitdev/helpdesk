@@ -262,7 +262,7 @@ $ir_id = $_GET['ir_id'];
                     )
                     setTimeout(
                         function() {
-                            location.reload();
+                            window.location.href = 'issue-request.php';
                         }, 1000);
                 }
             }, 'json')
