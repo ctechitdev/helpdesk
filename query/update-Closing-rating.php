@@ -6,11 +6,11 @@ include("../setting/conn.php");
 
 
 
-$delExam = $conn->query(" update tbl_issue_request set ir_state ='3',rate_point='$rate_point' WHERE ir_id='$ir_id'  ");
+$update = $conn->query(" update tbl_issue_request set ir_state ='3',rate_point='$rate_point' WHERE ir_id='$ir_id'  ");
 
 $lastid = $conn->lastInsertId();
 
-if($delExam)
+if($update)
 {
     $delExam2 = $conn->query(" update tbl_issue_history set ir_state ='3'WHERE ir_id = '$ir_id'  "); 
 
