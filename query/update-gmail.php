@@ -13,7 +13,7 @@ include("../setting/conn.php");
  else
  {
 
-$insCourse = $conn->query(" update tbl_request_email set user_email ='$user_email',pass_email='$pass_email'   WHERE re_id='$re_id'  ");
+$insCourse = $conn->query(" update tbl_request_email set user_email ='$user_email',pass_email='$pass_email',update_by='$id_users',date_update=now()   WHERE re_id='$re_id'  ");
 if($insCourse)
 	{
         $res = array("res" => "success", "user_email" => $user_email);

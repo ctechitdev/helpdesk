@@ -2,7 +2,7 @@
 include("../setting/checksession.php");
 include("../setting/conn.php");
 
-$header_name = "ລາຍລະອຽດຈີເມວ";
+$header_name = "ຂໍນຳໃຊ້ອີເມວ";
 $header_click = "4";
 
 ?>
@@ -32,7 +32,6 @@ $header_click = "4";
 
 
 
-
     <div class="wrapper">
 
         <?php include "menu.php"; ?>
@@ -42,16 +41,35 @@ $header_click = "4";
             <?php
             include "header.php";
             ?>
-            <div class="content-wrapper">
+             <div class="content-wrapper">
                 <div class="content">
                     <div class="email-wrapper rounded border bg-white">
                         <div class="row no-gutters justify-content-center">
-                        <div class="content-wrapper">
-                <div class="content">
+
+
+                            <div class="col-xxl-12">
+                                <div class="email-right-column  email-body p-4 p-xl-5">
+                                    <div class="email-body-head mb-5 ">
+                                        <h4 class="text-dark">ຂໍນຳໃຊ້ອີເມວ</h4>
+
+
+
+                                    </div>
+                                    <form method="post" id="addgmail">
+
+
+                                       
+
+                                        <div class="d-flex justify-content-end mt-6">
+                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ຄຳຂໍນຳໃໍຊ້ອີເມວ</button>
+                                        </div>
+
+                                    </form>
+                                    <div class="content">
                     <!-- For Components documentaion -->
 
 
-                    
+                    <div class="card card-default">
 
                         <div class="card-body">
 
@@ -60,6 +78,7 @@ $header_click = "4";
                                     <tr>
                                         <th>ເລກທີ</th>
                                         <th>ອີເມວ</th> 
+                                        <th>ລະຫັດ</th> 
                                         <th>ວັນທີຂໍນຳໃຊ້</th> 
                                     </tr>
                                 </thead>
@@ -67,7 +86,7 @@ $header_click = "4";
 
 
                                     <?php
-                                    $stmt4 = $conn->prepare("select re_id,user_email,date_request
+                                    $stmt4 = $conn->prepare("select re_id,user_email,pass_email,date_request
                                     from tbl_request_email  
                                     order by re_id desc ");
                                     $stmt4->execute();
@@ -75,6 +94,7 @@ $header_click = "4";
                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
                                             $re_id = $row4['re_id'];
                                             $user_email = $row4['user_email']; 
+                                            $pass_email = $row4['pass_email']; 
                                             $date_request = $row4['date_request']; 
 
                                     ?>
@@ -84,18 +104,10 @@ $header_click = "4";
                                             <tr>
                                                 <td><?php echo "$re_id"; ?></td>
                                                 <td><?php echo "$user_email"; ?></td> 
+                                                <td><?php echo "$pass_email"; ?></td> 
                                                 <td><?php echo "$date_request"; ?></td> 
                                                 <td>
-                                                    <div class="dropdown">
-                                                        <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                                        </a>
-
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="edit-gmail.php?re_id=<?php echo $row4['re_id']; ?>">ອະນຸຍາດນຳໃຊ້</a>
-                                                            <a class="dropdown-item" type="button" id="deletegmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm" >ຍົກນຳໃຊ້</a>
-
-                                                        </div>
-                                                    </div>
+                                                  
                                                 </td>
                                             </tr>
 
@@ -115,21 +127,22 @@ $header_click = "4";
 
                 </div>
 
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
 
             <?php include "footer.php"; ?>
         </div>
     </div>
-
-
-
-
-
     <?php include("../setting/calljs.php"); ?>
-
     <script>
-        // Add staff user 
-        $(document).on("submit", "#addgmail", function() {
+         $(document).on("submit", "#addgmail", function() {
 			$.post("../query/add-gmail.php", $(this).serialize(), function(data) {
 				if (data.res == "exist") {
 					Swal.fire(
@@ -151,53 +164,9 @@ $header_click = "4";
 			}, 'json')
 			return false;
 		});
-         // delete 
-         $(document).on("click", "#deletegmail", function(e) {
-                    e.preventDefault();
-                    var id = $(this).data("id");
-                    $.ajax({
-                        type: "post",
-                        url: "../query/delete-gmail.php",
-                        dataType: "json",
-                        data: {
-                            re_id: id
-                        },
-                        cache: false,
-                        success: function(data) {
-                            if (data.res == "success") {
-                                Swal.fire(
-                                    'ສຳເລັດ',
-                                    'ລືບສຳເລັດ',
-                                    'success'
-                                )
-                                setTimeout(
-                                    function() {
-                                        window.location.href = 'form-gmail.php';
-                                    }, 1000);
-
-                            }
-                        },
-                        error: function(xhr, ErrorStatus, error) {
-                            console.log(status.error);
-                        }
-
-                    });
-
-
-                    return false;
-                });
     </script>
 
 
-                           
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            
-    
 
     <!--  -->
 

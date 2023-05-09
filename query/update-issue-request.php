@@ -9,7 +9,7 @@ include("../setting/conn.php");
 $delExam = $conn->query(" update tbl_issue_request set ist_id ='$ist_id',ir_detail ='$ir_detail'   WHERE ir_id='$ir_id'  ");
 if($delExam)
 {
-    $update2 = $conn->query(" update tbl_issue_history set ih_detail ='$ih_detail'   WHERE ir_id='$ir_id'  "); 
+    $update2 = $conn->query(" update tbl_issue_history set ih_detail ='$ih_detail'   WHERE ih_id='$ih_id'  "); 
 	$res = array("res" => "success");
 }
 else

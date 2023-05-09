@@ -60,7 +60,7 @@ $ih_id = $_GET['ih_id'];
 
 
                                     </div>
-                                    <form method="post" id="addhistoty">
+                                    <form method="post" id="addhistory">
                                     <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $histoty_rows['ir_id']; ?>" required>
 
 
@@ -69,11 +69,11 @@ $ih_id = $_GET['ih_id'];
                                                 <div class="row">
                                             
                                                     <div class="form-group  col-lg-12">
-												<label class="text-dark font-weight-medium">ລະດັບສິດ</label>
+												<label class="text-dark font-weight-medium">ສະຖານະຂອງບັນຫາ </label>
 												<div class="form-group">
 
 													<select class=" form-control font" name="ir_state" id="ir_state">
-														<option value=""> ເລືອກລະດັບ </option>
+														<option value=""> ເລືອກສະຖານະຂອງບັນຫາ </option>
 														<?php
 														$stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
 														$stmt5->execute();
