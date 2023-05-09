@@ -188,13 +188,13 @@ $re_id = $_GET['re_id'];
 				if (data.res == "exist") {
 					Swal.fire(
 						'ລົງທະບຽນຊ້ຳ',
-						'ຜູ້ໃຊ້ນີ້ຖືກລົງທະບຽນແລ້ວ',
+						'ອີເມວນຳໃຊ້ແລ້ວ',
 						'error'
 					)
 				} else if (data.res == "success") {
 					Swal.fire(
 						'ສຳເລັດ',
-						'ເພິ່ມຜູ້ໃຊ້ສຳເລັດ',
+						'ເພີ່ມຂໍ້ມູນສຳເລັດ',
 						'success'
 					)
 					setTimeout(

@@ -83,7 +83,7 @@ $ir_id = $_GET['ir_id'];
                 if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',
-                        'ແກ້ໄຂຂໍ້ມູນສຳເລັດ',
+                        'ຮັບບັນຫາສຳເລັດ',
                         'success'
                     )
                     setTimeout(
