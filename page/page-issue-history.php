@@ -98,7 +98,7 @@ $ir_id = $_GET['ir_id'];
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                                             <a class="dropdown-item" href="edit-issue-history.php?ih_id=<?php echo $row4['ih_id']; ?>">ແກ້ໄຂ</a>
-                                                            <a class="dropdown-item" type="button" id="deletehistoty" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
+                                                            <a class="dropdown-item" type="button" id="deletehistory" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
 
                                                         </div>
                                                     </div>
@@ -137,7 +137,7 @@ $ir_id = $_GET['ir_id'];
             var ih_id = $(this).data("id");
             $.ajax({
                 type: "post",
-                url: "../query/delete-issue_history.php",
+                url: "../query/delete-issue-history.php",
                 dataType: "json",
                 data: {
                     ih_id: ih_id

@@ -2,7 +2,7 @@
 include("../setting/checksession.php");
 include("../setting/conn.php");
 
-$header_name = "ລາຍລະອຽດຈີເມວ";
+$header_name = "ລາຍລະອຽດອີເມວ";
 $header_click = "4";
 
 ?>
@@ -172,7 +172,7 @@ $header_click = "4";
                                 )
                                 setTimeout(
                                     function() {
-                                        window.location.href = 'form-gmail.php';
+                                        window.location.href = 'form-email-update.php';
                                     }, 1000);
 
                             }

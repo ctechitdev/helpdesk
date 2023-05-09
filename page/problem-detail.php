@@ -55,7 +55,7 @@ $ir_id = $_GET['ir_id'];
                                             <button type="submit" class="btn btn-primary mb-2 btn-pill">ຮັບບັນຫາ</button>
                                         </div>
                                     </form>
-                                    <form action="getproblem.php" method="post">
+                                    <form action="issue-recieve.php" method="post">
 
                                         <div class="row">
 
@@ -83,12 +83,12 @@ $ir_id = $_GET['ir_id'];
                 if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',
-                        'ແກ້ໄຂຂໍ້ມູນສຳເລັດ',
+                        'ຮັບບັນຫາສຳເລັດ',
                         'success'
                     )
                     setTimeout(
                         function() {
-                            window.location.href = 'getproblem.php';
+                            window.location.href = 'issue-recieve.php';
                         }, 1000);
                 }
             }, 'json')
