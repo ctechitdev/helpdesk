@@ -67,32 +67,30 @@ $ih_id = $_GET['ih_id'];
                                             <div class="col-lg-12">
                                                 <div class="row">
 
-                                                    <div class="form-group  col-lg-12">
-                                                        <label class="text-dark font-weight-medium">ສະຖານະຂອງບັນຫາ</label>
-                                                        <div class="form-group">
+                                                <div class="form-group  col-lg-12">
+												<label class="text-dark font-weight-medium">ສະຖານະຂອງບັນຫາ</label>
+												<div class="form-group">
+													<select class=" form-control font" name="ir_state" id="ir_state">
+														
+														<?php
+														$stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
+														$stmt5->execute();
+														if ($stmt5->rowCount() > 0) {
+															while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
+														?> <option value="<?php echo $row5['is_id']; ?>" <?php if ($history_rows['ir_state'] == $row5['is_id']) {
+                                                            echo "selected";
+                                                        } ?>> <?php echo $row5['is_name']; ?></option>
+														<?php
+															}
+														}
+														?>
+													</select>
+												</div>
+											</div>
 
-                                                            <select class=" form-control font" name="ir_state" id="ir_state">
+ 
 
-                                                                <?php
-                                                                $stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
-                                                                $stmt5->execute();
-                                                                if ($stmt5->rowCount() > 0) {
-                                                                    while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
-                                                                ?>
-                                                                        <option value="<?php echo $row5['is_id']; ?>   <?php if ($history_rows['ir_state'] == $row5['is_id']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?> "> <?php echo $row5['is_name']; ?></option>
-                                                                <?php
-                                                                    }
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                </div>
+                                            </div>
 
                                                 <div class="form-group col-lg-6">
                                                     <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
