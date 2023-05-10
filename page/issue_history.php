@@ -61,7 +61,7 @@ $ih_id = $_GET['ih_id'];
 
                                     </div>
                                     <form method="post" id="addhistory">
-                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $histoty_rows['ir_id']; ?>" required>
+                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
 
 
                                         <div class="row">
