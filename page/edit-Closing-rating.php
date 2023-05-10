@@ -52,19 +52,27 @@ $ir_id = $_GET['ir_id'];
                                     <div class="email-body-head mb-5 ">
                                         <h4 class="text-dark">ປິດບັນຫາ</h4>
                                         <?php
-                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_request where ir_id = '$ir_id' ")->fetch(PDO::FETCH_ASSOC);
+                                        $request_rows = $conn->query("
+                                        SELECT ih_id,a.ir_id,a.rate_point,a.ir_detail
+                                        FROM tbl_issue_request a
+                                        
+                                        left join tbl_issue_history b on a.ir_id = b.ir_id
+                                        where a.ir_id = '$ir_id'  ")->fetch(PDO::FETCH_ASSOC);
 
+                                      
+                                        
                                         ?>
+
                                     </div>
                                     <form method="post" id="update">
-                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
-                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
+                                        <input type="hidden" class="form-control" id="ih_id" name="ih_id" value="<?php echo $request_rows['ih_id']; ?>" required>
+                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $request_rows['ir_id']; ?>" required>
                                         <div class="row">
 
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="firstName">ລາຍລະອຽດບັນຫາ</label>
-                                                    <input type="button" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $history_rows['ir_detail']; ?>" required>
+                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
                                                 </div>
                                             </div>
 
@@ -87,7 +95,6 @@ $ir_id = $_GET['ir_id'];
                                             </div>
 
                                         </div>
-                                        
                                         <div class="d-flex justify-content-end mt-6">
                                             <button type="submit" class="btn btn-primary mb-2 btn-pill">ປິດບ້ນຫາ</button>
                                         </div>

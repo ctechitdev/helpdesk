@@ -1,20 +1,17 @@
-<?php 
+
+ <?php 
 include("../setting/checksession.php");
 
 include("../setting/conn.php");
  extract($_POST);
 
+ 
 
-
-$delExam = $conn->query(" update tbl_issue_request set ir_state ='3',rate_point='$rate_point' WHERE ir_id='$ir_id'  ");
-
-$lastid = $conn->lastInsertId();
-
-if($delExam)
+$update_data = $conn->query(" update tbl_issue_request set ir_state ='3',ir_detail ='$ir_detail',rate_point='$rate_point'   WHERE ir_id='$ir_id'  ");
+if($update_data)
 {
-    $delExam2 = $conn->query(" update tbl_issue_history set ir_state ='3'WHERE ir_id = '$ir_id'  "); 
+    $update2 = $conn->query(" update tbl_issue_history set ih_detail ='$ir_detail'   WHERE ih_id='$ih_id'  "); 
 
-	
 	$res = array("res" => "success");
 }
 else
@@ -25,4 +22,3 @@ else
 
 	echo json_encode($res);
  ?>
- 

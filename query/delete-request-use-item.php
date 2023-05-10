@@ -7,13 +7,13 @@ extract($_POST);
 
 
 $insCourse = $conn->query(" 
-delete from tbl_issue_request where ir_id = '$ir_id'
+delete from tbl_request_use_item where rui_id = '$rui_id'
  ");
 
 if ($insCourse) {
 
     $delete2 =  $conn->query (" 
-    delete from tbl_issue_history where ih_id = '$ir_id' 
+    delete from tbl_request_use_item_detail where riud_id = '$riud_id' 
     ");
     $res = array("res" => "success");
 } else {
