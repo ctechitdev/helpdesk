@@ -68,168 +68,195 @@ $header_click = "2";
                                         <div class="card p-4">
 
                                             <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class=" ">
-                                                        <div class="card-title">
-                                                            <div class="form-group col-lg-12 mt-4">
-                                                                <div class="form-group">
+                                                < <div id="add-brand-messages">
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="input-states">
 
-                                                                    <select class=" form-control font" name="rs_id" id="rs_id">
-                                                                        <option value=""> ເລກສະຖານະຄຳຂໍ </option>
-                                                                        <?php
-                                                                        $stmt5 = $conn->prepare(" SELECT * FROM tbl_request_status   ");
-                                                                        $stmt5->execute();
-                                                                        if ($stmt5->rowCount() > 0) {
-                                                                            while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
-                                                                        ?>
-                                                                                <option value="<?php echo $row5['rs_id']; ?>"> <?php echo $row5['rs_name']; ?></option>
-                                                                        <?php
-                                                                            }
-                                                                        }
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-title">
-                                                            <div class="form-group col-lg-12 mt-4">
-                                                                <div class="form-group">
+                                                    <table class="table" id="productTable">
 
-                                                                    <select class=" form-control font" name="depart_id" id="depart_id">
-                                                                        <option value=""> ເລືອກພະແນກ </option>
-                                                                        <?php
-                                                                        $stmt5 = $conn->prepare(" SELECT * FROM tbl_depart  ");
-                                                                        $stmt5->execute();
-                                                                        if ($stmt5->rowCount() > 0) {
-                                                                            while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
-                                                                        ?>
-                                                                                <option value="<?php echo $row5['dp_id']; ?>"> <?php echo $row5['dp_name']; ?></option>
-                                                                        <?php
-                                                                            }
-                                                                        }
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div id="add-brand-messages"></div>
-                                                        <div class="card-body">
-                                                            <div class="input-states">
+                                                        <tbody>
+                                                            <?php
+                                                            $arrayNumber = 0;
+                                                            for ($x = 1; $x < 2; $x++) { ?>
 
-                                                                <table class="table" id="productTable">
+                                                                <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
 
-                                                                    <tbody>
-                                                                        <?php
-                                                                        $arrayNumber = 0;
-                                                                        for ($x = 1; $x < 2; $x++) { ?>
+                                                                    <td>
 
-                                                                            <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
-
-                                                                                <td>
-
-                                                                                    <div class="form-group "> <?php echo "ລາຍການທີ: $x"; ?> <br>
-                                                                                        <div class="row p-2">
+                                                                        <div class="form-group "> <?php echo "ລາຍການທີ: $x"; ?> <br>
+                                                                            <div class="row p-2">
 
 
-                                                                                            <div class="col-lg-7">
-                                                                                                <div class="form-group">
-                                                                                                    <label for="firstName">ຊື່ອຸປະກອນ</label>
-                                                                                                    <select class="form-control" name="item_name[]" id="item_name<?php echo $x; ?>">
-                                                                                                        <option value="">ເລືອກອຸປະກອນ</option>
-                                                                                                        <?php
-                                                                                                        $stmt2 = $conn->prepare("
-                                                                                                        select a.item_id ,item_name
-                                                                                                        from tbl_item_data a
-                                                                                                        left join tbl_item_data b on a.item_id = b.item_id  
-                                                                                                        where br_id = '$br_id' and status_item_price = '1' ");
-                                                                                                        $stmt2->execute();
-                                                                                                        if ($stmt2->rowCount() > 0) {
-                                                                                                            while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-                                                                                                        ?> <option value="<?php echo $row2['item_id']; ?>"> <?php echo $row2['item_name']; ?></option>
-                                                                                                        <?php
-                                                                                                            }
-                                                                                                        }
-                                                                                                        ?>
-                                                                                                    </select>
-                                                                                                </div>
-                                                                                            </div>
+                                                                                <div class="col-lg-7">
+                                                                                    <div class="form-group">
+                                                                                        <label for="firstName">ຊື່ອຸປະກອນ</label>
+                                                                                        <select class="form-control" name="item_id[]" id="item_id<?php echo $x; ?>">
+                                                                                            <option value="">ເລືອກອຸປະກອນ</option>
+                                                                                            <?php
+                                                                                            $stmt2 = $conn->prepare("
+                                                                                                        select item_id ,item_name
+                                                                                                        from tbl_item_data 
+                                                                                                         ");
+                                                                                            $stmt2->execute();
+                                                                                            if ($stmt2->rowCount() > 0) {
+                                                                                                while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
+                                                                                            ?> <option value="<?php echo $row2['item_id']; ?>"> <?php echo $row2['item_name']; ?></option>
+                                                                                            <?php
+                                                                                                }
+                                                                                            }
+                                                                                            ?>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
 
-                                                                                            <div class="form-group  col-lg-2">
-                                                                                                <label class="text-dark font-weight-medium">ຈຳນວນ</label>
-                                                                                                <div class="form-group">
-                                                                                                    <input type="number" step="any" name="item_value[]" id="item_value<?php echo $x; ?>" autocomplete="off" class="form-control" />
-                                                                                                </div>
-                                                                                            </div>
-
-
-                                                                                            <div class="col-lg-3">
-                                                                                                <div class="form-group p-6">
-                                                                                                    <button type="button" class="btn btn-primary btn-flat " onclick="addRow()" id="addRowBtn" data-loading-text="Loading...">
-                                                                                                        <i class="mdi mdi-briefcase-plus"></i>
-                                                                                                    </button>
-
-                                                                                                    <button type="button" class="btn btn-danger  removeProductRowBtn" type="button" id="removeProductRowBtn" onclick="removeProductRow(<?php echo $x; ?>)">
-                                                                                                        <i class="mdi mdi-briefcase-remove"></i>
-                                                                                                    </button>
-                                                                                                </div>
-
-                                                                                            </div>
+                                                                                <div class="form-group  col-lg-2">
+                                                                                    <label class="text-dark font-weight-medium">ຈຳນວນ</label>
+                                                                                    <div class="form-group">
+                                                                                        <input type="number" step="any" name="item_value[]" id="item_value<?php echo $x; ?>" autocomplete="off" class="form-control" />
+                                                                                    </div>
+                                                                                </div>
 
 
+                                                                                <div class="col-lg-3">
+                                                                                    <div class="form-group p-6">
+                                                                                        <button type="button" class="btn btn-primary btn-flat " onclick="addRow()" id="addRowBtn" data-loading-text="Loading...">
+                                                                                            <i class="mdi mdi-briefcase-plus"></i>
+                                                                                        </button>
 
-
-
-
-                                                                                        </div>
-
-
-
+                                                                                        <button type="button" class="btn btn-danger  removeProductRowBtn" type="button" id="removeProductRowBtn" onclick="removeProductRow(<?php echo $x; ?>)">
+                                                                                            <i class="mdi mdi-briefcase-remove"></i>
+                                                                                        </button>
                                                                                     </div>
 
-
-                                                                                </td>
-                                                                            </tr>
-
-
-                                                                        <?php
-                                                                            $arrayNumber++;
-                                                                        } // /for
-                                                                        ?>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
+                                                                                </div>
 
 
 
-                                                    </div>
+
+
+
+                                                                            </div>
+
+
+
+                                                                        </div>
+
+
+                                                                    </td>
+                                                                </tr>
+
+
+                                                            <?php
+                                                                $arrayNumber++;
+                                                            } // /for
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
+
+
+
                                         </div>
-
-
-                                        <div class="d-flex justify-content-end mt-6">
-                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ຂໍເບີກສິນຄ້າ</button>
-                                        </div>
-
-                                    </form>
-
-
                                 </div>
-
-
                             </div>
                         </div>
+
+
+                        <div class="d-flex justify-content-end mt-6">
+                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ຂໍເບີກອຸປະກອນ</button>
+                        </div>
+
+                        </form>
+
+
                     </div>
+
+
                 </div>
-
             </div>
+        </div>
+   
 
-            <div class="content-wrapper">
-                <div class="content">
-                    <!-- For Components documentaion -->
+   
+
+    <div class="content-wrapper">
+        <div class="content">
+            <!-- For Components documentaion -->
 
 
+            <div class="card card-default">
+
+                <div class="card-body">
+
+                    <table id="productsTable2" class="table table-hover table-product" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ເລກລຳດັບ</th>
+                                <th>ສະຖານະຄຳຂໍ</th>
+                                <th>ເລກໄອດີພະແນກ</th>
+                                <th>ວັນທີ່ຮ້ອງຂໍ</th>
+                                
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <?php
+                            $stmt4 = $conn->prepare(" 
+                                    SELECT * FROM tbl_request_use_item 
+                                   
+                                    ");
+                            $stmt4->execute();
+                            if ($stmt4->rowCount() > 0) {
+                                while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+
+
+                            ?>
+
+
+
+                                    <tr>
+                                        <td><?php echo $row4['rui_id']; ?></td>
+                                        <td><?php echo $row4['rs_id']; ?></td>
+                                        <td><?php echo $row4['depart_id']; ?></td>
+                                        <td><?php echo $row4['reqeust_date']; ?></td>
+
+
+
+
+                                        <td>
+                                            <div class="dropdown">
+                                                <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                                </a>
+
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="edit-request-use-item.php?rui_id=<?php echo  $row4['rui_id']; ?>">ແກ້ໄຂ</a>
+
+                                                    <a class="dropdown-item" type="button" id="deleteitem" data-id='<?php echo $row4['rui_id']; ?>' class="btn btn-danger btn-sm">ລຶບ</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                            <?php
+                                }
+                            }
+                            ?>
+
+
+
+
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
                     <div class="card card-default">
 
                         <div class="card-body">
@@ -238,10 +265,10 @@ $header_click = "2";
                                 <thead>
                                     <tr>
                                         <th>ເລກລຳດັບ</th>
-                                        <th>ບິນອ້າງອີງ</th>
-                                        <th>ປະເພດລາຍການ</th>
+
+                                        <th>ອຸປະກອນ</th>
                                         <th>ຈຳນວນສິນຄ້າ</th>
-                                        <th>ລາຄາ</th>
+
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -250,28 +277,24 @@ $header_click = "2";
 
                                     <?php
                                     $stmt4 = $conn->prepare(" 
-                                    SELECT rui_id, rs_name, a.date_register, dp_name
-                                    FROM tbl_request_use_item a
-                                    left join tbl_request_status b on a.rs_id = b.is_id
-                                    left join tbl_depart c on a.depart_id = c.dp_id
-                                    where a.rui_id = '$rui_id'
-                                    order by rui_id desc
-                                    ");
+            SELECT * FROM tbl_request_use_item_detail 
+           
+            ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                    
- 
+
+
                                     ?>
 
 
 
                                             <tr>
-                                                <td><?php echo $row4['rui_id']; ?></td>
-                                                <td><?php echo $row4['rs_name']; ?></td>
-                                                <td><?php echo $row4['depart_id']; ?></td>
-                                                <td><?php echo $row4['reqeust_date']; ?></td>
-                                                
+                                                <td><?php echo $row4['riud_id']; ?></td>
+                                                <td><?php echo $row4['item_id']; ?></td>
+                                                <td><?php echo $row4['item_value']; ?></td>
+
+
 
 
 
@@ -281,7 +304,7 @@ $header_click = "2";
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="edit-purchase-order.php?or_id=<?php echo  $row4['rui_id']; ?>">ແກ້ໄຂ</a>
+                                                            <a class="dropdown-item" href="edit-request-use-item.php?rui_id=<?php echo  $row4['rui_id']; ?>">ແກ້ໄຂ</a>
 
                                                             <a class="dropdown-item" type="button" id="deleteitem" data-id='<?php echo $row4['rui_id']; ?>' class="btn btn-danger btn-sm">ລຶບ</a>
                                                         </div>
@@ -312,6 +335,7 @@ $header_click = "2";
                 </div>
 
             </div>
+    </div>
 
             <?php include "footer.php"; ?>
         </div>
@@ -321,7 +345,7 @@ $header_click = "2";
 
 
     <?php include("../setting/calljs.php"); ?>
-    
+
     <script>
         // add item Data 
         $(document).on("submit", "#additemorderfrm", function() {
@@ -345,7 +369,7 @@ $header_click = "2";
                             location.reload();
                         }, 1000);
 
-                }else if (data.res == "nowarehouse") {
+                } else if (data.res == "nowarehouse") {
                     Swal.fire(
                         'ແຈ້ງເຕືອນ',
                         'ກະລຸນາເລືອກສາງ',
@@ -379,7 +403,7 @@ $header_click = "2";
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'add-purchase-order.php';
+                                window.location.href = 'request_use_item.php';
                             }, 1000);
 
                     } else if (data.res == "used") {
@@ -440,11 +464,11 @@ $header_click = "2";
 
                         '<div class="col-lg-7">' +
                         '<div class="form-group">' +
-                        '<label for="firstName">ຊື່ສິນຄ້າ</label>' +
+                        '<label for="firstName">ຊື່ອຸປະກອນ</label>' +
 
 
                         '<select class="form-control" name="item_name[]" id="item_name' + count + '" >' +
-                        '<option value="">ເລືອກສິນຄ້າ</option>';
+                        '<option value="">ເລືອກອຸປະກອນ</option>';
                     $.each(response, function(index, value) {
                         tr += '<option value="' + value[0] + '">' + value[1] + '</option>';
                     });

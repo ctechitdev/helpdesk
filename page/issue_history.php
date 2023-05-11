@@ -61,7 +61,7 @@ $ih_id = $_GET['ih_id'];
 
                                     </div>
                                     <form method="post" id="addhistory">
-                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $histoty_rows['ir_id']; ?>" required>
+                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
 
 
                                         <div class="row">
@@ -93,7 +93,7 @@ $ih_id = $_GET['ih_id'];
 
                                                 </div>
 
-                                                <div class="form-group col-lg-6">
+                                                <div class="form-group col-lg-12">
                                                     <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
                                                     <input type="text" class="form-control" id="ih_detail" name="ih_detail" value="<?php echo $history_rows['ih_detail']; ?>" required>
                                                 </div>
