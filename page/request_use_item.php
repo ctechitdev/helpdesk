@@ -185,78 +185,7 @@ $header_click = "2";
         <div class="content">
             <!-- For Components documentaion -->
 
-
-            <div class="card card-default">
-
-                <div class="card-body">
-
-                    <table id="productsTable2" class="table table-hover table-product" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ເລກລຳດັບ</th>
-                                <th>ສະຖານະຄຳຂໍ</th>
-                                <th>ເລກໄອດີພະແນກ</th>
-                                <th>ວັນທີ່ຮ້ອງຂໍ</th>
-                                
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-
-                            <?php
-                            $stmt4 = $conn->prepare(" 
-                                    SELECT * FROM tbl_request_use_item 
-                                   
-                                    ");
-                            $stmt4->execute();
-                            if ($stmt4->rowCount() > 0) {
-                                while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-
-
-                            ?>
-
-
-
-                                    <tr>
-                                        <td><?php echo $row4['rui_id']; ?></td>
-                                        <td><?php echo $row4['rs_id']; ?></td>
-                                        <td><?php echo $row4['depart_id']; ?></td>
-                                        <td><?php echo $row4['reqeust_date']; ?></td>
-
-
-
-
-                                        <td>
-                                            <div class="dropdown">
-                                                <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                    <a class="dropdown-item" href="edit-request-use-item.php?rui_id=<?php echo  $row4['rui_id']; ?>">ແກ້ໄຂ</a>
-
-                                                    <a class="dropdown-item" type="button" id="deleteitem" data-id='<?php echo $row4['rui_id']; ?>' class="btn btn-danger btn-sm">ລຶບ</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-
-                            <?php
-                                }
-                            }
-                            ?>
-
-
-
-
-
-
-
-
-                        </tbody>
-                    </table>
-                </div>
+            
                     <div class="card card-default">
 
                         <div class="card-body">
@@ -277,9 +206,9 @@ $header_click = "2";
 
                                     <?php
                                     $stmt4 = $conn->prepare(" 
-            SELECT * FROM tbl_request_use_item_detail 
-           
-            ");
+                                    SELECT riud_id,item_name,item_value from tbl_request_use_item_detail a 
+                                    left join tbl_item_data b on a.item_id = b.item_id; 
+                                    ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
@@ -291,7 +220,7 @@ $header_click = "2";
 
                                             <tr>
                                                 <td><?php echo $row4['riud_id']; ?></td>
-                                                <td><?php echo $row4['item_id']; ?></td>
+                                                <td><?php echo $row4['item_name']; ?></td>
                                                 <td><?php echo $row4['item_value']; ?></td>
 
 
@@ -304,7 +233,7 @@ $header_click = "2";
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="edit-request-use-item.php?rui_id=<?php echo  $row4['rui_id']; ?>">ແກ້ໄຂ</a>
+                                                            <a class="dropdown-item" href="edit-request-use-item.php?riud_id=<?php echo  $row4['riud_id']; ?>">ແກ້ໄຂ</a>
 
                                                             <a class="dropdown-item" type="button" id="deleteitem" data-id='<?php echo $row4['rui_id']; ?>' class="btn btn-danger btn-sm">ລຶບ</a>
                                                         </div>
@@ -335,10 +264,11 @@ $header_click = "2";
                 </div>
 
             </div>
-    </div>
+   
 
             <?php include "footer.php"; ?>
         </div>
+    </div>
     </div>
 
 
@@ -467,7 +397,7 @@ $header_click = "2";
                         '<label for="firstName">ຊື່ອຸປະກອນ</label>' +
 
 
-                        '<select class="form-control" name="item_name[]" id="item_name' + count + '" >' +
+                        '<select class="form-control" name="item_id[]" id="item_id' + count + '" >' +
                         '<option value="">ເລືອກອຸປະກອນ</option>';
                     $.each(response, function(index, value) {
                         tr += '<option value="' + value[0] + '">' + value[1] + '</option>';
