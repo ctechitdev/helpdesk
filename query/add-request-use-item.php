@@ -5,17 +5,19 @@ include("../setting/conn.php");
 
  extract($_POST);
 
+ 
+ $insCourse = $conn->query("INSERT INTO tbl_request_use_item(rs_id,depart_id,request_by,reqeust_date)
+ VALUES('1','$depart_id','$id_users',now()) ");
+
+ $lastid = $conn->lastInsertId();
+
+
  $countbox = count($_POST['item_id']);
 
  for ($i = 0; $i < ($countbox); $i++) {
 
-
  
-    
-	$insCourse = $conn->query("INSERT INTO tbl_request_use_item(rs_id,depart_id,request_by,reqeust_date)
-	VALUES('1','$depart_id','$id_users',now()) ");
-
-    $lastid = $conn->lastInsertId();
+	
     
 	if ($insCourse) {
 
