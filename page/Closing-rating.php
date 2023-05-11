@@ -67,6 +67,7 @@ $header_click = "4";
                                                     <th>ສະຖານະຂອງບັນຫາ</th>
                                                     <th>ລາຍລະອຽດບັນຫາ</th>
                                                     <th>ຄະແນນ</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -85,6 +86,7 @@ $header_click = "4";
                                                         $is_name = $row4['is_name'];
                                                         $ir_detail = $row4['ir_detail'];
                                                         $rate_point = $row4['rate_point'];
+                                                        
                                                 ?>
 
 
@@ -95,6 +97,7 @@ $header_click = "4";
                                                             <td><?php echo "$is_name"; ?></td>
                                                             <td><?php echo "$ir_detail"; ?></td>
                                                             <td><?php echo "$rate_point"; ?></td>
+                                                            
                                                             <td>
                                                                 <div class="dropdown">
                                                                     <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
