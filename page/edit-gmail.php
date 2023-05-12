@@ -68,14 +68,14 @@ $re_id = $_GET['re_id'];
 
 
                                         <div class="row">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-6    ">
                                                 <div class="form-group">
                                                     <label for="email">ອີເມວ</label>
                                                     <input type="email" class="form-control" id="user_email" name="user_email"value="<?php echo $gmail['user_email']; ?>" required>
                                                 </div>
                                                 
                                             </div>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="password">ລະຫັດ</label>
                                                     <input type="password" class="form-control" id="pass_email" name="pass_email"value="<?php echo $gmail['pass_email']; ?>" required>
@@ -107,63 +107,69 @@ $re_id = $_GET['re_id'];
 
                     <div class="card card-default">
 
-                        <div class="card-body">
+                    <div class="card-body">
 
-                            <table id="productsTable" class="table table-hover table-product" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>ເລກທີ</th>
-                                        <th>ອີເມວ</th>
-                                        <th>ວັນທີ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+<table id="productsTable" class="table table-hover table-product" style="width:100%">
+    <thead>
+        <tr>
+            <th>ລຳດັບ</th>
+            <th>ຊື່ຜູ້ຂໍ</th>
+            <th>ອີເມວ</th>
+            <th>ລະຫັດ</th>
+            <th>ວັນທີຂໍນຳໃຊ້</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+       $stmt4 = $conn->prepare("select re_id,user_email,pass_email,date_request
+    from tbl_request_email  
+    order by re_id desc ");
+    $stmt4->execute();
+    if ($stmt4->rowCount() > 0) {
+        while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+            $re_id = $row4['re_id'];
+            $user_email = $row4['user_email'];
+            $pass_email = $row4['pass_email'];
+            $date_request = $row4['date_request'];
 
-
-                                <?php
-                                    $stmt4 = $conn->prepare("select re_id,user_email,date_update
-                                    from tbl_request_email  
-                                    order by re_id desc ");
-                                    $stmt4->execute();
-                                    if ($stmt4->rowCount() > 0) {
-                                        while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                            $re_id = $row4['re_id'];
-                                            $user_email = $row4['user_email']; 
-                                            $date_update = $row4['date_update']; 
-
-                                    ?>
-
-
-
-                                            <tr>
-                                                <td><?php echo "$re_id"; ?></td>
-                                                <td><?php echo "$user_email"; ?></td> 
-                                                <td><?php echo "$date_update"; ?></td> 
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                                        </a>
-
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="edit-gmail.php?re_id=<?php echo $row4['re_id']; ?>">ແກ້ໄຂ</a>
-                                                            <a class="dropdown-item" type="button" id="deletegmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm" >ລືບ</a>
-
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+    ?>
 
 
-                                    <?php
-                                        }
-                                    }
-                                    ?>
+
+            <tr>
+                <td><?php echo "$re_id"; ?></td>
+                <td><?php echo "$full_name"; ?></td>
+                <td><?php echo "$user_email"; ?></td>
+                <td><?php echo "$pass_email"; ?></td>
+                <td><?php echo "$date_request"; ?></td>
+                <td>
+
+               
+                <div class="dropdown">
+                    <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="edit-gmail.php?re_id=<?php echo $row4['re_id']; ?>">ແກ້ໄຂ</a>
+                        <a class="dropdown-item" type="button" id="deletegmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm">ຍົກນຳໃຊ້</a>
+
+                    </div>
+                </div>
+                </td>
+            </tr>
 
 
-                                </tbody>
-                            </table>
+    <?php
+        }
+    }
+    ?>
 
-                        </div>
+
+</tbody>
+</table>
+
+</div>
                     </div>
 
 
