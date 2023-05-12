@@ -4,7 +4,7 @@ include("../setting/checksession.php");
 include("../setting/conn.php");
 
 $header_name = "ອັຟເດດບັນຫາ";
-$header_click = "4";
+$header_click = "1";
 $ih_id = $_GET['ih_id'];
 ?>
 

@@ -3,7 +3,7 @@ include("../setting/checksession.php");
 include("../setting/conn.php");
 
 $header_name = "ແຈ້ງບ້ນຫາ";
-$header_click = "4";
+$header_click = "1";
 $ir_id = $_GET['ir_id'];
 ?>
 
