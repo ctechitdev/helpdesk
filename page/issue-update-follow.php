@@ -61,6 +61,7 @@ $ir_id = $_GET['ir_id'];
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ວັນທີແຈ້ງບັນຫາ</th>
                                         <th></th>
+                                        <th></th>
 
                                     </tr>
                                 </thead>
@@ -152,7 +153,7 @@ $ir_id = $_GET['ir_id'];
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'page-issue-history.php';
+                                window.location.href = 'issue-update-follow.php';
                             }, 1000);
 
                     }

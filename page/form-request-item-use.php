@@ -91,7 +91,7 @@ $header_click = "2";
                                                                                 <div class="col-lg-7">
                                                                                     <div class="form-group">
                                                                                         <label for="firstName">ຊື່ອຸປະກອນ</label>
-                                                                                        <select class="form-control" name="item_id[]" id="item_id<?php echo $x; ?>">
+                                                                                        <select class="form-control" name="item_id[]" id="item_id<?php echo $x; ?>" required>
                                                                                             <option value="">ເລືອກອຸປະກອນ</option>
                                                                                             <?php
                                                                                             $stmt2 = $conn->prepare("
@@ -113,7 +113,7 @@ $header_click = "2";
                                                                                 <div class="form-group  col-lg-2">
                                                                                     <label class="text-dark font-weight-medium">ຈຳນວນ</label>
                                                                                     <div class="form-group">
-                                                                                        <input type="number" step="any" name="item_value[]" id="item_value<?php echo $x; ?>" autocomplete="off" class="form-control" />
+                                                                                        <input type="number" step="any" name="item_value[]" id="item_value<?php echo $x; ?>" autocomplete="off" class="form-control" required />
                                                                                     </div>
                                                                                 </div>
 
@@ -333,7 +333,7 @@ $header_click = "2";
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'request_use_item.php';
+                                window.location.href = 'form-request-item-use.php';
                             }, 1000);
 
                     } else if (data.res == "used") {
@@ -397,7 +397,7 @@ $header_click = "2";
                         '<label for="firstName">ຊື່ອຸປະກອນ</label>' +
 
 
-                        '<select class="form-control" name="item_id[]" id="item_id' + count + '" >' +
+                        '<select class="form-control" name="item_id[]" id="item_id' + count + '" required>' +
                         '<option value="">ເລືອກອຸປະກອນ</option>';
                     $.each(response, function(index, value) {
                         tr += '<option value="' + value[0] + '">' + value[1] + '</option>';
@@ -410,7 +410,7 @@ $header_click = "2";
                         '<div class="form-group  col-lg-2">' +
                         '<label class="text-dark font-weight-medium">ຈຳນວນ</label>' +
                         '<div class="form-group">' +
-                        '<input type="number" step ="any" name="item_value[]" id="item_value' + count + '" autocomplete="off" class="form-control" />' +
+                        '<input type="number" step ="any" name="item_value[]" id="item_value' + count + '" autocomplete="off" class="form-control" required/>' +
                         '</div>' +
                         '</div>' +
 

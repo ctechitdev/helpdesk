@@ -100,7 +100,7 @@ $ir_id = $_GET['ir_id'];
                                                     <div class="form-group  col-lg-12">
                                                         <label class="text-dark font-weight-medium">ແກ້ໄຂປະເພດບັນຫາ</label>
                                                         <div class="form-group">
-                                                            <select class=" form-control font" name="isc_id" id="isc_id">
+                                                            <select class=" form-control font" name="isc_id" id="isc_id" required>
                                                                 <option value=""> ເລືອກປະເພດບັນຫາ </option>
                                                                 <?php
                                                                 $stmt = $conn->prepare(" SELECT isc_id ,isc_name FROM tbl_issue_category order by isc_name");
@@ -123,7 +123,7 @@ $ir_id = $_GET['ir_id'];
                                                         <div class="form-group">
 
                                                              
-                                                            <select class="form-control  font" name="ist_id" id="ist_id">
+                                                            <select class="form-control  font" name="ist_id" id="ist_id" required>
                                                                 <option value=""> ເລືອກປະເພດບັນຫາ </option>
                                                                 <?php
                                                                 $stmt = $conn->prepare(" SELECT  ist_id,ist_name FROM tbl_issue_type where isc_id = '$issue_cate_id' order by ist_name");
@@ -140,14 +140,14 @@ $ir_id = $_GET['ir_id'];
                                                     </div>
 
 
-                                                </div>
+                                                
 
                                                 <div class="form-group col-lg-12">
-                                                    <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
+                                                    <label class="text-dark font-weight-medium"> ລາຍລະອຽດບັນຫາ </label>
                                                     <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
                                                 </div>
                                             </div>
-
+                                            </div>
 
                                         </div>
                                         <div class="d-flex justify-content-end mt-6">
@@ -178,9 +178,11 @@ $ir_id = $_GET['ir_id'];
                                 <thead>
                                     <tr>
                                         <th>ເລກທີ</th>
+                                        <th>ປະເພດບັນຫາ</th>
                                         <th>ປະເພດລະບົບ</th>
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ວັນທີແຈ້ງບັນຫາ</th>
+                                        <th> </th>
 
                                     </tr>
                                 </thead>
@@ -188,13 +190,15 @@ $ir_id = $_GET['ir_id'];
 
 
                                     <?php
-                                    $stmt4 = $conn->prepare("SELECT  ir_id,ist_name,ir_detail,request_date
-									FROM tbl_issue_request a
-									left join tbl_issue_type b on a.ist_id = b.ist_id order by ir_id desc ");
+                                    $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,ir_detail,request_date FROM tbl_issue_request a 
+                                    left join tbl_issue_type b on a.ist_id = b.ist_id 
+                                    left join tbl_issue_category c on b.isc_id = c.isc_id order by ir_id desc;
+                                     ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
                                             $ir_id = $row4['ir_id'];
+                                            $isc_name = $row4['isc_name'];
                                             $ist_name = $row4['ist_name'];
                                             $ir_detail = $row4['ir_detail'];
                                             $request_date = $row4['request_date'];
@@ -205,6 +209,7 @@ $ir_id = $_GET['ir_id'];
 
                                             <tr>
                                                 <td><?php echo "$ir_id"; ?></td>
+                                                <td><?php echo "$isc_name"; ?></td>
                                                 <td><?php echo "$ist_name"; ?></td>
                                                 <td><?php echo "$ir_detail"; ?></td>
                                                 <td><?php echo "$request_date"; ?></td>
