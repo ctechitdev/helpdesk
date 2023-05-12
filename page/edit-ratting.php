@@ -96,7 +96,7 @@ $ir_id = $_GET['ir_id'];
 
                                         </div>
                                         <div class="d-flex justify-content-end mt-6">
-                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ປິດບ້ນຫາ</button>
+                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ແກ້ໄຂ</button>
                                         </div>
 
                                     </form>
@@ -123,7 +123,7 @@ $ir_id = $_GET['ir_id'];
         // update 
 
         $(document).on("submit", "#update", function() {
-            $.post("../query/update-Closing-rating.php", $(this).serialize(), function(data) {
+            $.post("../query/update-rate.php", $(this).serialize(), function(data) {
                 if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',

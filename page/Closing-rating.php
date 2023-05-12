@@ -104,8 +104,8 @@ $header_click = "4";
                                                                     </a>
                                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                                                         <a class="dropdown-item" href="edit-Closing-rating.php?ir_id=<?php echo $row4['ir_id']; ?>">ລາຍລະອຽດ</a>
-                                                                        <a class="dropdown-item" type="button" id="update" data-id='<?php echo $row4['ir_id']; ?>' class="btn btn-danger btn-sm">ຍົກເລີກ</a>
-
+                                                                        <a class="dropdown-item" type="button" id="delete" data-id='<?php echo $row4['ir_id']; ?>' class="btn btn-danger btn-sm">ຍົກເລີກ</a>
+                                                                        <a class="dropdown-item" href="edit-ratting.php?ir_id=<?php echo $row4['ir_id']; ?>">ແກ້ໄຂ</a>
 
                                                                     </div>
                                                                 </div>
@@ -119,7 +119,7 @@ $header_click = "4";
 
                                             </tbody>
                                         </table>
-                                        
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@ $header_click = "4";
             <?php include("../setting/calljs.php"); ?>
             <script>
                 // edit
-                $(document).on("click", "#update", function(e) {
+                $(document).on("click", "#delete", function(e) {
                     e.preventDefault();
                     var id = $(this).data("id");
                     $.ajax({
@@ -164,6 +164,7 @@ $header_click = "4";
 
                     return false;
                 });
+                
             </script>
 
 
