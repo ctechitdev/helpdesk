@@ -2,7 +2,7 @@
 include("../setting/checksession.php");
 include("../setting/conn.php");
 
-$header_name = "ປິດບັນຫາແລະໃຫ້ຄະແນນ";
+$header_name = "ປິດບັນຫາ";
 $header_click = "4";
 $ir_id = $_GET['ir_id'];
 ?>
@@ -50,7 +50,7 @@ $ir_id = $_GET['ir_id'];
                             <div class="col-xxl-12">
                                 <div class="email-right-column  email-body p-4 p-xl-5">
                                     <div class="email-body-head mb-5 ">
-                                        <h4 class="text-dark">ປິດບັນຫາ</h4>
+                                        <h4 class="text-dark">ລາຍລະອຽດ</h4>
                                         <?php
                                         $request_rows = $conn->query("
                                         SELECT ih_id,a.ir_id,a.rate_point,a.ir_detail
@@ -72,12 +72,19 @@ $ir_id = $_GET['ir_id'];
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="firstName">ລາຍລະອຽດບັນຫາ</label>
-                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
+                                                    <input type="button" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="firstName">ຂໍ້ຄວາມເນືັ້ອຫາໃນການປິດບັນຫາ</label>
+                                                    <input type="text" class="form-control" id="ih_detail" name="ih_detail"  required>
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-lg-6">
                                                 <label class="text-dark font-weight-medium">ຄະແນນ</label>
+                                                
                                                 <div class="form-group">
 
                                                     <select class=" form-control font" id="rate_point" name="rate_point" value="<?php echo $request_rows['rate_point']; ?>" required>

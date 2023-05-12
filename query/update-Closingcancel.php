@@ -5,7 +5,7 @@ include("../setting/conn.php");
  extract($_POST);
 
 
-$update_data = $conn->query(" update tbl_issue_request set ir_state ='2', assign_date ='NULL',assign_by='NULL' WHERE ir_id = '$ir_id'  ");
+$update_data = $conn->query(" update tbl_issue_request set ir_state ='2',rate_point = NULL WHERE ir_id = '$ir_id'  ");
 if($update_data)
 {
 	$delete = $conn->query(" 

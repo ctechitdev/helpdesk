@@ -2,7 +2,7 @@
 include("../setting/checksession.php");
 include("../setting/conn.php");
 
-$header_name = "ປິດບັນຫາແລະໃຫ້ຄະແນນ";
+$header_name = "ປິດບັນຫາ";
 $header_click = "4";
 $ir_id = $_GET['ir_id'];
 ?>
@@ -72,7 +72,7 @@ $ir_id = $_GET['ir_id'];
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="firstName">ລາຍລະອຽດບັນຫາ</label>
-                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
+                                                    <input type="button" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
                                                 </div>
                                             </div>
 
@@ -80,9 +80,9 @@ $ir_id = $_GET['ir_id'];
                                                 <label class="text-dark font-weight-medium">ຄະແນນ</label>
                                                 <div class="form-group">
 
-                                                    <select class=" form-control font" id="rate_point" name="rate_point" value="<?php echo $request_rows['rate_point']; ?>" required>
+                                                <select class=" form-control font" id="rate_point" name="rate_point" value="<?php echo $request_rows['rate_point']; ?>" required>
 
-                                                        <option value="">ເລືອກຄະແນນ</option>
+                                                        <option value=""><?php echo $request_rows['rate_point']; ?></option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>

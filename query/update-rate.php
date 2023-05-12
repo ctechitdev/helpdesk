@@ -6,7 +6,7 @@ include("../setting/conn.php");
 
  
 
-$update_data = $conn->query(" update tbl_issue_request set ir_state ='3',ir_detail ='$ir_detail',rate_point='$rate_point'   WHERE ir_id='$ir_id'  ");
+$update_data = $conn->query(" update tbl_issue_request set ir_state ='3',rate_point='$rate_point'   WHERE ir_id='$ir_id'  ");
 if($update_data)
 {
     
