@@ -244,7 +244,7 @@ $riud_id = $_GET['riud_id'];
                     )
                     setTimeout(
                         function() {
-                            window.location.href = 'request_use_item.php';
+                            window.location.href = 'form-request-item-use.php';
                         }, 1000);
                 }
             }, 'json')
@@ -273,7 +273,7 @@ $riud_id = $_GET['riud_id'];
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'request_use_item.php';
+                                window.location.href = 'form-request-item-use.php';
                             }, 1000);
 
                     } else if (data.res == "used") {

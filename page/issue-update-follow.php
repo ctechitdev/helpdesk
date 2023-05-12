@@ -4,7 +4,7 @@ include("../setting/checksession.php");
 include("../setting/conn.php");
 
 $header_name = "ອັຟເດດບັນຫາ";
-$header_click = "4";
+$header_click = "1";
 $ir_id = $_GET['ir_id'];
 ?>
 
@@ -61,7 +61,7 @@ $ir_id = $_GET['ir_id'];
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ວັນທີແຈ້ງບັນຫາ</th>
                                         <th></th>
-
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,15 +88,13 @@ $ir_id = $_GET['ir_id'];
                                                 <td><?php echo "$is_name"; ?></td>
                                                 <td><?php echo "$ih_detail"; ?></td>
                                                 <td><?php echo "$update_date"; ?></td>
-                                                <td><div class="d-flex justify-content-end">
-                                            <a button type="submit" class="btn btn-primary mb-2 btn-pill" href="issue_history.php?ih_id=<?php echo $ih_id; ?>">ອັຟເດດບັນຫາ</a>
-                                        </div></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                        <a class="dropdown-item" href="issue_history.php?ih_id=<?php echo $row4['ih_id']; ?>">ອັຟເດດບັນຫາ</a>
                                                             <a class="dropdown-item" href="edit-issue-history.php?ih_id=<?php echo $row4['ih_id']; ?>">ແກ້ໄຂ</a>
                                                             <a class="dropdown-item" type="button" id="deletehistory" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
 
@@ -152,7 +150,7 @@ $ir_id = $_GET['ir_id'];
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'page-issue-history.php';
+                                window.location.href = 'issue-update-follow.php';
                             }, 1000);
 
                     }

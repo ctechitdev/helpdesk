@@ -4,7 +4,7 @@ include("../setting/checksession.php");
 include("../setting/conn.php");
 
 $header_name = "ອັຟເດດບັນຫາ";
-$header_click = "4";
+$header_click = "1";
 $ih_id = $_GET['ih_id'];
 ?>
 
@@ -72,7 +72,7 @@ $ih_id = $_GET['ih_id'];
 												<label class="text-dark font-weight-medium">ສະຖານະຂອງບັນຫາ </label>
 												<div class="form-group">
 
-													<select class=" form-control font" name="ir_state" id="ir_state">
+													<select class=" form-control font" name="ir_state" id="ir_state" required>
 														<option value=""> ເລືອກສະຖານະຂອງບັນຫາ </option>
 														<?php
 														$stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
@@ -87,7 +87,7 @@ $ih_id = $_GET['ih_id'];
 														?>
 													</select>
 												</div>
-											</div>
+											
 
                                         
 
@@ -97,6 +97,7 @@ $ih_id = $_GET['ih_id'];
                                                     <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
                                                     <input type="text" class="form-control" id="ih_detail" name="ih_detail" value="<?php echo $history_rows['ih_detail']; ?>" required>
                                                 </div>
+                                            </div>
                                             </div>
 
 
@@ -130,6 +131,7 @@ $ih_id = $_GET['ih_id'];
                                         <th>ສະຖານະຂອງບັນຫາ </th>
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ວັນທີແຈ້ງບັນຫາ</th>
+                                        <th></th>
 
                                     </tr>
                                 </thead>
@@ -211,7 +213,7 @@ $ih_id = $_GET['ih_id'];
                     )
                     setTimeout(
                         function() {
-                            window.location.href = 'page-issue-history.php';
+                            window.location.href = 'issue-update-follow.php';
                         }, 1000);
                 }
             }, 'json')
@@ -238,7 +240,7 @@ $ih_id = $_GET['ih_id'];
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'page-issue-history.php';
+                                window.location.href = 'issue-update-follow.php';
                             }, 1000);
 
                     }
