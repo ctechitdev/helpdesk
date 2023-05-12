@@ -68,7 +68,7 @@ $header_click = "2";
                                         <div class="card p-4">
 
                                             <div class="row">
-                                                < <div id="add-brand-messages">
+                                                 <div id="add-brand-messages">
                                             </div>
                                             <div class="card-body">
                                                 <div class="input-states">
