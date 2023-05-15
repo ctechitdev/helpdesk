@@ -122,7 +122,7 @@ $re_id = $_GET['re_id'];
     </thead>
     <tbody>
         <?php
-       $stmt4 = $conn->prepare("select re_id,user_email,pass_email,date_request
+       $stmt4 = $conn->prepare("select re_id,user_email,pass_email,date_update
     from tbl_request_email  
     order by re_id desc ");
     $stmt4->execute();
@@ -131,7 +131,7 @@ $re_id = $_GET['re_id'];
             $re_id = $row4['re_id'];
             $user_email = $row4['user_email'];
             $pass_email = $row4['pass_email'];
-            $date_request = $row4['date_request'];
+            $date_update = $row4['date_update'];
 
     ?>
 
@@ -142,7 +142,7 @@ $re_id = $_GET['re_id'];
                 <td><?php echo "$full_name"; ?></td>
                 <td><?php echo "$user_email"; ?></td>
                 <td><?php echo "$pass_email"; ?></td>
-                <td><?php echo "$date_request"; ?></td>
+                <td><?php echo "$date_update"; ?></td>
                 <td>
 
                
@@ -152,7 +152,7 @@ $re_id = $_GET['re_id'];
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="edit-gmail.php?re_id=<?php echo $row4['re_id']; ?>">ແກ້ໄຂ</a>
-                        <a class="dropdown-item" type="button" id="deletegmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm">ຍົກນຳໃຊ້</a>
+                        <a class="dropdown-item" type="button" id="cancelgmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm">ຍົກນຳໃຊ້</a>
 
                     </div>
                 </div>
@@ -212,12 +212,12 @@ $re_id = $_GET['re_id'];
 			return false;
 		});
          // delete 
-         $(document).on("click", "#deletegmail", function(e) {
+         $(document).on("click", "#cancelgmail", function(e) {
                     e.preventDefault();
                     var id = $(this).data("id");
                     $.ajax({
                         type: "post",
-                        url: "../query/delete-gmail.php",
+                        url: "../query/cancel-gmail.php",
                         dataType: "json",
                         data: {
                             re_id: id
@@ -227,7 +227,7 @@ $re_id = $_GET['re_id'];
                             if (data.res == "success") {
                                 Swal.fire(
                                     'ສຳເລັດ',
-                                    'ລືບສຳເລັດ',
+                                    'ຍົກເລີກ',
                                     'success'
                                 )
                                 setTimeout(

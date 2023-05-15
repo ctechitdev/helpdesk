@@ -88,8 +88,21 @@ $header_click = "2";
                                                             <tr>
                                                                 <td><?php echo "$re_id"; ?></td>
                                                                 <td><?php echo "$full_name"; ?></td>
-                                                                <td><?php echo "$user_email"; ?></td>
-                                                                <td><?php echo "$pass_email"; ?></td>
+                                                                <td><?php
+                                                                    if (empty($user_email)) {
+                                                                        echo "ກຳລັງດຳເນີນການ";
+                                                                    } else {
+                                                                        echo "$user_email";
+                                                                    }
+                                                                    ?>
+                                                                </td>
+                                                                <td><?php if (empty($pass_email)){
+                                                                    echo "ກຳລັງດຳເນີນການ";
+                                                                }else {
+                                                                    echo "$pass_email";
+                                                                }
+                                                                
+                                                                ; ?></td>
                                                                 <td><?php echo "$date_request"; ?></td>
                                                                 <td>
 
@@ -126,11 +139,11 @@ $header_click = "2";
                         'ລົງທະບຽນຊ້ຳ',
                         'ຜູ້ໃຊ້ນີ້ຖືກລົງທະບຽນແລ້ວ',
                         'error'
-                    )
+                    )  
                 } else if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',
-                        'ເພິ່ມຜູ້ໃຊ້ສຳເລັດ',
+                        'ລົງຖະບຽນສຳເລັດ',
                         'success'
                     )
                     setTimeout(

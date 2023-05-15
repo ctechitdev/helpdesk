@@ -62,7 +62,7 @@ $header_click = "2";
                                                     <th>ຊື່ຜູ້ຂໍ</th>
                                                     <th>ອີເມວ</th>
                                                     <th>ລະຫັດ</th>
-                                                    <th>ວັນທີຂໍນຳໃຊ້</th>
+                                                    <th>ວັນທີເປີດນຳໃຊ້</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -70,7 +70,7 @@ $header_click = "2";
 
 
                                                 <?php
-                                                $stmt4 = $conn->prepare("select re_id,user_email,pass_email,date_request
+                                                $stmt4 = $conn->prepare("select re_id,user_email,pass_email,date_update
                                                 from tbl_request_email  
                                                 order by re_id desc ");
                                                 $stmt4->execute();
@@ -79,7 +79,7 @@ $header_click = "2";
                                                         $re_id = $row4['re_id'];
                                                         $user_email = $row4['user_email'];
                                                         $pass_email = $row4['pass_email'];
-                                                        $date_request = $row4['date_request'];
+                                                        $date_request = $row4['date_update'];
 
                                                 ?>
 
@@ -88,8 +88,21 @@ $header_click = "2";
                                                         <tr>
                                                             <td><?php echo "$re_id"; ?></td>
                                                             <td><?php echo "$full_name"; ?></td>
-                                                            <td><?php echo "$user_email"; ?></td>
-                                                            <td><?php echo "$pass_email"; ?></td>
+                                                            <td><?php
+                                                                    if (empty($user_email)) {
+                                                                        echo "ກຳລັງດຳເນີນການ";
+                                                                    } else {
+                                                                        echo "$user_email";
+                                                                    }
+                                                                    ?>
+                                                                </td>
+                                                                <td><?php if (empty($pass_email)){
+                                                                    echo "ກຳລັງດຳເນີນການ";
+                                                                }else {
+                                                                    echo "$pass_email";
+                                                                }
+                                                                
+                                                                ; ?></td>
                                                             <td><?php echo "$date_request"; ?></td>
                                                             <td>
 
@@ -100,7 +113,7 @@ $header_click = "2";
 
                                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                                                     <a class="dropdown-item" href="edit-gmail.php?re_id=<?php echo $row4['re_id']; ?>">ອະນຸຍາດນຳໃຊ້</a>
-                                                                    <a class="dropdown-item" type="button" id="deletegmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm">ຍົກນຳໃຊ້</a>
+                                                                    <a class="dropdown-item" type="button" id="cancelgmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm">ຍົກນຳໃຊ້</a>
 
                                                                 </div>
                                                             </div>
@@ -160,12 +173,12 @@ $header_click = "2";
                         return false;
                     });
                     // delete 
-                    $(document).on("click", "#deletegmail", function(e) {
+                    $(document).on("click", "#cancelgmail", function(e) {
                         e.preventDefault();
                         var id = $(this).data("id");
                         $.ajax({
                             type: "post",
-                            url: "../query/delete-gmail.php",
+                            url: "../query/cancel-gmail.php",
                             dataType: "json",
                             data: {
                                 re_id: id
@@ -175,7 +188,7 @@ $header_click = "2";
                                 if (data.res == "success") {
                                     Swal.fire(
                                         'ສຳເລັດ',
-                                        'ລືບສຳເລັດ',
+                                        'ຍົກເລີກ',
                                         'success'
                                     )
                                     setTimeout(
