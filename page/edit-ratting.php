@@ -80,14 +80,24 @@ $ir_id = $_GET['ir_id'];
                                                 <label class="text-dark font-weight-medium">ຄະແນນ</label>
                                                 <div class="form-group">
 
-                                                <select class=" form-control font" id="rate_point" name="rate_point" value="<?php echo $request_rows['rate_point']; ?>" required>
+                                                    <select class=" form-control font" id="rate_point" name="rate_point" value="<?php echo $request_rows['rate_point']; ?>" required>
 
-                                                        <option value=""><?php echo $request_rows['rate_point']; ?></option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
+                                                        <option value=""> </option>
+                                                        <option value="1" <?php if ($request_rows['rate_point'] == 1) {
+                                                                                echo "selected";
+                                                                            } ?>>1</option>
+                                                        <option value="2"  <?php if ($request_rows['rate_point'] == 2) {
+                                                                                echo "selected";
+                                                                            } ?>>2</option>
+                                                        <option value="3" <?php if ($request_rows['rate_point'] ==3) {
+                                                                                echo "selected";
+                                                                            } ?>>3</option>
+                                                        <option value="4" <?php if ($request_rows['rate_point'] ==4) {
+                                                                                echo "selected";
+                                                                            } ?>>4</option>
+                                                        <option value="5" <?php if ($request_rows['rate_point'] ==5) {
+                                                                                echo "selected";
+                                                                            } ?>>5</option>
 
                                                     </select>
 
@@ -107,7 +117,7 @@ $ir_id = $_GET['ir_id'];
                 </div>
 
             </div>
-            
+
 
             <?php include "footer.php"; ?>
         </div>
@@ -138,7 +148,6 @@ $ir_id = $_GET['ir_id'];
             }, 'json')
             return false;
         });
-        
     </script>
 
 
