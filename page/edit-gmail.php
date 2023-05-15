@@ -111,39 +111,65 @@ $re_id = $_GET['re_id'];
 
 <table id="productsTable" class="table table-hover table-product" style="width:100%">
     <thead>
-        <tr>
-            <th>ລຳດັບ</th>
-            <th>ຊື່ຜູ້ຂໍ</th>
-            <th>ອີເມວ</th>
-            <th>ລະຫັດ</th>
-            <th>ວັນທີຂໍນຳໃຊ້</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-       $stmt4 = $conn->prepare("select re_id,user_email,pass_email,date_update
-    from tbl_request_email  
-    order by re_id desc ");
-    $stmt4->execute();
-    if ($stmt4->rowCount() > 0) {
-        while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-            $re_id = $row4['re_id'];
-            $user_email = $row4['user_email'];
-            $pass_email = $row4['pass_email'];
-            $date_update = $row4['date_update'];
-
-    ?>
-
-
-
-            <tr>
-                <td><?php echo "$re_id"; ?></td>
-                <td><?php echo "$full_name"; ?></td>
-                <td><?php echo "$user_email"; ?></td>
-                <td><?php echo "$pass_email"; ?></td>
-                <td><?php echo "$date_update"; ?></td>
-                <td>
+    <tr>
+                                                        <th>ລຳດັບ</th>
+                                                        <th>ຊື່ຜູ້ຂໍ</th>
+                                                        <th>ພະແນກ</th>
+                                                        <th>ອີເມວ</th>
+                                                        <th>ລະຫັດ</th>
+                                                        <th>ວັນທີຂໍນຳໃຊ້</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $stmt4 = $conn->prepare("select user_id,re_id,user_email,pass_email,date_request,full_name,dp_name from tbl_request_email a 
+                                                    left join tbl_user b on a.user_id = b.usid
+                                                    left join tbl_depart c on b.depart_id = c.dp_id order by re_id desc; ");
+                                                    $stmt4->execute();
+                                                    if ($stmt4->rowCount() > 0) {
+                                                        while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+                                                            $re_id = $row4['re_id'];
+                                                            $user_email = $row4['user_email'];
+                                                            $user_id = $row4['user_id'];
+                                                            $pass_email = $row4['pass_email'];
+                                                            $date_request = $row4['date_request'];
+                                                            $full_name = $row4['full_name'];
+                                                            $dp_name = $row4['dp_name'];
+                                                    ?>
+                                                            <tr>
+                                                                <td><?php echo "$re_id"; ?></td>
+                                                                <td><?php if (empty($user_id)){
+                                                                    echo"ປິດນຳໃຊ້";
+                                                                }else {echo "$full_name";}
+                                                                ?></td> 
+                                                                 <td><?php if (empty($dp_name)){echo "ປິດນຳໃຊ້";
+                                                                }else{echo"$dp_name";}
+                                                                 ?></td>
+                                                                <td><?php
+                                                                    if (empty($user_email)) {
+                                                                        echo "ກຳລັງດຳເນີນການ";
+                                                                    } else {
+                                                                        echo "$user_email";
+                                                                    }
+                                                                    ?>
+                                                                </td>
+                                                                <td><?php if (empty($pass_email)){
+                                                                    echo "ກຳລັງດຳເນີນການ";
+                                                                }else {
+                                                                    echo "$pass_email";
+                                                                }
+                                                                
+                                                                ; ?></td>
+                                                                <td><?php if (empty($date_request)){
+                                                                    echo "ກຳລັງດຳເນີນການ";
+                                                                }else {
+                                                                    echo "$date_request";
+                                                                }
+                                                                
+                                                                ; ?></td>
+                                                                <td>
+                                                            <td>
 
                
                 <div class="dropdown">
@@ -152,7 +178,7 @@ $re_id = $_GET['re_id'];
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="edit-gmail.php?re_id=<?php echo $row4['re_id']; ?>">ແກ້ໄຂ</a>
-                        <a class="dropdown-item" type="button" id="cancelgmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm">ຍົກນຳໃຊ້</a>
+                        <a class="dropdown-item" type="button" id="cancelgmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm">ຍົກເລີກນຳໃຊ້</a>
 
                     </div>
                 </div>
