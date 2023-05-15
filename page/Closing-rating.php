@@ -3,7 +3,7 @@ include("../setting/checksession.php");
 include("../setting/conn.php");
 
 $header_name = "ປິດບັນຫາ";
-$header_click = "4";
+$header_click = "1";
 
 ?>
 

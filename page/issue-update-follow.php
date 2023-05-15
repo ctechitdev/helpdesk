@@ -52,52 +52,66 @@ $ir_id = $_GET['ir_id'];
                     <div class="card card-default">
 
                         <div class="card-body">
-
-                            <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                            
+                        <table id="productsTable" class="table table-hover table-product" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>ເລກທີ</th>
-                                        <th>ສະຖານະຂອງບັນຫາ </th>
+                                        <th>ປະເພດບັນຫາ</th>
+                                        <th>ປະເພດລະບົບ</th>
+                                        <th>ສະຖານະຂອງບັນຫາ</th>
                                         <th>ລາຍລະອຽດບັນຫາ</th>
-                                        <th>ວັນທີແຈ້ງບັນຫາ</th>
-                                        <th></th>
-                                       
+                                        <th>ຜູ້ແຈ້ງບັນຫາ</th>
+                                        <th>ພະແນກ</th>                                                                          
+                                        <th> </th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
 
 
-                                    <?php
-                                    $stmt4 = $conn->prepare("SELECT  ih_id,is_name ,ih_detail,update_date
-									FROM tbl_issue_history a
-									left join tbl_issue_status b on a.ir_state = b.is_id order by ih_id desc ");
+                                <?php
+                                    $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,is_name,ir_detail,user_name,dp_name FROM tbl_issue_request a 
+                                    left join tbl_issue_type b on a.ist_id = b.ist_id 
+                                    left join tbl_issue_category c on b.isc_id = c.isc_id
+                                    left join tbl_user d on a.reqeust_by = d.usid 
+                                    left join tbl_depart e on d.depart_id = e.dp_id 
+                                    left join tbl_issue_status f on a.ir_state = f.is_id order by ir_id desc;
+                                     ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                            $ih_id = $row4['ih_id'];
+                                            $ir_id = $row4['ir_id'];
+                                            $isc_name = $row4['isc_name'];
+                                            $ist_name = $row4['ist_name'];
                                             $is_name = $row4['is_name'];
-                                            $ih_detail = $row4['ih_detail'];
-                                            $update_date = $row4['update_date'];
+                                            $user_name = $row4['user_name'];
+                                            $dp_name = $row4['dp_name'];
+                                            $ir_detail = $row4['ir_detail'];
+                                            
 
                                     ?>
 
 
 
                                             <tr>
-                                                <td><?php echo "$ih_id"; ?></td>
+                                                <td><?php echo "$ir_id"; ?></td>
+                                                <td><?php echo "$isc_name"; ?></td>
+                                                <td><?php echo "$ist_name"; ?></td>
                                                 <td><?php echo "$is_name"; ?></td>
-                                                <td><?php echo "$ih_detail"; ?></td>
-                                                <td><?php echo "$update_date"; ?></td>
+                                                <td><?php echo "$ir_detail"; ?></td>
+                                                <td><?php echo "$user_name"; ?></td>
+                                                <td><?php echo "$dp_name"; ?></td>
+                                                
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                        <a class="dropdown-item" href="issue_history.php?ih_id=<?php echo $row4['ih_id']; ?>">ອັຟເດດບັນຫາ</a>
-                                                            <a class="dropdown-item" href="edit-issue-history.php?ih_id=<?php echo $row4['ih_id']; ?>">ແກ້ໄຂ</a>
-                                                            <a class="dropdown-item" type="button" id="deletehistory" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
-
+                                                        <a class="dropdown-item" href="issue_history.php?ir_id=<?php echo $row4['ir_id']; ?>">ອັຟເດດບັນຫາ</a>
+                                                      
                                                         </div>
                                                     </div>
                                                 </td>
