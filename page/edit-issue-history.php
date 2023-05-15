@@ -125,26 +125,32 @@ $ih_id = $_GET['ih_id'];
 
                             <table id="productsTable" class="table table-hover table-product" style="width:100%">
                                 <thead>
-                                    <tr>
+                                <tr>
                                         <th>ເລກທີ</th>
+                                        <th>ປະເພດບັນຫາ</th>
+                                        <th>ປະເພດລະບົບ</th>
                                         <th>ສະຖານະຂອງບັນຫາ </th>
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ວັນທີແຈ້ງບັນຫາ</th>
                                         <th></th>
-
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
 
 
                                     <?php
-                                    $stmt4 = $conn->prepare("SELECT  ih_id,is_name ,ih_detail,update_date
-									FROM tbl_issue_history a
-									left join tbl_issue_status b on a.ir_state = b.is_id order by ih_id desc ");
+                                    $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,is_name ,ih_detail,update_date FROM tbl_issue_history a 
+                                    left join tbl_issue_request e on a.ir_id = e.ir_id 
+                                    left join tbl_issue_type b on e.ist_id = b.ist_id 
+                                    left join tbl_issue_category c on b.isc_id = c.isc_id 
+                                    left join tbl_issue_status d on a.ir_state = d.is_id order by ih_id desc; ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                            $ih_id = $row4['ih_id'];
+                                            $ih_id = $row4['ir_id'];
+                                            $isc_name = $row4['isc_name'];
+                                            $ist_name = $row4['ist_name'];
                                             $is_name = $row4['is_name'];
                                             $ih_detail = $row4['ih_detail'];
                                             $update_date = $row4['update_date'];
@@ -152,9 +158,10 @@ $ih_id = $_GET['ih_id'];
                                     ?>
 
 
-
                                             <tr>
-                                                <td><?php echo "$ih_id"; ?></td>
+                                                <td><?php echo "$ir_id"; ?></td>
+                                                <td><?php echo "$isc_name"; ?></td>
+                                                <td><?php echo "$ist_name"; ?></td>
                                                 <td><?php echo "$is_name"; ?></td>
                                                 <td><?php echo "$ih_detail"; ?></td>
                                                 <td><?php echo "$update_date"; ?></td>

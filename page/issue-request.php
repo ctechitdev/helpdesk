@@ -150,6 +150,8 @@ $header_click = "1";
                                         <th>ເລກທີ</th>
                                         <th>ປະເພດບັນຫາ</th>
                                         <th>ປະເພດລະບົບ</th>
+                                        <th>ຜູ້ແຈ້ງບັນຫາ</th>
+                                        <th>ພະແນກ</th>
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ວັນທີແຈ້ງບັນຫາ</th>
                                         <th> </th>
@@ -160,9 +162,11 @@ $header_click = "1";
 
 
                                 <?php
-                                    $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,ir_detail,request_date FROM tbl_issue_request a 
+                                    $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,ir_detail,user_name,dp_name,request_date FROM tbl_issue_request a 
                                     left join tbl_issue_type b on a.ist_id = b.ist_id 
-                                    left join tbl_issue_category c on b.isc_id = c.isc_id order by ir_id desc;
+                                    left join tbl_issue_category c on b.isc_id = c.isc_id
+                                    left join tbl_user d on a.reqeust_by = d.usid 
+                                    left join tbl_depart e on d.depart_id = e.dp_id order by ir_id desc;
                                      ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
@@ -170,6 +174,8 @@ $header_click = "1";
                                             $ir_id = $row4['ir_id'];
                                             $isc_name = $row4['isc_name'];
                                             $ist_name = $row4['ist_name'];
+                                            $user_name = $row4['user_name'];
+                                            $dp_name = $row4['dp_name'];
                                             $ir_detail = $row4['ir_detail'];
                                             $request_date = $row4['request_date'];
 
@@ -181,6 +187,8 @@ $header_click = "1";
                                                 <td><?php echo "$ir_id"; ?></td>
                                                 <td><?php echo "$isc_name"; ?></td>
                                                 <td><?php echo "$ist_name"; ?></td>
+                                                <td><?php echo "$user_name"; ?></td>
+                                                <td><?php echo "$dp_name"; ?></td>
                                                 <td><?php echo "$ir_detail"; ?></td>
                                                 <td><?php echo "$request_date"; ?></td>
                                                 <td>

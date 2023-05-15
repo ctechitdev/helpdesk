@@ -192,42 +192,45 @@ $header_click = "2";
 
                             <table id="productsTable2" class="table table-hover table-product" style="width:100%">
                                 <thead>
+                                <tr>
+                                <th>ເລກລຳດັບ</th>
+                                <th>ສະຖານະຄຳຂໍ</th>
+                                <th>ພະແນກ</th>
+                                <th>ໄອດີຜູ້ຂໍ</th>
+                                <th>ອຸປະກອນ</th>
+                                <th>ຈຳນວນສິນຄ້າ</th>
+                                <th>ວັນທີ່</th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <?php
+                            $stmt4 = $conn->prepare(" SELECT a.rui_id,riud_id,rs_name,dp_name,user_name,item_name,item_value,reqeust_date FROM tbl_request_use_item a 
+                            left join tbl_request_status b on a.rs_id = b.rs_id 
+                            left join tbl_depart c on a.depart_id = c.dp_id 
+                            left join tbl_user d on a.request_by = d.usid 
+                            left join tbl_request_use_item_detail e on a.rui_id = e.rui_id 
+                            left join tbl_item_data f on e.item_id = f.item_id order by rui_id desc;
+
+                            
+                             ");
+                            $stmt4->execute();
+                            if ($stmt4->rowCount() > 0) {
+                                while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
+
                                     <tr>
-                                        <th>ເລກລຳດັບ</th>
-
-                                        <th>ອຸປະກອນ</th>
-                                        <th>ຈຳນວນສິນຄ້າ</th>
-
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-
-                                    <?php
-                                    $stmt4 = $conn->prepare(" 
-                                    SELECT riud_id,item_name,item_value from tbl_request_use_item_detail a 
-                                    left join tbl_item_data b on a.item_id = b.item_id; 
-                                    ");
-                                    $stmt4->execute();
-                                    if ($stmt4->rowCount() > 0) {
-                                        while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-
-
-                                    ?>
-
-
-
-                                            <tr>
-                                                <td><?php echo $row4['riud_id']; ?></td>
-                                                <td><?php echo $row4['item_name']; ?></td>
-                                                <td><?php echo $row4['item_value']; ?></td>
-
-
-
-
-
-                                                <td>
+                                        <td><?php echo $row4['rui_id']; ?></td>
+                                        <td><?php echo $row4['rs_name']; ?></td>
+                                        <td><?php echo $row4['dp_name']; ?></td>
+                                        <td><?php echo $row4['user_name']; ?></td>
+                                        <td><?php echo $row4['item_name']; ?></td>
+                                        <td><?php echo $row4['item_value']; ?></td>
+                                        <td><?php echo $row4['reqeust_date']; ?></td>
+                                        <td>
                                                     <div class="dropdown">
                                                         <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                                         </a>
