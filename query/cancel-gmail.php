@@ -4,8 +4,9 @@ include("../setting/checksession.php");
 include("../setting/conn.php");
  extract($_POST);
 
+ 
 
-$delExam = $conn->query(" update tbl_issue_request set ir_state ='1', assign_date = NULL ,assign_by=NULL WHERE ir_id = '$ir_id'  ");
+$delExam = $conn->query(" update tbl_request_email set user_id =NULL,user_email=NULL,pass_email=NULL,date_request=NULL,update_by=NULL,date_update=NULL   WHERE re_id='$re_id'  ");
 if($delExam)
 {
 	$res = array("res" => "success");

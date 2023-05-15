@@ -2,8 +2,8 @@
 include("../setting/checksession.php");
 include("../setting/conn.php");
 
-$header_name = "ປິດບັນຫາແລະໃຫ້ຄະແນນ";
-$header_click = "4";
+$header_name = "ປິດບັນຫາ";
+$header_click = "1";
 
 ?>
 
@@ -51,7 +51,7 @@ $header_click = "4";
                             <div class="col-xxl-12">
                                 <div class="email-right-column  email-body p-4 p-xl-5">
                                     <div class="email-body-head mb-5 ">
-                                        <h4 class="text-dark">ບັນຫາທີ່ກຳລັງແກ້ໄຂ</h4>
+                                        <h4 class="text-dark">ບັນຫາ</h4>
 
 
 
@@ -67,7 +67,7 @@ $header_click = "4";
                                                     <th>ສະຖານະຂອງບັນຫາ</th>
                                                     <th>ລາຍລະອຽດບັນຫາ</th>
                                                     <th>ຄະແນນ</th>
-                                                    
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>

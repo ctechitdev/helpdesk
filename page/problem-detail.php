@@ -4,7 +4,7 @@ include("../setting/conn.php");
 
 $header_name = "ຮັບບັນຫາ";
 $header_click = "1";
-
+$ir_id = $_GET['ir_id'];
 
 ?>
 
@@ -49,19 +49,27 @@ $header_click = "1";
 
                     <div class="email-wrapper rounded border bg-white">
                         <div class="  no-gutters justify-content-center">
-
-
-
                             <div class="    ">
                                 <div class="  p-4 p-xl-5">
                                     <div class="email-body-head mb-6 ">
-                                        <h4 class="text-dark">ລາຍການແຈ້ງບັນຫາ</h4>
-
-
-
-
+                                        <h4 class="text-dark">ລາຍລະອຽດບັັນຫາ</h4>
                                     </div>
-                                    <form method="post" id="additemorderfrm">
+                                    <?php
+                                        $detail = $conn->query("SELECT * FROM tbl_issue_request where ir_id = '$ir_id' ") ->fetch(PDO::FETCH_ASSOC);                                    
+                                        ?>
+                                    <form method="post" id="update">
+                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $detail['ir_id']; ?>" required>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                   
+                                                    <input type="button" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $detail['ir_detail']; ?>" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-6">
+                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ຮັບບັນຫາ</button>
+                                        </div>
 
                                         <table id="productsTable" class="table table-hover table-product" style="width:100%">
 
@@ -74,7 +82,6 @@ $header_click = "1";
                                                     <th>ສະຖານະ</th>
                                                     <th>ວັນທີມອບບັນຫາ</th>
                                                     <th></th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -84,7 +91,7 @@ $header_click = "1";
                                                 left join tbl_issue_type b on a.ist_id = b.ist_id
                                                  left join tbl_issue_category c on b.isc_id = c.isc_id 
                                                  left join tbl_issue_status d on a.ir_state=d.is_id order by ir_id desc;
-        ");
+                                                        ");
                                                 $stmt4->execute();
                                                 if ($stmt4->rowCount() > 0) {
                                                     while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
@@ -107,6 +114,8 @@ $header_click = "1";
                                                                     </a>
                                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                                                         <a class="dropdown-item" href="problem-detail.php?ir_id=<?php echo $row4['ir_id']; ?>">ລາຍລະອຽດ</a>
+                                                                        <a class="dropdown-item" type="button" id="updatecancel" data-id='<?php echo $row4['ir_id']; ?>' class="btn btn-danger btn-sm">ຍົກເລີກ</a>
+
 
                                                                     </div>
                                                                 </div>
@@ -120,9 +129,6 @@ $header_click = "1";
 
                                             </tbody>
                                         </table>
-
-
-
 
                                     </form>
 
@@ -143,29 +149,29 @@ $header_click = "1";
     </div>
     <?php include("../setting/calljs.php"); ?>
     <script>
-        $(document).on("submit", "#updateproblem", function() {
-            $.post("../query/update-problem.php", $(this).serialize(), function(data) {
-                if (data.res == "exist") {
-                    Swal.fire(
-                        'ລົງທະບຽນຊ້ຳ',
-                        'ອີເມວນຳໃຊ້ແລ້ວ',
-                        'error'
-                    )
-                } else if (data.res == "success") {
-                    Swal.fire(
-                        'ສຳເລັດ',
-                        'ເພີ່ມຂໍ້ມູນສຳເລັດ',
-                        'success'
-                    )
-                    setTimeout(
-                        function() {
-                            location.reload();
-                        }, 1000);
-                }
-            }, 'json')
-            return false;
-        });
-        // edit
+		// Add staff user 
+		$(document).on("submit", "#update", function() {
+			$.post("../query/update-problem.php", $(this).serialize(), function(data) {
+				if (data.res == "exist") {
+					Swal.fire(
+						'ລົງທະບຽນຊ້ຳ',
+						'ຜູ້ໃຊ້ນີ້ຖືກລົງທະບຽນແລ້ວ',
+						'error'
+					)
+				} else if (data.res == "success") {
+					Swal.fire(
+						'ສຳເລັດ',
+						'ຮັບບັນຫາສຳເລັດ',
+						'success'
+					)
+					setTimeout(
+						function() {
+							location.reload();
+						}, 1000);
+				}
+			}, 'json')
+			return false;
+		});
         $(document).on("click", "#updatecancel", function(e) {
             e.preventDefault();
             var id = $(this).data("id");

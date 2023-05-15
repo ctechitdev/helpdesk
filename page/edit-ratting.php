@@ -2,8 +2,8 @@
 include("../setting/checksession.php");
 include("../setting/conn.php");
 
-$header_name = "ປິດບັນຫາແລະໃຫ້ຄະແນນ";
-$header_click = "4";
+$header_name = "ປິດບັນຫາ";
+$header_click = "1";
 $ir_id = $_GET['ir_id'];
 ?>
 
@@ -53,7 +53,7 @@ $ir_id = $_GET['ir_id'];
                                         <h4 class="text-dark">ປິດບັນຫາ</h4>
                                         <?php
                                         $request_rows = $conn->query("
-                                        SELECT ih_id,a.ir_id,a.rate_point,a.ir_detail
+                                        SELECT ih_id,a.ir_id,a.rate_point,a.ir_detail,ih_detail
                                         FROM tbl_issue_request a
                                         
                                         left join tbl_issue_history b on a.ir_id = b.ir_id
@@ -72,7 +72,7 @@ $ir_id = $_GET['ir_id'];
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="firstName">ລາຍລະອຽດບັນຫາ</label>
-                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
+                                                    <input type="button" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
                                                 </div>
                                             </div>
 
@@ -82,18 +82,35 @@ $ir_id = $_GET['ir_id'];
 
                                                     <select class=" form-control font" id="rate_point" name="rate_point" value="<?php echo $request_rows['rate_point']; ?>" required>
 
-                                                        <option value="">ເລືອກຄະແນນ</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
+                                                        <option value=""> </option>
+                                                        <option value="1" <?php if ($request_rows['rate_point'] == 1) {
+                                                                                echo "selected";
+                                                                            } ?>>1</option>
+                                                        <option value="2"  <?php if ($request_rows['rate_point'] == 2) {
+                                                                                echo "selected";
+                                                                            } ?>>2</option>
+                                                        <option value="3" <?php if ($request_rows['rate_point'] ==3) {
+                                                                                echo "selected";
+                                                                            } ?>>3</option>
+                                                        <option value="4" <?php if ($request_rows['rate_point'] ==4) {
+                                                                                echo "selected";
+                                                                            } ?>>4</option>
+                                                        <option value="5" <?php if ($request_rows['rate_point'] ==5) {
+                                                                                echo "selected";
+                                                                            } ?>>5</option>
 
                                                     </select>
 
                                                 </div>
                                             </div>
-
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="firstName">ຂໍ້ຄວາມເນືັ້ອຫາໃນການປິດບັນຫາ</label>
+                                                    <textarea id="ih_detail" name="ih_detail" rows="4" cols="75">
+                                                    <?php echo $request_rows['ih_detail']; ?>
+                                                    </textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="d-flex justify-content-end mt-6">
                                             <button type="submit" class="btn btn-primary mb-2 btn-pill">ແກ້ໄຂ</button>
@@ -107,7 +124,7 @@ $ir_id = $_GET['ir_id'];
                 </div>
 
             </div>
-            
+
 
             <?php include "footer.php"; ?>
         </div>
@@ -138,7 +155,6 @@ $ir_id = $_GET['ir_id'];
             }, 'json')
             return false;
         });
-        
     </script>
 
 
