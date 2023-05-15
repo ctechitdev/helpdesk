@@ -3,7 +3,7 @@ include("../setting/checksession.php");
 include("../setting/conn.php");
 
 $header_name = "ປິດບັນຫາ";
-$header_click = "4";
+$header_click = "1";
 $ir_id = $_GET['ir_id'];
 ?>
 
@@ -53,7 +53,7 @@ $ir_id = $_GET['ir_id'];
                                         <h4 class="text-dark">ລາຍລະອຽດ</h4>
                                         <?php
                                         $request_rows = $conn->query("
-                                        SELECT ih_id,a.ir_id,a.rate_point,a.ir_detail
+                                        SELECT ih_id,a.ir_id,a.rate_point,a.ir_detail,ih_detail
                                         FROM tbl_issue_request a
                                         
                                         left join tbl_issue_history b on a.ir_id = b.ir_id
@@ -75,12 +75,7 @@ $ir_id = $_GET['ir_id'];
                                                     <input type="button" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label for="firstName">ຂໍ້ຄວາມເນືັ້ອຫາໃນການປິດບັນຫາ</label>
-                                                    <input type="text" class="form-control" id="ih_detail" name="ih_detail"  required>
-                                                </div>
-                                            </div>
+                                            
 
                                             <div class="form-group col-lg-6">
                                                 <label class="text-dark font-weight-medium">ຄະແນນ</label>
@@ -100,7 +95,14 @@ $ir_id = $_GET['ir_id'];
 
                                                 </div>
                                             </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="firstName">ຂໍ້ຄວາມເນືັ້ອຫາໃນການປິດບັນຫາ</label>
+                                                    <textarea id="ih_detail" name="ih_detail" rows="4" cols="75">
 
+                                                    </textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="d-flex justify-content-end mt-6">
                                             <button type="submit" class="btn btn-primary mb-2 btn-pill">ປິດບ້ນຫາ</button>
