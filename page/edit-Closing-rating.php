@@ -95,12 +95,11 @@ $ir_id = $_GET['ir_id'];
 
                                                 </div>
                                             </div>
+                                         
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="firstName">ຂໍ້ຄວາມເນືັ້ອຫາໃນການປິດບັນຫາ</label>
-                                                    <textarea id="ih_detail" name="ih_detail" rows="4" cols="75">
-
-                                                    </textarea>
+                                                    <textarea class="form-control"rows="4" id="ih_detail" name="ih_detail" ></textarea>
                                                 </div>
                                             </div>
                                         </div>

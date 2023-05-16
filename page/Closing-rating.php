@@ -66,6 +66,7 @@ $header_click = "1";
 
                                                     <th>ສະຖານະຂອງບັນຫາ</th>
                                                     <th>ລາຍລະອຽດບັນຫາ</th>
+                                                    <th></th>
                                                     <th>ຄະແນນ</th>
                                                     <th></th>
                                                 </tr>
@@ -96,7 +97,16 @@ $header_click = "1";
 
                                                             <td><?php echo "$is_name"; ?></td>
                                                             <td><?php echo "$ir_detail"; ?></td>
-                                                            <td><?php echo "$rate_point"; ?></td>
+                                                            <td><td><?php if (empty($rate_point)){
+                                                          echo "ລໍຖ້າປິດບັນຫາ";
+                                                         } else {
+                                                          echo"$rate_point";
+                                                         }
+                                                         
+                                                         ?>
+
+                                                         
+                                                         </td></td>
                                                             
                                                             <td>
                                                                 <div class="dropdown">

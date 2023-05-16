@@ -106,14 +106,12 @@ $ir_id = $_GET['ir_id'];
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="firstName">ຂໍ້ຄວາມເນືັ້ອຫາໃນການປິດບັນຫາ</label>
-                                                    <textarea id="ih_detail" name="ih_detail" rows="4" cols="75">
-                                                    <?php echo $request_rows['ih_detail']; ?>
-                                                    </textarea>
+                                                    <textarea class="form-control"rows="4" id="ih_detail" name="ih_detail" ><?php echo $request_rows['ih_detail']; ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-end mt-6">
-                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ແກ້ໄຂ</button>
+                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ອັຟເດດ</button>
                                         </div>
 
                                     </form>
