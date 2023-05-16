@@ -81,13 +81,8 @@ $header_click = "2";
                                                     ?>
                                                             <tr>
                                                                 <td><?php echo "$re_id"; ?></td>
-                                                                <td><?php if (empty($user_id)){
-                                                                    echo"ປິດນຳໃຊ້";
-                                                                }else {echo "$full_name";}
-                                                                ?></td> 
-                                                                 <td><?php if (empty($dp_name)){echo "ປິດນຳໃຊ້";
-                                                                }else{echo"$dp_name";}
-                                                                 ?></td>
+                                                                <td><?php  echo"$full_name"; ?></td> 
+                                                                 <td><?php echo "$dp_name"; ?></td>
                                                                 <td><?php
                                                                     if (empty($user_email)) {
                                                                         echo "ກຳລັງດຳເນີນການ";
