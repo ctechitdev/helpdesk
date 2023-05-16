@@ -4,7 +4,7 @@ include('../../setting/conn.php');
 
 $isc_id = $_POST['isc_id'];
 
-echo "<option value='0'> ເລືອກປະເພດ </option>";
+echo "<option value='0'> ເລືອກປະເພດ </option> " ;
 
 
 

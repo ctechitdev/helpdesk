@@ -53,7 +53,7 @@ $ir_id = $_GET['ir_id'];
                                     <div class="email-body-head mb-5 ">
                                         <h4 class="text-dark">ອັຟເດດບັນຫາ</h4>
                                         <?php
-                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_history where ir_id = '$ir_id' ") ->fetch(PDO::FETCH_ASSOC); 
+                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_request where ir_id = '$ir_id' ") ->fetch(PDO::FETCH_ASSOC); 
                                         
                                         ?>
 
@@ -95,7 +95,7 @@ $ir_id = $_GET['ir_id'];
 
                                                 <div class="form-group col-lg-12">
                                                     <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
-                                                    <input type="text" class="form-control" id="ih_detail" name="ih_detail" value="<?php echo $history_rows['ih_detail']; ?>" required>
+                                                    <input type="text" class="form-control" id="ih_detail" name="ih_detail" value="<?php echo $history_rows['ir_detail']; ?>" required>
                                                 </div>
                                             </div>
                                             </div>
@@ -134,7 +134,7 @@ $ir_id = $_GET['ir_id'];
                                         <th>ລາຍລະອຽດບັນຫາ</th>
                                         <th>ຜູ້ແຈ້ງບັນຫາ</th>
                                         <th>ພະແນກ</th>
-                                        
+                                        <th>ວັນທີອັບເດດບັນຫາ</th>
                                         <th></th>
                                        
                                     </tr>
@@ -143,7 +143,7 @@ $ir_id = $_GET['ir_id'];
 
 
                                     <?php
-                                    $stmt4 = $conn->prepare("SELECT ih_id,isc_name,ist_name,is_name ,ih_detail,user_name,dp_name FROM tbl_issue_history a 
+                                    $stmt4 = $conn->prepare("SELECT ih_id,isc_name,ist_name,is_name ,ih_detail,user_name,dp_name,update_date FROM tbl_issue_history a 
                                     left join tbl_issue_request e on a.ir_id = e.ir_id 
                                     left join tbl_issue_type b on e.ist_id = b.ist_id 
                                     left join tbl_issue_category c on b.isc_id = c.isc_id 
@@ -160,6 +160,7 @@ $ir_id = $_GET['ir_id'];
                                             $ih_detail = $row4['ih_detail'];
                                             $user_name = $row4['user_name'];
                                             $dp_name = $row4['dp_name'];
+                                            $update_date = $row4['update_date'];
                                             
 
                                     ?>
@@ -174,6 +175,7 @@ $ir_id = $_GET['ir_id'];
                                                 <td><?php echo "$ih_detail"; ?></td>
                                                 <td><?php echo "$user_name"; ?></td>
                                                 <td><?php echo "$dp_name"; ?></td>
+                                                <td><?php echo "$update_date"; ?></td>
                                                 
                                                
                                                 <td>
@@ -201,21 +203,7 @@ $ir_id = $_GET['ir_id'];
                                 </tbody>
                             </table>
 
-                            <table id="productsTable" class="table table-hover table-product" style="width:100%">
-                                <thead>
-                                <tr>
-                                        <th>ເລກທີ</th>
-                                        <th>ປະເພດບັນຫາ</th>
-                                        <th>ປະເພດລະບົບ</th>
-                                        <th>ສະຖານະຂອງບັນຫາ </th>
-                                        <th>ລາຍລະອຽດບັນຫາ</th>
-                                        <th>ວັນທີແຈ້ງບັນຫາ</th>
-                                        <th></th>
-                                       
-                                    </tr>
-                                </thead>
-                               
-
+                                                       
                         </div>
                     </div>
 

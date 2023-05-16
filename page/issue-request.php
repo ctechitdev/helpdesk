@@ -237,13 +237,20 @@ $header_click = "1";
         // Add staff user 
         $(document).on("submit", "#addrequest", function() {
             $.post("../query/add-issue-request.php", $(this).serialize(), function(data) {
-                if (data.res == "success") {
-                    Swal.fire(
-                        'ສຳເລັດ',
-                        'ເພີ່ມຂໍ້ມູນສຳເລັດ',
-                        'success'
-                    )
-                    setTimeout(
+                
+                if (data.res == "exist") {
+					Swal.fire(
+						'ຂໍ້ມູນບໍ່ຄົບຖວນ',
+						'ໃສ່ຂໍ້ມູນໃຫ້ຄົບ',
+						'error'
+					)
+				} else if (data.res == "success") {
+					Swal.fire(
+						'ສຳເລັດ',
+						'ແຈ້ງບັນຫາສຳເລັດ',
+						'success'
+					)
+					setTimeout(
                         function() {
                             location.reload();
                         }, 1000);

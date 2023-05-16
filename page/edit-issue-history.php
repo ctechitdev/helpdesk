@@ -131,7 +131,7 @@ $ih_id = $_GET['ih_id'];
                                         <th>ປະເພດລະບົບ</th>
                                         <th>ສະຖານະຂອງບັນຫາ </th>
                                         <th>ລາຍລະອຽດບັນຫາ</th>
-                                        <th>ວັນທີແຈ້ງບັນຫາ</th>
+                                        <th>ວັນທີອັບເດດບັນຫາ</th>
                                         <th></th>
                                        
                                     </tr>
@@ -140,15 +140,15 @@ $ih_id = $_GET['ih_id'];
 
 
                                     <?php
-                                    $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,is_name ,ih_detail,update_date FROM tbl_issue_history a 
+                                    $stmt4 = $conn->prepare("SELECT a.ir_id,isc_name,ist_name,is_name ,ih_detail,update_date FROM tbl_issue_history a 
                                     left join tbl_issue_request e on a.ir_id = e.ir_id 
                                     left join tbl_issue_type b on e.ist_id = b.ist_id 
                                     left join tbl_issue_category c on b.isc_id = c.isc_id 
-                                    left join tbl_issue_status d on a.ir_state = d.is_id order by ih_id desc; ");
+                                    left join tbl_issue_status d on a.ir_state = d.is_id order by ir_id desc; ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                            $ih_id = $row4['ir_id'];
+                                            $ir_id = $row4['ir_id'];
                                             $isc_name = $row4['isc_name'];
                                             $ist_name = $row4['ist_name'];
                                             $is_name = $row4['is_name'];
