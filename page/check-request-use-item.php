@@ -55,7 +55,7 @@ $rui_id = $_GET['rui_id'];
                             <div class="    ">
                                 <div class="  p-4 p-xl-5">
                                     <div class="email-body-head mb-6 ">
-                                        <h4 class="text-dark">ເພີ່ມລາຍການຂໍນຳໃຊ້ອຸປະກອນ</h4>
+                                        <h4 class="text-dark">ລາຍການຂໍນຳໃຊ້ອຸປະກອນ</h4>
 
 
 
@@ -137,18 +137,7 @@ $rui_id = $_GET['rui_id'];
                                                                                         <input type="hidden" class="form-control" id="riud_id" name="riud_id" value="<?php echo $row3['riud_id']; ?>" required>
 
 
-                                                                                        <div class="col-lg-3">
-                                                                                            <div class="form-group p-6">
-                                                                                                <button type="button" class="btn btn-primary btn-flat " onclick="addRow()" id="addRowBtn" data-loading-text="Loading...">
-                                                                                                    <i class="mdi mdi-briefcase-plus"></i>
-                                                                                                </button>
-
-                                                                                                <button type="button" class="btn btn-danger  removeProductRowBtn" type="button" id="removeProductRowBtn" onclick="removeProductRow(<?php echo $x; ?>)">
-                                                                                                    <i class="mdi mdi-briefcase-remove"></i>
-                                                                                                </button>
-                                                                                            </div>
-
-                                                                                        </div>
+                                                                                        
 
 
 
@@ -190,10 +179,7 @@ $rui_id = $_GET['rui_id'];
                             </div>
 
 
-                            <div class="d-flex justify-content-end mt-6">
-                                <button type="submit" class="btn btn-primary mb-2 btn-pill">ຂໍເບີກອຸປະກອນ</button>
-                            </div>
-
+                            
                             </form>
 
 
@@ -367,111 +353,6 @@ $rui_id = $_GET['rui_id'];
 
 
 
-        function addRow() {
-            $("#addRowBtn").button("loading");
-
-            var tableLength = $("#productTable tbody tr").length;
-
-            var tableRow;
-            var arrayNumber;
-            var count;
-
-            if (tableLength > 0) {
-                tableRow = $("#productTable tbody tr:last").attr('id');
-                arrayNumber = $("#productTable tbody tr:last").attr('class');
-                count = tableRow.substring(3);
-                count = Number(count) + 1;
-                arrayNumber = Number(arrayNumber) + 1;
-            } else {
-                // no table row
-                count = 1;
-                arrayNumber = 0;
-            }
-
-            $.ajax({
-                url: '../query/dropdown/item_list_branch.php',
-                type: 'post',
-                dataType: 'json',
-                success: function(response) {
-                    $("#addRowBtn").button("reset");
-
-
-
-                    var tr = '<tr id="row' + count + '" class="' + arrayNumber + '">' +
-
-
-                        '<td>' +
-                        '<div class="form-group">ລາຍການທີ: ' + count +
-                        '<div class="row p-2">' +
-
-                        '<div class="col-lg-7">' +
-                        '<div class="form-group">' +
-                        '<label for="firstName">ຊື່ອຸປະກອນ</label>' +
-
-
-                        '<select class="form-control" name="item_id[]" id="item_id' + count + '" required>' +
-                        '<option value="">ເລືອກອຸປະກອນ</option>';
-                    $.each(response, function(index, value) {
-                        tr += '<option value="' + value[0] + '">' + value[1] + '</option>';
-                    });
-                    tr += '</select>' +
-
-                        '</div>' +
-                        '</div>' +
-
-                        '<div class="form-group  col-lg-2">' +
-                        '<label class="text-dark font-weight-medium">ຈຳນວນ</label>' +
-                        '<div class="form-group">' +
-                        '<input type="number" step ="any" name="item_value[]" id="item_value' + count + '" autocomplete="off" class="form-control" required/>' +
-                        '</div>' +
-                        '</div>' +
-
-
-
-
-
-                        '<div class="col-lg-3">' +
-
-                        '<div class="form-group p-6">' +
-                        '<button type="button" class="btn btn-primary btn-flat removeProductRowBtn"   onclick="addRow(' + count + ')"> <i class="mdi mdi-briefcase-plus"></i></button>' +
-
-                        '<button type="button" class="btn btn-danger removeProductRowBtn ml-1" type="button" onclick="removeProductRow(' + count + ')"><i class="mdi mdi-briefcase-remove"></i></i></button>' +
-
-                        '</div>' +
-                        '</div>' +
-
-
-                        '</div>' +
-                        '</div>' +
-
-
-
-
-                        '</td>' +
-
-
-                        '</tr>';
-                    if (tableLength > 0) {
-                        $("#productTable tbody tr:last").after(tr);
-                    } else {
-                        $("#productTable tbody").append(tr);
-                    }
-
-                } // /success
-            }); // get the product data
-
-        } // /add row
-
-        function removeProductRow(row = null) {
-            if (row) {
-                $("#row" + row).remove();
-
-
-                subAmount();
-            } else {
-                alert('error! Refresh the page again');
-            }
-        }
     </script>
 
     <!--  -->
