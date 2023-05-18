@@ -59,13 +59,14 @@ $header_click = "2";
                                                         <th>ພະແນກ</th>
                                                         <th>ອີເມວ</th>
                                                         <th>ລະຫັດ</th>
+                                                        <th>ສະຖານະ</th>
                                                         <th>ວັນທີຂໍນຳໃຊ້</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $stmt4 = $conn->prepare("select user_id,re_id,user_email,pass_email,date_request,full_name,dp_name from tbl_request_email a 
+                                                    $stmt4 = $conn->prepare("select user_id,state,re_id,user_email,pass_email,date_request,full_name,dp_name from tbl_request_email a 
                                                     left join tbl_user b on a.user_id = b.usid
                                                     left join tbl_depart c on b.depart_id = c.dp_id order by re_id desc; ");
                                                     $stmt4->execute();
@@ -75,14 +76,20 @@ $header_click = "2";
                                                             $user_email = $row4['user_email'];
                                                             $user_id = $row4['user_id'];
                                                             $pass_email = $row4['pass_email'];
+                                                            $state = $row4['state'];
                                                             $date_request = $row4['date_request'];
                                                             $full_name = $row4['full_name'];
                                                             $dp_name = $row4['dp_name'];
                                                     ?>
                                                             <tr>
                                                                 <td><?php echo "$re_id"; ?></td>
-                                                                <td><?php  echo"$full_name"; ?></td> 
-                                                                 <td><?php echo "$dp_name"; ?></td>
+                                                                <td><?php if (empty($user_id)){
+                                                                    echo"ປິດນຳໃຊ້";
+                                                                }else {echo "$full_name";}
+                                                                ?></td> 
+                                                                 <td><?php if (empty($dp_name)){echo "ປິດນຳໃຊ້";
+                                                                }else{echo"$dp_name";}
+                                                                 ?></td>
                                                                 <td><?php
                                                                     if (empty($user_email)) {
                                                                         echo "ກຳລັງດຳເນີນການ";
@@ -98,6 +105,14 @@ $header_click = "2";
                                                                 }
                                                                 
                                                                 ; ?></td>
+                                                                 <td><?php if ($state >=2){
+                                                                    echo "ປິດນຳໃຊ້";
+                                                                }else {
+                                                                    echo "ດຳເນີນການ";
+                                                                }
+                                                                
+                                                                ; ?></td>
+
                                                                 <td><?php if (empty($date_request)){
                                                                     echo "ກຳລັງດຳເນີນການ";
                                                                 }else {
@@ -105,6 +120,9 @@ $header_click = "2";
                                                                 }
                                                                 
                                                                 ; ?></td>
+                                                                <td>
+
+                                                                </td>
                                                                 <td>
                                                             <td>
                                                             <div class="dropdown">
