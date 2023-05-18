@@ -233,8 +233,8 @@ $header_click = "2";
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                        <a class="dropdown-item" href="check-request-use-item.php?rui_id=<?php echo  $row4['rui_id']; ?>">ກວດສອບ</a>
                                                             <a class="dropdown-item" href="edit-request-use-item.php?rui_id=<?php echo  $row4['rui_id']; ?>">ແກ້ໄຂ</a>
-
                                                             <a class="dropdown-item" type="button" id="deleteitem" data-id='<?php echo $row4['rui_id']; ?>' class="btn btn-danger btn-sm">ລຶບ</a>
                                                         </div>
                                                     </div>
