@@ -89,7 +89,8 @@ $rui_id = $_GET['rui_id'];
 
                                                                 $x = 1;
 
-                                                                $stmt3 = $conn->prepare(" SELECT * FROM tbl_request_use_item_detail where rui_id = '$rui_id'  ");
+                                                                $stmt3 = $conn->prepare(" SELECT * FROM tbl_request_use_item_detail a
+                                                                left join tbl_item_data d on a.item_id = d.item_id where rui_id = '$rui_id'  ");
                                                                 $stmt3->execute();
                                                                 if ($stmt3->rowCount() > 0) {
                                                                     while ($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)) {
@@ -103,36 +104,23 @@ $rui_id = $_GET['rui_id'];
 
                                                                                 <div class="form-group "> <?php echo "ລາຍການທີ: $x"; ?> <br>
                                                                                     <div class="row p-2">
+                                                                                    <div class="form-group  col-lg-8">
+                                                                                                    <label class="text-dark font-weight-medium">ຊື່ອຸປະກອນ</label>
+                                                                                                    <div class="form-group">
+                                                                                                        <input type="hidden" name="item_id[]" id="item_id<?php echo $x; ?>" autocomplete="off" class="form-control" value="<?php echo $row3['item_id']; ?>" readonly />
+                                                                                                        <input type="text" name="item_name[]" id="item_name<?php echo $x; ?>" autocomplete="off" class="form-control" value="<?php echo $row3['item_name']; ?>" readonly />
+                                                                                                    </div>
+                                                                                                </div>
 
 
-                                                                                        <div class="col-lg-7">
-                                                                                            <div class="form-group">
-                                                                                                <label for="firstName">ຊື່ອຸປະກອນ</label>
-                                                                                                <select class="form-control" name="item_id[]" id="item_id<?php echo $x; ?>" required>
 
-                                                                                                    <?php
-                                                                                                    $stmt2 = $conn->prepare(" select item_id ,item_name  from tbl_item_data  ");
-                                                                                                    $stmt2->execute();
-                                                                                                    if ($stmt2->rowCount() > 0) {
-                                                                                                        while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-                                                                                                    ?>
-                                                                                                            <option value="<?php echo $row2['item_id']; ?>" <?php if ($item_id_edit == $row2['item_id']) {
-                                                                                                                                                                echo "selected";
-                                                                                                                                                            } ?>> <?php echo $row2['item_name']; ?></option>
-                                                                                                    <?php
-                                                                                                        }
-                                                                                                    }
-                                                                                                    ?>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="form-group  col-lg-2">
-                                                                                            <label class="text-dark font-weight-medium">ຈຳນວນ</label>
-                                                                                            <div class="form-group">
-                                                                                                <input type="number" step="any" name="item_value[]" id="item_value<?php echo $x; ?>" value="<?php echo $row3['item_value']; ?>" autocomplete="off" class="form-control" required />
-                                                                                            </div>
-                                                                                        </div>
+                                                                                                <div class="form-group  col-lg-2">
+                                                                                                    <label class="text-dark font-weight-medium">ຈຳນວນ</label>
+                                                                                                    <div class="form-group">
+                                                                                                        <input type="number" step="any" name="item_value[]" id="item_value<?php echo $x; ?>" autocomplete="off" class="form-control" value="<?php echo $row3['item_value']; ?>" readonly />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                                                                                        
                                                                                         <input type="hidden" class="form-control" id="rui_id" name="rui_id" value="<?php echo $row3['rui_id']; ?>" required>
                                                                                         <input type="hidden" class="form-control" id="riud_id" name="riud_id" value="<?php echo $row3['riud_id']; ?>" required>
 
