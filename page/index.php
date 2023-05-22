@@ -65,7 +65,7 @@ include("../setting/conn.php");
                         <br>
 
                         <div class="form-group  col-lg-12">
-                          <img src="../images/ic_launcher.png" width="40%" height="100%" alt="Mono">
+                          <img src="../images/index-support.png" width="40%" height="100%" alt="Mono">
 
                         </div>
 
