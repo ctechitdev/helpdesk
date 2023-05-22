@@ -75,9 +75,10 @@ $header_click = "1";
 
 
                                                 <?php
-                                                $stmt4 = $conn->prepare(" SELECT ir_id,is_name,ir_detail,rate_point from tbl_issue_request a 
+                                                $stmt4 = $conn->prepare(" SELECT ir_id,is_name,ir_detail,rate_point 
+                                                from tbl_issue_request a 
                                                 left join tbl_issue_status b on a.ir_state = b.is_id
-                                              
+                                                where assign_by = '$id_users' and ir_state in ('2','4')
                                                 order by ir_id desc ");
                                                 $stmt4->execute();
                                                 if ($stmt4->rowCount() > 0) {
@@ -87,7 +88,7 @@ $header_click = "1";
                                                         $is_name = $row4['is_name'];
                                                         $ir_detail = $row4['ir_detail'];
                                                         $rate_point = $row4['rate_point'];
-                                                        
+
                                                 ?>
 
 
@@ -97,17 +98,19 @@ $header_click = "1";
 
                                                             <td><?php echo "$is_name"; ?></td>
                                                             <td><?php echo "$ir_detail"; ?></td>
-                                                            <td><td><?php if (empty($rate_point)){
-                                                          echo "ລໍຖ້າປິດບັນຫາ";
-                                                         } else {
-                                                          echo"$rate_point";
-                                                         }
-                                                         
-                                                         ?>
+                                                            <td>
+                                                            <td><?php if (empty($rate_point)) {
+                                                                    echo "ລໍຖ້າປິດບັນຫາ";
+                                                                } else {
+                                                                    echo "$rate_point";
+                                                                }
 
-                                                         
-                                                         </td></td>
-                                                            
+                                                                ?>
+
+
+                                                            </td>
+                                                            </td>
+
                                                             <td>
                                                                 <div class="dropdown">
                                                                     <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
@@ -174,7 +177,6 @@ $header_click = "1";
 
                     return false;
                 });
-                
             </script>
 
 

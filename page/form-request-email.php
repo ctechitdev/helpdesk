@@ -76,9 +76,12 @@ $header_click = "2";
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $stmt4 = $conn->prepare("select user_id,state,re_id,user_email,pass_email,date_update,full_name,dp_name from tbl_request_email a 
+                                                    $stmt4 = $conn->prepare("select user_id,state,re_id,user_email,pass_email,date_update,full_name,dp_name 
+                                                    from tbl_request_email a 
                                                     left join tbl_user b on a.user_id = b.usid
-                                                    left join tbl_depart c on b.depart_id = c.dp_id order by re_id desc; ");
+                                                    left join tbl_depart c on b.depart_id = c.dp_id 
+                                                    where user_id ='$id_users'
+                                                    order by re_id desc; ");
                                                     $stmt4->execute();
                                                     if ($stmt4->rowCount() > 0) {
                                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {

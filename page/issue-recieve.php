@@ -65,7 +65,7 @@ $header_click = "1";
 
                                         <table id="productsTable" class="table table-hover table-product" style="width:100%">
 
-                                        <thead>
+                                            <thead>
                                                 <tr>
                                                     <th>ລຳດັບ</th>
                                                     <th>ປະເພດລະບົບ</th>
@@ -83,46 +83,48 @@ $header_click = "1";
                                             <tbody>
 
                                                 <?php
-                                               $stmt4 = $conn->prepare("SELECT ir_id,is_name,isc_name,ist_name,ir_detail,request_date,dp_name,full_name,assign_by,reqeust_by FROM tbl_issue_request a 
+                                                $stmt4 = $conn->prepare("SELECT ir_id,is_name,isc_name,ist_name,ir_detail,request_date,dp_name,full_name,assign_by,reqeust_by FROM tbl_issue_request a 
                                                left join tbl_issue_type b on a.ist_id = b.ist_id 
                                                left join tbl_issue_category c on b.isc_id = c.isc_id 
                                                left join tbl_issue_status d on a.ir_state=d.is_id 
                                                left join tbl_user e on a.reqeust_by = e.usid 
-                                               left JOIN tbl_depart f on e.depart_id = f.dp_id order by ir_id desc;");
-                                               $stmt4->execute();
-                                               if ($stmt4->rowCount() > 0) {
-                                                   while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                                       $ir_id = $row4['ir_id'];
-                                                       $isc_name = $row4['isc_name'];
-                                                       $ist_name = $row4['ist_name'];
-                                                       $is_name = $row4['is_name'];
-                                                       $dp_name = $row4['dp_name'];
-                                                       $request = $row4['full_name'];
-                                                       $assy_by = $row4['assign_by'];
-                                                       $ir_detail = $row4['ir_detail'];
-                                                       $request_date = $row4['request_date'];
-                                               ?>
-                                                       <tr>
-                                                           <td><?php echo "$ir_id"; ?></td>
-                                                           <td><?php echo "$isc_name"; ?></td>
-                                                           <td><?php echo "$ist_name"; ?></td>
-                                                           <td><?php echo "$request"; ?></td>
-                                                           <td><?php echo "$dp_name"; ?></td>
-                                                           <td><?php if (empty($assy_by)){
-                                                            echo "ລໍຖ້າຮັບ";
-                                                           } else {
-                                                            echo"$full_name";
-                                                           }
-                                                           
-                                                           ?>
+                                               left JOIN tbl_depart f on e.depart_id = f.dp_id
+                                               where ir_state ='1'
+                                                order by ir_id desc;");
+                                                $stmt4->execute();
+                                                if ($stmt4->rowCount() > 0) {
+                                                    while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+                                                        $ir_id = $row4['ir_id'];
+                                                        $isc_name = $row4['isc_name'];
+                                                        $ist_name = $row4['ist_name'];
+                                                        $is_name = $row4['is_name'];
+                                                        $dp_name = $row4['dp_name'];
+                                                        $request = $row4['full_name'];
+                                                        $assy_by = $row4['assign_by'];
+                                                        $ir_detail = $row4['ir_detail'];
+                                                        $request_date = $row4['request_date'];
+                                                ?>
+                                                        <tr>
+                                                            <td><?php echo "$ir_id"; ?></td>
+                                                            <td><?php echo "$isc_name"; ?></td>
+                                                            <td><?php echo "$ist_name"; ?></td>
+                                                            <td><?php echo "$request"; ?></td>
+                                                            <td><?php echo "$dp_name"; ?></td>
+                                                            <td><?php if (empty($assy_by)) {
+                                                                    echo "ລໍຖ້າຮັບ";
+                                                                } else {
+                                                                    echo "$full_name";
+                                                                }
 
-                                                           
-                                                           </td>
-                                                           
-                                                           <td><?php echo "$is_name";?></td>
-                                                           <td><?php echo mb_strimwidth("$ir_detail", 0, 15, "..."); ?></td>
-                                                           <td><?php echo "$request_date"; ?></td>
-                                                           <td>
+                                                                ?>
+
+
+                                                            </td>
+
+                                                            <td><?php echo "$is_name"; ?></td>
+                                                            <td><?php echo mb_strimwidth("$ir_detail", 0, 15, "..."); ?></td>
+                                                            <td><?php echo "$request_date"; ?></td>
+                                                            <td>
                                                                 <div class="dropdown">
                                                                     <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                                                     </a>

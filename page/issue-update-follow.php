@@ -77,7 +77,9 @@ $ir_id = $_GET['ir_id'];
                                     left join tbl_issue_category c on b.isc_id = c.isc_id
                                     left join tbl_user d on a.reqeust_by = d.usid 
                                     left join tbl_depart e on d.depart_id = e.dp_id 
-                                    left join tbl_issue_status f on a.ir_state = f.is_id order by ir_id desc;
+                                    left join tbl_issue_status f on a.ir_state = f.is_id 
+                                    where assign_by = '$id_users' and ir_state = '2'
+                                    order by ir_id desc;
                                      ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {

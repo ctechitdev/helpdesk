@@ -1,4 +1,3 @@
-
 <?php
 include("../setting/checksession.php");
 include("../setting/conn.php");
@@ -53,51 +52,62 @@ $ir_id = $_GET['ir_id'];
                                     <div class="email-body-head mb-5 ">
                                         <h4 class="text-dark">ອັຟເດດບັນຫາ</h4>
                                         <?php
-                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_request where ir_id = '$ir_id' ") ->fetch(PDO::FETCH_ASSOC); 
-                                        
+                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_request where ir_id = '$ir_id' ")->fetch(PDO::FETCH_ASSOC);
+
                                         ?>
 
 
 
                                     </div>
                                     <form method="post" id="addhistory">
-                                    <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
+                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
 
 
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="row">
-                                            
+
                                                     <div class="form-group  col-lg-12">
-												<label class="text-dark font-weight-medium">ສະຖານະຂອງບັນຫາ </label>
-												<div class="form-group">
+                                                        <label class="text-dark font-weight-medium">ສະຖານະຂອງບັນຫາ </label>
+                                                        <div class="form-group">
 
-													<select class=" form-control font" name="ir_state" id="ir_state" required>
-														<option value=""> ເລືອກສະຖານະຂອງບັນຫາ </option>
-														<?php
-														$stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status ");
-														$stmt5->execute();
-														if ($stmt5->rowCount() > 0) {
-															while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
-														?>
-																<option value="<?php echo $row5['is_id']; ?>"> <?php echo $row5['is_name']; ?></option>
-														<?php
-															}
-														}
-														?>
-													</select>
-												</div>
-											
+                                                            <select class=" form-control font" name="ir_state" id="ir_state" required>
+                                                                <option value=""> ເລືອກສະຖານະຂອງບັນຫາ </option>
+                                                                <?php
+                                                                $stmt5 = $conn->prepare(" SELECT * FROM tbl_issue_status where is_id  not in ('1','3') ");
+                                                                $stmt5->execute();
+                                                                if ($stmt5->rowCount() > 0) {
+                                                                    while ($row5 = $stmt5->fetch(PDO::FETCH_ASSOC)) {
+                                                                ?>
+                                                                        <option value="<?php echo $row5['is_id']; ?>" <?php if ($row5['is_id'] == 2) {
+                                                                                                                            echo "selected";
+                                                                                                                        } ?>> <?php echo $row5['is_name']; ?></option>
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
 
-                                        
 
+
+
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 text-center">
+                                                        <h3> <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
+                                                            <div>
+                                                                <label for="firstName"> <?php echo $history_rows['ir_detail']; ?>
+                                                                </label>
+                                                            </div>
+                                                        </h3>
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12">
+                                                        <label class="text-dark font-weight-medium"> ລາຍລະອຽດການແກ້ໄຂ </label>
+                                                        <textarea id="ih_detail" name="ih_detail" class="form-control" cols="30" rows="3" required></textarea>
+                                                    </div>
                                                 </div>
-
-                                                <div class="form-group col-lg-12">
-                                                    <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
-                                                    <input type="text" class="form-control" id="ih_detail" name="ih_detail" value="<?php echo $history_rows['ir_detail']; ?>" required>
-                                                </div>
-                                            </div>
                                             </div>
 
 
@@ -114,7 +124,7 @@ $ir_id = $_GET['ir_id'];
                 </div>
 
             </div>
-    
+
             <div class="content-wrapper">
                 <div class="content">
                     <!-- For Components documentaion -->
@@ -124,7 +134,7 @@ $ir_id = $_GET['ir_id'];
 
                         <div class="card-body">
 
-                        <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                            <table id="productsTable" class="table table-hover table-product" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>ເລກທີ</th>
@@ -136,7 +146,7 @@ $ir_id = $_GET['ir_id'];
                                         <th>ພະແນກ</th>
                                         <th>ວັນທີອັບເດດບັນຫາ</th>
                                         <th></th>
-                                       
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -149,7 +159,12 @@ $ir_id = $_GET['ir_id'];
                                     left join tbl_issue_category c on b.isc_id = c.isc_id 
                                     left join tbl_issue_status d on a.ir_state = d.is_id
                                     left join tbl_user f on e.reqeust_by = f.usid 
-                                    left join tbl_depart g on f.depart_id = g.dp_id order by ih_id desc; ");
+                                    left join tbl_depart g on f.depart_id = g.dp_id 
+                                    where a.ir_id = '$ir_id'
+                                    order by ih_id desc
+                                   
+                                    
+                                    ; ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
@@ -161,7 +176,7 @@ $ir_id = $_GET['ir_id'];
                                             $user_name = $row4['user_name'];
                                             $dp_name = $row4['dp_name'];
                                             $update_date = $row4['update_date'];
-                                            
+
 
                                     ?>
 
@@ -176,15 +191,15 @@ $ir_id = $_GET['ir_id'];
                                                 <td><?php echo "$user_name"; ?></td>
                                                 <td><?php echo "$dp_name"; ?></td>
                                                 <td><?php echo "$update_date"; ?></td>
-                                                
-                                               
+
+
                                                 <td>
                                                     <div class="dropdown">
                                                         <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                        
+
                                                             <a class="dropdown-item" href="edit-issue-history.php?ih_id=<?php echo $row4['ih_id']; ?>">ແກ້ໄຂ</a>
                                                             <a class="dropdown-item" type="button" id="deletehistory" data-id='<?php echo $row4['ih_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
 
@@ -203,7 +218,7 @@ $ir_id = $_GET['ir_id'];
                                 </tbody>
                             </table>
 
-                                                       
+
                         </div>
                     </div>
 

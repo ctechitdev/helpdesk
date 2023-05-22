@@ -207,10 +207,12 @@ $header_click = "2";
 
 
                                     <?php
-                            $stmt4 = $conn->prepare(" SELECT a.rui_id,rs_name,dp_name,user_name,reqeust_date FROM tbl_request_use_item a 
+                            $stmt4 = $conn->prepare(" SELECT a.rui_id,rs_name,dp_name,user_name,reqeust_date 
+                            FROM tbl_request_use_item a 
                             left join tbl_request_status b on a.rs_id = b.rs_id 
                             left join tbl_depart c on a.depart_id = c.dp_id 
                             left join tbl_user d on a.request_by = d.usid 
+                            where  request_by = '$id_users'
                              order by rui_id desc;
 
                             

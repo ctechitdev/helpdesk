@@ -67,19 +67,25 @@ $ir_id = $_GET['ir_id'];
                                     <form method="post" id="update">
                                         <input type="hidden" class="form-control" id="ih_id" name="ih_id" value="<?php echo $request_rows['ih_id']; ?>" required>
                                         <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $request_rows['ir_id']; ?>" required>
-                                        <div class="row">
+                                        <div class="row  ">
 
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-12 text-center">
                                                 <div class="form-group">
-                                                    <label for="firstName">ລາຍລະອຽດບັນຫາ</label>
-                                                    <input type="button" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
+                                                    <h3> <label for="firstName">ລາຍລະອຽດບັນຫາ </label>
+                                                        <div>
+                                                            <label for="firstName"><?php echo $request_rows['ir_detail']; ?>
+                                                        </div>
+                                                        </label>
+                                                    </h3>
                                                 </div>
                                             </div>
-                                            
 
-                                            <div class="form-group col-lg-6">
-                                                <label class="text-dark font-weight-medium">ຄະແນນ</label>
-                                                
+
+                                            <div class="form-group col-lg-12">
+                                                <h3>
+                                                    <label class="text-dark font-weight-medium">ຄະແນນ</label>
+
+                                                </h3>
                                                 <div class="form-group">
 
                                                     <select class=" form-control font" id="rate_point" name="rate_point" value="<?php echo $request_rows['rate_point']; ?>" required>
@@ -94,12 +100,13 @@ $ir_id = $_GET['ir_id'];
                                                     </select>
 
                                                 </div>
+
                                             </div>
-                                         
-                                            <div class="col-lg-6">
+
+                                            <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label for="firstName">ຂໍ້ຄວາມເນືັ້ອຫາໃນການປິດບັນຫາ</label>
-                                                    <textarea class="form-control"rows="4" id="ih_detail" name="ih_detail" ></textarea>
+                                                    <textarea class="form-control" rows="4" id="ih_detail" name="ih_detail"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -115,7 +122,7 @@ $ir_id = $_GET['ir_id'];
                 </div>
 
             </div>
-            
+
 
             <?php include "footer.php"; ?>
         </div>
@@ -146,7 +153,6 @@ $ir_id = $_GET['ir_id'];
             }, 'json')
             return false;
         });
-        
     </script>
 
 
