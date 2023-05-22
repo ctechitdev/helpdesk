@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2023 at 04:16 AM
+-- Generation Time: May 22, 2023 at 05:26 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -39,10 +39,15 @@ CREATE TABLE `tbl_depart` (
 INSERT INTO `tbl_depart` (`dp_id`, `dp_name`) VALUES
 (1, 'ໄອທີ'),
 (2, 'ບັນຊີ'),
-(3, 'ແອັດມີນ'),
-(4, 'ການຂາຍ'),
-(5, 'ແຟນຊາຍ'),
-(6, 'ບໍລິຫານ');
+(3, 'ບຸກຄະລາກອນ'),
+(4, 'BSD'),
+(5, 'Shell'),
+(6, 'FMCG'),
+(8, 'Kubota'),
+(9, 'KPTL'),
+(10, 'Logistic'),
+(11, 'Toto'),
+(12, 'Yamaha');
 
 -- --------------------------------------------------------
 
@@ -104,21 +109,15 @@ CREATE TABLE `tbl_issue_history` (
 --
 
 INSERT INTO `tbl_issue_history` (`ih_id`, `ir_id`, `ir_state`, `ih_detail`, `update_by`, `update_date`) VALUES
-(1, 1, 1, 'test123', NULL, NULL),
-(2, 2, 1, 'ທົດລອງ', NULL, NULL),
-(3, 3, 1, 'issue-request.php', NULL, NULL),
-(8, 2, 3, 'ທົດລອງ3', NULL, NULL),
-(9, 6, 1, 'ທົດລອງ5', NULL, NULL),
-(12, 6, 3, 'ທົດລອງ5555', 1, '2023-05-15'),
-(13, 7, 1, 'test123', NULL, NULL),
-(14, 8, 1, 'ທົດລອງ', NULL, NULL),
-(16, 7, 1, 'fffff', 1, '2023-05-16'),
-(17, 8, 1, 'test', 1, '2023-05-16'),
-(18, 8, 2, 'billy', 1, '2023-05-16'),
-(19, 7, 2, 'bin', 1, '2023-05-16'),
-(22, 10, 3, '\r\n                                                    ', NULL, NULL),
-(25, 8, 3, 'ທົດລອງ', NULL, NULL),
-(26, 12, 1, 'test123', NULL, NULL);
+(1, 1, 1, 'ຄອມເປີດບໍ່ຂື້ນ', NULL, NULL),
+(2, 1, 1, 'ຕິດຕາມ', 3, '2023-05-22'),
+(3, 1, 2, 'ຕິດຕາມ 1', 3, '2023-05-22'),
+(4, 1, 2, 'ຕິດຕາມ 2', 3, '2023-05-22'),
+(5, 1, 4, 'ລໍຖ້າອາໄຫຼ່', 3, '2023-05-22'),
+(6, 2, 1, 'ເຂົ້າບໍ່ໄດ້', NULL, NULL),
+(7, 2, 2, 'ກຳລັງແກ້ໄຂ', 4, '2023-05-22'),
+(8, 2, 3, 'ປິດສຳເລັດ', NULL, NULL),
+(9, 1, 3, 'ແກ້ແລ້ວ', 3, '2023-05-22');
 
 -- --------------------------------------------------------
 
@@ -143,15 +142,8 @@ CREATE TABLE `tbl_issue_request` (
 --
 
 INSERT INTO `tbl_issue_request` (`ir_id`, `ist_id`, `ir_state`, `ir_detail`, `reqeust_by`, `request_date`, `assign_by`, `assign_date`, `rate_point`) VALUES
-(1, 4, 1, 'test123', 1, '2023-05-06', NULL, NULL, NULL),
-(2, 2, 1, 'ທົດລອງ3', 1, '2023-05-09', 0, '0000-00-00', 2),
-(3, 0, 2, 'ທົດລອງເບິ່ງ', 1, '2023-05-09', 0, '0000-00-00', NULL),
-(6, 4, 3, 'ທົດລອງ5', 1, '2023-05-12', 1, '2023-05-15', 3),
-(7, 3, 2, 'test123', 1, '2023-05-16', 1, '2023-05-16', NULL),
-(8, 0, 3, '123', 1, '2023-05-16', NULL, NULL, 4),
-(10, 1, 3, 'ເປີດບໍ່ຕິດ', 1, '2023-05-16', 1, '2023-05-16', 3),
-(11, 4, 1, 'ືທົດລອງ', 1, '2023-05-16', 1, '2023-05-16', NULL),
-(12, 0, 1, 'test123', 1, '2023-05-16', NULL, NULL, NULL);
+(1, 1, 3, 'ຄອມເປີດບໍ່ຂື້ນ', 2, '2023-05-22', 3, '2023-05-22', 5),
+(2, 3, 3, 'ເຂົ້າບໍ່ໄດ້', 2, '2023-05-22', 4, '2023-05-22', 3);
 
 -- --------------------------------------------------------
 
@@ -259,16 +251,18 @@ CREATE TABLE `tbl_request_email` (
   `pass_email` varchar(30) DEFAULT NULL,
   `date_request` date DEFAULT NULL,
   `update_by` int(11) DEFAULT NULL,
-  `date_update` date DEFAULT NULL
+  `date_update` date DEFAULT NULL,
+  `state` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_request_email`
 --
 
-INSERT INTO `tbl_request_email` (`re_id`, `user_id`, `user_email`, `pass_email`, `date_request`, `update_by`, `date_update`) VALUES
-(1, 1, 'billy@ffff.com', '123', '2023-05-12', 1, '2023-05-12'),
-(3, NULL, 'billy@ffff.com5', '1111', NULL, 1, '2023-05-16');
+INSERT INTO `tbl_request_email` (`re_id`, `user_id`, `user_email`, `pass_email`, `date_request`, `update_by`, `date_update`, `state`) VALUES
+(6, 2, NULL, NULL, '2023-05-22', NULL, NULL, 2),
+(7, 5, NULL, NULL, '2023-05-22', NULL, NULL, NULL),
+(8, 3, NULL, NULL, '2023-05-22', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -309,9 +303,8 @@ CREATE TABLE `tbl_request_use_item` (
 --
 
 INSERT INTO `tbl_request_use_item` (`rui_id`, `rui_bill_number`, `rs_id`, `depart_id`, `request_by`, `reqeust_date`) VALUES
-(1, NULL, 1, 1, 1, '2023-05-15'),
-(2, NULL, 1, 1, 1, '2023-05-15'),
-(3, NULL, 1, 1, 1, '2023-05-16');
+(1, NULL, 1, 2, 2, '2023-05-22'),
+(2, NULL, 1, 3, 5, '2023-05-22');
 
 -- --------------------------------------------------------
 
@@ -332,11 +325,9 @@ CREATE TABLE `tbl_request_use_item_detail` (
 
 INSERT INTO `tbl_request_use_item_detail` (`riud_id`, `rui_id`, `item_id`, `item_value`) VALUES
 (1, 1, 1, 10),
-(2, 1, 2, 3),
-(3, 2, 1, 1),
-(4, 2, 1, 5),
-(5, 3, 1, 10),
-(6, 3, 2, 3);
+(2, 1, 2, 10),
+(3, 2, 1, 2),
+(4, 2, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -356,12 +347,8 @@ CREATE TABLE `tbl_roles` (
 
 INSERT INTO `tbl_roles` (`r_id`, `role_name`, `role_level`) VALUES
 (1, 'ຊຸບເປີແອັດມີນ', 1),
-(2, 'ບັນຊີ', 4),
-(3, 'ແອັດມີນສາງ', 3),
-(4, 'ແອັດມີນລະບົບ', 2),
-(5, 'ການຂາຍ', 3),
-(6, 'ແຟນຊາຍ', 5),
-(7, 'ແອັດມີນແຟນຊາຍ', 5);
+(2, 'ຜູ້ແຈ້ງບັນຫາ', 5),
+(3, 'ຜູ້ແກ້ບັນຫາ', 2);
 
 -- --------------------------------------------------------
 
@@ -404,37 +391,33 @@ CREATE TABLE `tbl_role_page` (
 --
 
 INSERT INTO `tbl_role_page` (`rp_id`, `role_id`, `ht_id`, `st_id`, `pt_id`) VALUES
-(111, 6, 2, 3, 4),
-(21, 7, 2, 3, 4),
-(22, 7, 3, 4, 6),
-(23, 4, 2, 3, 4),
-(24, 4, 2, 3, 5),
-(25, 4, 3, 4, 1),
-(26, 4, 3, 4, 2),
-(27, 4, 3, 4, 6),
-(28, 4, 3, 4, 7),
-(196, 1, 3, 4, 1),
-(195, 1, 2, 3, 5),
-(194, 1, 2, 3, 4),
-(193, 1, 2, 3, 3),
-(192, 1, 1, 2, 19),
-(110, 6, 1, 2, 12),
-(109, 6, 1, 2, 11),
-(112, 6, 3, 4, 6),
-(113, 3, 1, 2, 8),
-(114, 3, 1, 2, 10),
-(115, 3, 1, 2, 12),
-(116, 3, 1, 2, 13),
-(117, 3, 1, 2, 14),
-(118, 3, 2, 3, 4),
-(119, 3, 3, 4, 6),
-(191, 1, 1, 2, 18),
-(190, 1, 1, 1, 22),
-(189, 1, 1, 1, 21),
-(188, 1, 1, 1, 20),
-(187, 1, 1, 1, 17),
-(186, 1, 1, 1, 15),
-(197, 1, 3, 4, 2);
+(1, 1, 1, 1, 15),
+(2, 1, 1, 1, 17),
+(3, 1, 1, 1, 20),
+(4, 1, 1, 1, 21),
+(5, 1, 1, 2, 18),
+(6, 1, 1, 2, 19),
+(7, 1, 1, 2, 22),
+(8, 1, 2, 3, 3),
+(9, 1, 2, 3, 4),
+(10, 1, 2, 3, 5),
+(11, 1, 3, 4, 1),
+(12, 1, 3, 4, 2),
+(13, 2, 1, 1, 15),
+(14, 2, 1, 2, 18),
+(15, 2, 1, 2, 22),
+(16, 3, 1, 1, 15),
+(17, 3, 1, 1, 17),
+(18, 3, 1, 1, 20),
+(19, 3, 1, 1, 21),
+(20, 3, 1, 2, 18),
+(21, 3, 1, 2, 19),
+(22, 3, 1, 2, 22),
+(23, 3, 2, 3, 3),
+(24, 3, 2, 3, 4),
+(25, 3, 2, 3, 5),
+(26, 3, 3, 4, 1),
+(27, 3, 3, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -484,13 +467,11 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`usid`, `full_name`, `user_name`, `user_password`, `role_id`, `depart_id`, `user_status`, `add_by`, `date_register`) VALUES
-(1, 'ຊຸບເປິແອັດມີນ', 'superadmin', '123', 1, 1, 1, 1, '2023-03-13'),
-(2, 'ບັນຊີ', 'accountant', '123', 2, 2, 1, 1, '2023-03-13'),
-(3, 'ແອັດມີນສາງ', 'adminstock', '123', 3, 3, 1, 1, '2023-03-13'),
-(4, 'ແອັດມິນລະບົບ', 'adminsystem', '123', 4, 1, 1, 1, '2023-03-13'),
-(5, 'ການຂາຍ', 'sale', '123', 5, 4, 1, 1, '2023-03-13'),
-(6, 'ສາຂາໜອງດ້ວງ', 'nongduang', '123', 6, 5, 1, 1, '2023-03-13'),
-(7, 'billy', 'billy', '123', 7, 5, 1, 6, '2023-03-13');
+(1, 'ຊຸບເປິແອັດມີນ', 'superadmin', '123', 1, 1, 1, 1, '2023-05-22'),
+(2, 'ບິນລີ້1', 'Testing', '123', 2, 2, 1, 1, '2023-05-22'),
+(3, 'ບິນລີ້2', 'admin', '123', 3, 1, 1, 1, '2023-05-22'),
+(4, 'ບິນລີ້3', 'admin2', '123', 3, 1, 1, 3, '2023-05-22'),
+(5, 'ບັນຊີ2', 'testing2', '123', 2, 3, 1, 3, '2023-05-22');
 
 --
 -- Indexes for dumped tables
@@ -612,7 +593,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_depart`
 --
 ALTER TABLE `tbl_depart`
-  MODIFY `dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_header_title`
@@ -630,13 +611,13 @@ ALTER TABLE `tbl_issue_category`
 -- AUTO_INCREMENT for table `tbl_issue_history`
 --
 ALTER TABLE `tbl_issue_history`
-  MODIFY `ih_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ih_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_issue_request`
 --
 ALTER TABLE `tbl_issue_request`
-  MODIFY `ir_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ir_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_issue_status`
@@ -666,7 +647,7 @@ ALTER TABLE `tbl_page_title`
 -- AUTO_INCREMENT for table `tbl_request_email`
 --
 ALTER TABLE `tbl_request_email`
-  MODIFY `re_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `re_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_request_status`
@@ -678,19 +659,19 @@ ALTER TABLE `tbl_request_status`
 -- AUTO_INCREMENT for table `tbl_request_use_item`
 --
 ALTER TABLE `tbl_request_use_item`
-  MODIFY `rui_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `rui_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_request_use_item_detail`
 --
 ALTER TABLE `tbl_request_use_item_detail`
-  MODIFY `riud_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `riud_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_role_level`
@@ -702,7 +683,7 @@ ALTER TABLE `tbl_role_level`
 -- AUTO_INCREMENT for table `tbl_role_page`
 --
 ALTER TABLE `tbl_role_page`
-  MODIFY `rp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
+  MODIFY `rp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tbl_sub_title`
@@ -714,7 +695,7 @@ ALTER TABLE `tbl_sub_title`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `usid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `usid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
