@@ -84,10 +84,10 @@ $ir_id = $_GET['ir_id'];
 
 
 
-                                        
+
                                         ?>
 
-                                        
+
 
                                     </div>
                                     <form method="post" id="editrequest">
@@ -122,7 +122,7 @@ $ir_id = $_GET['ir_id'];
                                                         <label class="text-dark font-weight-medium">ປະເພດລະບົບ</label>
                                                         <div class="form-group">
 
-                                                             
+
                                                             <select class="form-control  font" name="ist_id" id="ist_id" required>
                                                                 <option value=""> ເລືອກປະເພດບັນຫາ </option>
                                                                 <?php
@@ -130,7 +130,9 @@ $ir_id = $_GET['ir_id'];
                                                                 $stmt->execute();
                                                                 if ($stmt->rowCount() > 0) {
                                                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                                                ?> <option value="<?php echo $row['ist_id']; ?> " <?php if($issue_type_id == $row['ist_id']){echo "selected";} ?>> <?php echo $row['ist_name']; ?></option>
+                                                                ?> <option value="<?php echo $row['ist_id']; ?> " <?php if ($issue_type_id == $row['ist_id']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>> <?php echo $row['ist_name']; ?></option>
                                                                 <?php
                                                                     }
                                                                 }
@@ -140,13 +142,16 @@ $ir_id = $_GET['ir_id'];
                                                     </div>
 
 
-                                                
 
-                                                <div class="form-group col-lg-12">
-                                                    <label class="text-dark font-weight-medium"> ລາຍລະອຽດບັນຫາ </label>
-                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" value="<?php echo $request_rows['ir_detail']; ?>" required>
+
+                                                    <div class="form-group col-lg-12">
+                                                        <label class="text-dark font-weight-medium"> ລາຍລະອຽດບັນຫາ </label>
+
+                                                        <textarea id="ir_detail" name="ir_detail" class="form-control" cols="30" rows="3" required><?php echo $request_rows['ir_detail']; ?></textarea>
+
+
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
 
                                         </div>
@@ -176,7 +181,7 @@ $ir_id = $_GET['ir_id'];
 
                             <table id="productsTable" class="table table-hover table-product" style="width:100%">
                                 <thead>
-                                <tr>
+                                    <tr>
                                         <th>ເລກທີ</th>
                                         <th>ປະເພດບັນຫາ</th>
                                         <th>ປະເພດລະບົບ</th>
@@ -191,7 +196,7 @@ $ir_id = $_GET['ir_id'];
                                 <tbody>
 
 
-                                <?php
+                                    <?php
                                     $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,ir_detail,user_name,dp_name,request_date FROM tbl_issue_request a 
                                     left join tbl_issue_type b on a.ist_id = b.ist_id 
                                     left join tbl_issue_category c on b.isc_id = c.isc_id
@@ -270,12 +275,12 @@ $ir_id = $_GET['ir_id'];
                 if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',
-                        'ເພີ່ມຂໍ້ມູນສຳເລັດ',
+                        'ແກ້ໄຂ',
                         'success'
                     )
                     setTimeout(
                         function() {
-                            window.location.href = 'issue-request.php';
+                            location.reload();
                         }, 1000);
                 }
             }, 'json')

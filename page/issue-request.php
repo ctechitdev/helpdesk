@@ -31,24 +31,24 @@ $header_click = "1";
 <body class="navbar-fixed sidebar-fixed" id="body">
 
 
-<script>
-	$(function() {
+    <script>
+        $(function() {
 
 
 
-		$('#isc_id').change(function() {
-			var isc_id = $('#isc_id').val();
-			$.post('../function/dynamic_dropdown/get_district_name.php', {
-                isc_id: isc_id
-				},
-				function(output) {
-					$('#ist_id').html(output).show();
-				});
-		});
- 
+            $('#isc_id').change(function() {
+                var isc_id = $('#isc_id').val();
+                $.post('../function/dynamic_dropdown/get_district_name.php', {
+                        isc_id: isc_id
+                    },
+                    function(output) {
+                        $('#ist_id').html(output).show();
+                    });
+            });
 
-	});
-</script>
+
+        });
+    </script>
 
 
     <div class="wrapper">
@@ -110,13 +110,13 @@ $header_click = "1";
                                                     </div>
 
 
-                                                
 
-                                                <div class="form-group col-lg-12">
-                                                    <label class="text-dark font-weight-medium"> ລາຍລະອຽດບັນຫາ </label>
-                                                    <input type="text" class="form-control" id="ir_detail" name="ir_detail" required>
+
+                                                    <div class="form-group col-lg-12">
+                                                        <label class="text-dark font-weight-medium"> ລາຍລະອຽດບັນຫາ </label>
+                                                        <textarea id="ir_detail" name="ir_detail" class="form-control" cols="30" rows="3" required></textarea>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
 
                                         </div>
@@ -161,12 +161,15 @@ $header_click = "1";
                                 <tbody>
 
 
-                                <?php
-                                    $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,ir_detail,user_name,dp_name,request_date FROM tbl_issue_request a 
+                                    <?php
+                                    $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,ir_detail,user_name,dp_name,request_date 
+                                    FROM tbl_issue_request a 
                                     left join tbl_issue_type b on a.ist_id = b.ist_id 
                                     left join tbl_issue_category c on b.isc_id = c.isc_id
                                     left join tbl_user d on a.reqeust_by = d.usid 
-                                    left join tbl_depart e on d.depart_id = e.dp_id order by ir_id desc;
+                                    left join tbl_depart e on d.depart_id = e.dp_id 
+                                    where reqeust_by = '$id_users'
+                                    order by ir_id desc;
                                      ");
                                     $stmt4->execute();
                                     if ($stmt4->rowCount() > 0) {
@@ -237,20 +240,20 @@ $header_click = "1";
         // Add staff user 
         $(document).on("submit", "#addrequest", function() {
             $.post("../query/add-issue-request.php", $(this).serialize(), function(data) {
-                
+
                 if (data.res == "exist") {
-					Swal.fire(
-						'ຂໍ້ມູນບໍ່ຄົບຖວນ',
-						'ໃສ່ຂໍ້ມູນໃຫ້ຄົບ',
-						'error'
-					)
-				} else if (data.res == "success") {
-					Swal.fire(
-						'ສຳເລັດ',
-						'ແຈ້ງບັນຫາສຳເລັດ',
-						'success'
-					)
-					setTimeout(
+                    Swal.fire(
+                        'ຂໍ້ມູນບໍ່ຄົບຖວນ',
+                        'ໃສ່ຂໍ້ມູນໃຫ້ຄົບ',
+                        'error'
+                    )
+                } else if (data.res == "success") {
+                    Swal.fire(
+                        'ສຳເລັດ',
+                        'ແຈ້ງບັນຫາສຳເລັດ',
+                        'success'
+                    )
+                    setTimeout(
                         function() {
                             location.reload();
                         }, 1000);
