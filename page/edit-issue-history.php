@@ -94,7 +94,8 @@ $ih_id = $_GET['ih_id'];
 
                                                 <div class="form-group col-lg-12">
                                                     <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
-                                                    <input type="text" class="form-control" id="ih_detail" name="ih_detail" value="<?php echo $history_rows['ih_detail']; ?>" required>
+                                                    <textarea id="ih_detail" name="ih_detail" class="form-control" cols="30" rows="3" required><?php echo $history_rows['ih_detail']; ?></textarea>
+                                                    
                                                 </div>
                                             </div>
                                             </div>
