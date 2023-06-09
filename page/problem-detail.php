@@ -56,10 +56,12 @@ $ir_id = $_GET['ir_id'];
                                     </div>
                                     <?php
                                     $detail = $conn->query("
-                                    SELECT ir_id,ir_detail, full_name,dp_name
+                                    SELECT ir_id,ir_detail, full_name,dp_name,ist_name,isc_name
                                     FROM tbl_issue_request a
                                     left join tbl_user b on a.reqeust_by = b.usid
                                     left join tbl_depart c on b.depart_id = c.dp_id
+                                  	left join tbl_issue_type d on a.ist_id = d.ist_id
+                                    left join tbl_issue_category e on d.isc_id = e.isc_id
                                     where ir_id = '$ir_id' ")->fetch(PDO::FETCH_ASSOC);
                                     ?>
                                     <form method="post" id="update">
@@ -87,93 +89,36 @@ $ir_id = $_GET['ir_id'];
                                                 </div>
                                             </div>
 
-
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <h3> <label for="firstName">ລາຍລະອຽດບັນຫາ</label>
-                                                        <div><label for="firstName"><?php echo $detail['ir_detail']; ?></label></div>
+                                                    <h3> <label for="firstName"></label>
+                                                        <div><label for="firstName">ໝວດໝູ່: <?php echo $detail['isc_name']; ?></label></div>
                                                     </h3>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <h3> <label for="firstName"></label>
+                                                        <div><label for="firstName">ປະເພດບັນຫາ: <?php echo $detail['ist_name']; ?></label></div>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <h3> <label for="firstName"></label>
+                                                        <div><label for="firstName">ລາຍລະອຽດບັນຫາ: <?php echo $detail['ir_detail']; ?></label></div>
+                                                    </h3>
+                                                </div>
+                                            </div>
+
+
                                         </div>
+
                                         <div class="d-flex justify-content-end mt-6">
                                             <button type="submit" class="btn btn-primary mb-2 btn-pill">ຮັບບັນຫາ</button>
                                         </div>
 
-                                        <table id="productsTable" class="table table-hover table-product" style="width:100%">
 
-                                            <thead>
-                                                <tr>
-                                                    <th>ລຳດັບ</th>
-                                                    <th>ປະເພດລະບົບ</th>
-                                                    <th>ປະເພດບັນຫາ</th>
-                                                    <th>ຊື່ຜູ້ແຈ້ງ</th>
-                                                    <th>ພະແນກ</th>
-                                                    <th>ຊື່ຜູ້ຮັບ</th>
-                                                    <th>ສະຖານະ</th>
-                                                    <th>ລາຍລະອຽດ</th>
-                                                    <th>ວັນທີມອບບັນຫາ</th>
-                                                    <th></th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <?php
-                                                $stmt4 = $conn->prepare("SELECT ir_id,is_name,isc_name,ist_name,ir_detail,request_date,dp_name,full_name,assign_by,reqeust_by FROM tbl_issue_request a 
-                                             left join tbl_issue_type b on a.ist_id = b.ist_id left join tbl_issue_category c on b.isc_id = c.isc_id 
-                                             left join tbl_issue_status d on a.ir_state=d.is_id 
-                                             left join tbl_user e on a.reqeust_by = e.usid left JOIN tbl_depart f on e.depart_id = f.dp_id order by ir_id desc;");
-                                                $stmt4->execute();
-                                                if ($stmt4->rowCount() > 0) {
-                                                    while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                                        $ir_id = $row4['ir_id'];
-                                                        $isc_name = $row4['isc_name'];
-                                                        $ist_name = $row4['ist_name'];
-                                                        $is_name = $row4['is_name'];
-                                                        $dp_name = $row4['dp_name'];
-                                                        $request = $row4['full_name'];
-                                                        $assy_by = $row4['assign_by'];
-                                                        $ir_detail = $row4['ir_detail'];
-                                                        $request_date = $row4['request_date'];
-                                                ?>
-                                                        <tr>
-                                                            <td><?php echo "$ir_id"; ?></td>
-                                                            <td><?php echo "$isc_name"; ?></td>
-                                                            <td><?php echo "$ist_name"; ?></td>
-                                                            <td><?php echo "$request"; ?></td>
-                                                            <td><?php echo "$dp_name"; ?></td>
-                                                            <td><?php if (empty($assy_by)) {
-                                                                    echo "ລໍຖ້າຮັບ";
-                                                                } else {
-                                                                    echo "$full_name";
-                                                                }
-
-                                                                ?>
-
-
-                                                            </td>
-
-                                                            <td><?php echo "$is_name"; ?></td>
-                                                            <td><?php echo mb_strimwidth("$ir_detail", 0, 15, "..."); ?></td>
-                                                            <td><?php echo "$request_date"; ?></td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                                                    </a>
-                                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                                        <a class="dropdown-item" href="problem-detail.php?ir_id=<?php echo $row4['ir_id']; ?>">ລາຍລະອຽດ</a>
-                                                                        <a class="dropdown-item" type="button" id="updatecancel" data-id='<?php echo $row4['ir_id']; ?>' class="btn btn-danger btn-sm">ຍົກເລີກ</a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
                                     </form>
                                 </div>
                             </div>

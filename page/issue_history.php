@@ -52,7 +52,21 @@ $ir_id = $_GET['ir_id'];
                                     <div class="email-body-head mb-5 ">
                                         <h4 class="text-dark">ອັຟເດດບັນຫາ</h4>
                                         <?php
-                                        $history_rows = $conn->query("SELECT * FROM tbl_issue_request where ir_id = '$ir_id' ")->fetch(PDO::FETCH_ASSOC);
+                                        $detail = $conn->query("
+                                        
+                                        SELECT ir_id,ir_detail, full_name,dp_name,ist_name,isc_name
+                                        FROM tbl_issue_request a
+                                        left join tbl_user b on a.reqeust_by = b.usid
+                                        left join tbl_depart c on b.depart_id = c.dp_id
+                                        left join tbl_issue_type d on a.ist_id = d.ist_id
+                                        left join tbl_issue_category e on d.isc_id = e.isc_id
+                                        where ir_id = '$ir_id'
+                                        
+                                         
+                                        
+                                        
+                                        
+                                        ")->fetch(PDO::FETCH_ASSOC);
 
                                         ?>
 
@@ -60,10 +74,59 @@ $ir_id = $_GET['ir_id'];
 
                                     </div>
                                     <form method="post" id="addhistory">
-                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $history_rows['ir_id']; ?>" required>
+                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value='<?php echo "$ir_id"; ?>' required>
 
 
                                         <div class="row">
+                                            <div class="row text-center">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <H4>
+                                                            <label for="firstName">ເລກທີ່ບັນຫາ: </label> <label for="firstName"><?php echo $detail['ir_id']; ?></label>
+                                                        </H4>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <H4>
+                                                            <label for="firstName">ຜູ້ແຈ້ງບັນຫາ: </label> <label for="firstName"><?php echo $detail['full_name']; ?></label>
+                                                        </H4>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <H4>
+                                                            <label for="firstName">ພະແນກ</label> <label for="firstName"><?php echo $detail['dp_name']; ?></label>
+                                                        </H4>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <h3> <label for="firstName"></label>
+                                                            <div><label for="firstName">ໝວດໝູ່: <?php echo $detail['isc_name']; ?></label></div>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <h3> <label for="firstName"></label>
+                                                            <div><label for="firstName">ປະເພດບັນຫາ: <?php echo $detail['ist_name']; ?></label></div>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <h3> <label for="firstName"></label>
+                                                            <div><label for="firstName">ລາຍລະອຽດບັນຫາ: <?php echo $detail['ir_detail']; ?></label></div>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
                                             <div class="col-lg-12">
                                                 <div class="row">
 
@@ -94,14 +157,7 @@ $ir_id = $_GET['ir_id'];
 
                                                     </div>
 
-                                                    <div class="form-group col-lg-12 text-center">
-                                                        <h3> <label for="firstName"> ລາຍລະອຽດບັນຫາ </label>
-                                                            <div>
-                                                                <label for="firstName"> <?php echo $history_rows['ir_detail']; ?>
-                                                                </label>
-                                                            </div>
-                                                        </h3>
-                                                    </div>
+
 
                                                     <div class="form-group col-lg-12">
                                                         <label class="text-dark font-weight-medium"> ລາຍລະອຽດການແກ້ໄຂ </label>
@@ -133,7 +189,7 @@ $ir_id = $_GET['ir_id'];
                     <div class="card card-default">
 
                         <div class="card-body">
-
+                            <H4>ປະຫວັດການເຄື່ອນໄຫວ </H4>
                             <table id="productsTable" class="table table-hover table-product" style="width:100%">
                                 <thead>
                                     <tr>
@@ -153,7 +209,8 @@ $ir_id = $_GET['ir_id'];
 
 
                                     <?php
-                                    $stmt4 = $conn->prepare("SELECT ih_id,isc_name,ist_name,is_name ,ih_detail,user_name,dp_name,update_date FROM tbl_issue_history a 
+                                    $stmt4 = $conn->prepare("SELECT ih_id,isc_name,ist_name,is_name ,ih_detail,user_name,dp_name,update_date
+                                     FROM tbl_issue_history a 
                                     left join tbl_issue_request e on a.ir_id = e.ir_id 
                                     left join tbl_issue_type b on e.ist_id = b.ist_id 
                                     left join tbl_issue_category c on b.isc_id = c.isc_id 

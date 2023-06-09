@@ -52,12 +52,17 @@ $ir_id = $_GET['ir_id'];
                                     <div class="email-body-head mb-5 ">
                                         <h4 class="text-dark">ລາຍລະອຽດ</h4>
                                         <?php
-                                        $request_rows = $conn->query("
-                                        SELECT ih_id,a.ir_id,a.rate_point,a.ir_detail,ih_detail
-                                        FROM tbl_issue_request a
+                                        $detail = $conn->query(" 
                                         
-                                        left join tbl_issue_history b on a.ir_id = b.ir_id
-                                        where a.ir_id = '$ir_id'  ")->fetch(PDO::FETCH_ASSOC);
+                                        SELECT ir_id,ir_detail, full_name,dp_name,ist_name,isc_name
+                                        FROM tbl_issue_request a
+                                        left join tbl_user b on a.reqeust_by = b.usid
+                                        left join tbl_depart c on b.depart_id = c.dp_id
+                                        left join tbl_issue_type d on a.ist_id = d.ist_id
+                                        left join tbl_issue_category e on d.isc_id = e.isc_id
+                                        where ir_id = '$ir_id' 
+                                        
+                                        ")->fetch(PDO::FETCH_ASSOC);
 
 
 
@@ -65,41 +70,57 @@ $ir_id = $_GET['ir_id'];
 
                                     </div>
                                     <form method="post" id="update">
-                                        <input type="hidden" class="form-control" id="ih_id" name="ih_id" value="<?php echo $request_rows['ih_id']; ?>" required>
-                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo $request_rows['ir_id']; ?>" required>
+                            
+                                        <input type="hidden" class="form-control" id="ir_id" name="ir_id" value="<?php echo  "$ir_id"; ?>" required>
                                         <div class="row  ">
 
-                                            <div class="col-lg-12 text-center">
-                                                <div class="form-group">
-                                                    <h3> <label for="firstName">ລາຍລະອຽດບັນຫາ </label>
-                                                        <div>
-                                                            <label for="firstName"><?php echo $request_rows['ir_detail']; ?>
-                                                        </div>
-                                                        </label>
-                                                    </h3>
+                                           
+
+                                            <div class="row text-center">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <H4>
+                                                            <label for="firstName">ເລກທີ່ບັນຫາ: </label> <label for="firstName"><?php echo $detail['ir_id']; ?></label>
+                                                        </H4>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-
-                                            <div class="form-group col-lg-12">
-                                                <h3>
-                                                    <label class="text-dark font-weight-medium">ຄະແນນ</label>
-
-                                                </h3>
-                                                <div class="form-group">
-
-                                                    <select class=" form-control font" id="rate_point" name="rate_point" value="<?php echo $request_rows['rate_point']; ?>" required>
-
-                                                        <option value="">ເລືອກຄະແນນ</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-
-                                                    </select>
-
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <H4>
+                                                            <label for="firstName">ຜູ້ແຈ້ງບັນຫາ: </label> <label for="firstName"><?php echo $detail['full_name']; ?></label>
+                                                        </H4>
+                                                    </div>
                                                 </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <H4>
+                                                            <label for="firstName">ພະແນກ</label> <label for="firstName"><?php echo $detail['dp_name']; ?></label>
+                                                        </H4>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <h3> <label for="firstName"></label>
+                                                            <div><label for="firstName">ໝວດໝູ່: <?php echo $detail['isc_name']; ?></label></div>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <h3> <label for="firstName"></label>
+                                                            <div><label for="firstName">ປະເພດບັນຫາ: <?php echo $detail['ist_name']; ?></label></div>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <h3> <label for="firstName"></label>
+                                                            <div><label for="firstName">ລາຍລະອຽດບັນຫາ: <?php echo $detail['ir_detail']; ?></label></div>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+
 
                                             </div>
 

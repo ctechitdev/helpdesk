@@ -64,10 +64,9 @@ $header_click = "1";
                                                 <tr>
                                                     <th>ເລກທີ</th>
 
-                                                    <th>ສະຖານະຂອງບັນຫາ</th>
+
                                                     <th>ລາຍລະອຽດບັນຫາ</th>
-                                                    <th></th>
-                                                    <th>ຄະແນນ</th>
+                                                    <th>ສະຖານະຂອງບັນຫາ</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -75,10 +74,10 @@ $header_click = "1";
 
 
                                                 <?php
-                                                $stmt4 = $conn->prepare(" SELECT ir_id,is_name,ir_detail,rate_point 
+                                                $stmt4 = $conn->prepare("  SELECT ir_id,is_name,ir_detail,is_name 
                                                 from tbl_issue_request a 
                                                 left join tbl_issue_status b on a.ir_state = b.is_id
-                                                where assign_by = '$id_users' and ir_state in ('2','4')
+                                                where assign_by = '$id_users' and ir_state in ('2','3','4')
                                                 order by ir_id desc ");
                                                 $stmt4->execute();
                                                 if ($stmt4->rowCount() > 0) {
@@ -87,7 +86,6 @@ $header_click = "1";
 
                                                         $is_name = $row4['is_name'];
                                                         $ir_detail = $row4['ir_detail'];
-                                                        $rate_point = $row4['rate_point'];
 
                                                 ?>
 
@@ -96,30 +94,17 @@ $header_click = "1";
                                                         <tr>
                                                             <td><?php echo "$ir_id"; ?></td>
 
-                                                            <td><?php echo "$is_name"; ?></td>
                                                             <td><?php echo "$ir_detail"; ?></td>
-                                                            <td>
-                                                            <td><?php if (empty($rate_point)) {
-                                                                    echo "ລໍຖ້າປິດບັນຫາ";
-                                                                } else {
-                                                                    echo "$rate_point";
-                                                                }
 
-                                                                ?>
-
-
-                                                            </td>
-                                                            </td>
-
+                                                            <td><?php echo "$is_name"; ?></td>
                                                             <td>
                                                                 <div class="dropdown">
                                                                     <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                                                     </a>
                                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                                                         <a class="dropdown-item" href="edit-Closing-rating.php?ir_id=<?php echo $row4['ir_id']; ?>">ລາຍລະອຽດ</a>
-                                                                        <a class="dropdown-item" type="button" id="delete" data-id='<?php echo $row4['ir_id']; ?>' class="btn btn-danger btn-sm">ຍົກເລີກ</a>
-                                                                        <a class="dropdown-item" href="edit-ratting.php?ir_id=<?php echo $row4['ir_id']; ?>">ແກ້ໄຂ</a>
-
+                                                                         <a class="dropdown-item" type="button" id="delete" data-id='<?php echo $row4['ir_id']; ?>' class="btn btn-danger btn-sm">ຍົກເລີກ</a>
+                                                                     
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -158,7 +143,7 @@ $header_click = "1";
                             if (data.res == "success") {
                                 Swal.fire(
                                     'ສຳເລັດ',
-                                    'cancel',
+                                    'ຍົກເລີກສຳເລັດ',
                                     'success'
                                 )
                                 setTimeout(
