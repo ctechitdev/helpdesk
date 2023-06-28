@@ -10,8 +10,6 @@ $rui_id = $_GET['rui_id'];
 
 <!DOCTYPE html>
 
-
-
 <html lang="en" dir="ltr">
 
 <head>
