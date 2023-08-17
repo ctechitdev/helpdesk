@@ -81,12 +81,12 @@ $header_click = "1";
                                             <div class="col-lg-12">
                                                 <div class="row">
                                                     <div class="form-group  col-lg-12">
-                                                        <label class="text-dark font-weight-medium">ປະເພດບັນຫາ</label>
+                                                        <label class="text-dark font-weight-medium">ປະເພດ</label>
                                                         <div class="form-group">
                                                             <select class=" form-control font" name="isc_id" id="isc_id" required>
-                                                                <option value=""> ເລືອກປະເພດບັນຫາ </option>
+                                                                <option value=""> ເລືອກປະເພດ </option>
                                                                 <?php
-                                                                $stmt = $conn->prepare(" SELECT isc_id ,isc_name FROM tbl_issue_category order by isc_name");
+                                                                $stmt = $conn->prepare(" SELECT isc_id ,isc_name FROM tbl_issue_category order by isc_id asc");
                                                                 $stmt->execute();
                                                                 if ($stmt->rowCount() > 0) {
                                                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -100,11 +100,11 @@ $header_click = "1";
                                                     </div>
 
                                                     <div class="form-group col-lg-12">
-                                                        <label class="text-dark font-weight-medium">ປະເພດລະບົບ</label>
+                                                        <label class="text-dark font-weight-medium">ໝວດໝູ່</label>
                                                         <div class="form-group">
 
                                                             <select class="form-control  font" name="ist_id" id="ist_id" required>
-                                                                <option value=""> ເລືອກປະເພດ </option>
+                                                                <option value=""> ເລືອກໝວດໝູ່ </option>
                                                             </select>
                                                         </div>
                                                     </div>

@@ -97,6 +97,7 @@ $header_click = "2";
                                                                                                 $stmt2 = $conn->prepare("
                                                                                                         select item_id ,item_name
                                                                                                         from tbl_item_data 
+                                                                                                        order by item_name asc
                                                                                                          ");
                                                                                                 $stmt2->execute();
                                                                                                 if ($stmt2->rowCount() > 0) {
@@ -292,7 +293,7 @@ $header_click = "2";
 
                     Swal.fire(
                         'ສຳເລັດ',
-                        'ລົງບິນຊື້ສິນຄ້າສຳເລັດ',
+                        'ເພິ່ມຂໍ້ມູນສຳເລັດ',
                         'success'
                     )
 
