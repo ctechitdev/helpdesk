@@ -6,11 +6,10 @@ $header_name = "ຟອມຄຳຂໍນຳໃຊ້ອຸປະກອນ";
 $header_click = "2";
 $rui_id = $_GET['rui_id'];
 
+
 ?>
 
 <!DOCTYPE html>
-
-
 
 <html lang="en" dir="ltr">
 
