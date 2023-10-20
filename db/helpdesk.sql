@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2023 at 05:48 AM
+-- Generation Time: Oct 20, 2023 at 11:59 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -116,8 +116,7 @@ INSERT INTO `tbl_issue_history` (`ih_id`, `ir_id`, `ir_state`, `ih_detail`, `upd
 (1, 1, 1, 'ເຂົ້າເຊີເວີບໍ່ໄດ້', NULL, NULL),
 (2, 1, 3, 'ຫົວແລນຫົ່ມ ຕ້ອງເຂົ້າໃໝ່', 1, '2023-08-17'),
 (3, 2, 1, 'test', NULL, NULL),
-(4, 2, 3, 'test', 1, '2023-08-17'),
-(5, 3, 1, '123', NULL, NULL);
+(4, 2, 3, 'test', 1, '2023-08-17');
 
 -- --------------------------------------------------------
 
@@ -143,8 +142,7 @@ CREATE TABLE `tbl_issue_request` (
 
 INSERT INTO `tbl_issue_request` (`ir_id`, `ist_id`, `ir_state`, `ir_detail`, `reqeust_by`, `request_date`, `assign_by`, `assign_date`, `rate_point`) VALUES
 (1, 16, 3, 'ເຂົ້າເຊີເວີບໍ່ໄດ້', 1, '2023-08-17', 1, '2023-08-17', NULL),
-(2, 3, 3, 'test', 3, '2023-08-17', 1, '2023-08-17', NULL),
-(3, 10, 1, '123', 1, '2023-08-17', NULL, NULL, NULL);
+(2, 3, 3, 'test', 3, '2023-08-17', 1, '2023-08-17', NULL);
 
 -- --------------------------------------------------------
 
@@ -482,6 +480,31 @@ INSERT INTO `tbl_role_page` (`rp_id`, `role_id`, `ht_id`, `st_id`, `pt_id`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_staff_ative_status`
+--
+
+CREATE TABLE `tbl_staff_ative_status` (
+  `staff_ative_status_id` int(11) NOT NULL,
+  `staff_name` varchar(150) DEFAULT NULL,
+  `active_status` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `phone_number` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_staff_ative_status`
+--
+
+INSERT INTO `tbl_staff_ative_status` (`staff_ative_status_id`, `staff_name`, `active_status`, `user_id`, `phone_number`) VALUES
+(1, 'ສຸກນາວີ', 1, 2, 22224584),
+(2, 'ສຸກທິວາວັນ', 2, 3, 55609011),
+(3, 'ນະພາວັນ', 1, 0, 22224539),
+(4, 'ພຸດທາ', 1, 5, 77775829),
+(5, 'ໂອເຄ', 1, 4, 55110607);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_sub_title`
 --
 
@@ -646,6 +669,12 @@ ALTER TABLE `tbl_role_page`
   ADD PRIMARY KEY (`rp_id`);
 
 --
+-- Indexes for table `tbl_staff_ative_status`
+--
+ALTER TABLE `tbl_staff_ative_status`
+  ADD PRIMARY KEY (`staff_ative_status_id`);
+
+--
 -- Indexes for table `tbl_sub_title`
 --
 ALTER TABLE `tbl_sub_title`
@@ -756,6 +785,12 @@ ALTER TABLE `tbl_role_level`
 --
 ALTER TABLE `tbl_role_page`
   MODIFY `rp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT for table `tbl_staff_ative_status`
+--
+ALTER TABLE `tbl_staff_ative_status`
+  MODIFY `staff_ative_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_sub_title`

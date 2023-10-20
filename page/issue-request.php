@@ -34,19 +34,17 @@ $header_click = "1";
     <script>
         $(function() {
 
+            $(document).on("click", "#modalstaff", function(e) {
+                e.preventDefault();
+                var staffid = $(this).data("staffid");
 
-
-            $('#isc_id').change(function() {
-                var isc_id = $('#isc_id').val();
-                $.post('../function/dynamic_dropdown/get_district_name.php', {
-                        isc_id: isc_id
+                $.post('../function/modal/get_staff_ict.php', {
+                        staffid: staffid
                     },
                     function(output) {
-                        $('#ist_id').html(output).show();
+                        $('.show_data').html(output).show();
                     });
             });
-
-
         });
     </script>
 
@@ -60,109 +58,118 @@ $header_click = "1";
             <?php
             include "header.php";
             ?>
+
             <div class="content-wrapper">
                 <div class="content">
-                    <div class="email-wrapper rounded border bg-white">
-                        <div class="row no-gutters justify-content-center">
+                    <div class="card card-default">
+                        <div class="card-header align-items-center px-3 px-md-5 text-center">
+                            <h2>ທີມງານ ICT</h2>
+                        </div>
+
+                        <div class="card-body px-3 px-md-5">
+                            <div class="row">
 
 
-                            <div class="col-xxl-12">
-                                <div class="email-right-column  email-body p-4 p-xl-5">
-                                    <div class="email-body-head mb-5 ">
-                                        <h4 class="text-dark">ແຈ້ງບ້ນຫາ</h4>
+                                <?php
+                                $stmt = $conn->prepare(" SELECT * FROM tbl_staff_ative_status ");
+                                $stmt->execute();
+                                if ($stmt->rowCount() > 0) {
+                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                                        $staff_ative_status_id = $row['staff_ative_status_id'];
+                                ?>
+
+                                        <div class="col-lg-6 col-xl-4">
+                                            <div class="card card-default p-4">
+                                                <a href="javascript:0" id="modalstaff" data-staffid='<?php echo "$staff_ative_status_id"; ?>' class="media text-secondary" data-toggle="modal" data-target="#modal-contact">
+                                                    <img src="../images/user/u-xl-1.jpg" class="mr-3 img-fluid rounded" alt="Avatar Image" />
+
+                                                    <div class="media-body">
+                                                        <h5 class="mt-0 mb-2 text-dark">Emma Smith</h5>
+                                                        <ul class="list-unstyled text-smoke text-smoke">
+                                                            <li class="d-flex">
+                                                                <i class="mdi mdi-map mr-1"></i>
+                                                                <span>Nulla vel metus 15/178</span>
+                                                            </li>
+                                                            <li class="d-flex">
+                                                                <i class="mdi mdi-email mr-1"></i>
+                                                                <span>exmaple@email.com</span>
+                                                            </li>
+                                                            <li class="d-flex">
+                                                                <i class="mdi mdi-phone mr-1"></i>
+                                                                <span>(123) 888 777 632</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                <?php
+                                    }
+                                }
+                                ?>
+
+                            </div>
+                        </div>
+
+
+
+                        <!-- Contact Modal -->
+                        <div class="modal fade" id="modal-contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header justify-content-end border-bottom-0">
+
+
+                                        <button type="button" class="btn-close-icon" data-dismiss="modal" aria-label="Close">
+                                            <i class="mdi mdi-close"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="show_data">
 
 
 
                                     </div>
-                                    <form method="post" id="addrequest">
-
-
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="form-group  col-lg-12">
-                                                        <label class="text-dark font-weight-medium">ປະເພດ</label>
-                                                        <div class="form-group">
-                                                            <select class=" form-control font" name="isc_id" id="isc_id" required>
-                                                                <option value=""> ເລືອກປະເພດ </option>
-                                                                <?php
-                                                                $stmt = $conn->prepare(" SELECT isc_id ,isc_name FROM tbl_issue_category order by isc_id asc");
-                                                                $stmt->execute();
-                                                                if ($stmt->rowCount() > 0) {
-                                                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                                                ?> <option value="<?php echo $row['isc_id']; ?>"> <?php echo $row['isc_name']; ?></option>
-                                                                <?php
-                                                                    }
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group col-lg-12">
-                                                        <label class="text-dark font-weight-medium">ໝວດໝູ່</label>
-                                                        <div class="form-group">
-
-                                                            <select class="form-control  font" name="ist_id" id="ist_id" required>
-                                                                <option value=""> ເລືອກໝວດໝູ່ </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-
-
-
-                                                    <div class="form-group col-lg-12">
-                                                        <label class="text-dark font-weight-medium"> ລາຍລະອຽດບັນຫາ </label>
-                                                        <textarea id="ir_detail" name="ir_detail" class="form-control" cols="30" rows="3" required></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="d-flex justify-content-end mt-6">
-                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ແຈ້ງບ້ນຫາ</button>
-                                        </div>
-
-                                    </form>
 
 
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
 
-            </div>
-
-            <div class="content-wrapper">
-                <div class="content">
-                    <!-- For Components documentaion -->
+                <div class="content-wrapper">
+                    <div class="content">
+                        <!-- For Components documentaion -->
 
 
-                    <div class="card card-default">
+                        <div class="card card-default">
 
-                        <div class="card-body">
+                            <div class="card-body">
 
-                            <table id="productsTable" class="table table-hover table-product" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>ເລກທີ</th>
-                                        <th>ປະເພດບັນຫາ</th>
-                                        <th>ປະເພດລະບົບ</th>
-                                        <th>ຜູ້ແຈ້ງບັນຫາ</th>
-                                        <th>ພະແນກ</th>
-                                        <th>ລາຍລະອຽດບັນຫາ</th>
-                                        <th>ວັນທີແຈ້ງບັນຫາ</th>
-                                        <th> </th>
+                                <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ເລກທີ</th>
+                                            <th>ປະເພດບັນຫາ</th>
+                                            <th>ປະເພດລະບົບ</th>
+                                            <th>ຜູ້ແຈ້ງບັນຫາ</th>
+                                            <th>ພະແນກ</th>
+                                            <th>ລາຍລະອຽດບັນຫາ</th>
+                                            <th>ວັນທີແຈ້ງບັນຫາ</th>
+                                            <th> </th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
 
-                                    <?php
-                                    $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,ir_detail,user_name,dp_name,request_date 
+                                        <?php
+                                        $stmt4 = $conn->prepare("SELECT ir_id,isc_name,ist_name,ir_detail,user_name,dp_name,request_date 
                                     FROM tbl_issue_request a 
                                     left join tbl_issue_type b on a.ist_id = b.ist_id 
                                     left join tbl_issue_category c on b.isc_id = c.isc_id
@@ -171,135 +178,135 @@ $header_click = "1";
                                     where reqeust_by = '$id_users'
                                     order by ir_id desc;
                                      ");
-                                    $stmt4->execute();
-                                    if ($stmt4->rowCount() > 0) {
-                                        while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                                            $ir_id = $row4['ir_id'];
-                                            $isc_name = $row4['isc_name'];
-                                            $ist_name = $row4['ist_name'];
-                                            $user_name = $row4['user_name'];
-                                            $dp_name = $row4['dp_name'];
-                                            $ir_detail = $row4['ir_detail'];
-                                            $request_date = $row4['request_date'];
+                                        $stmt4->execute();
+                                        if ($stmt4->rowCount() > 0) {
+                                            while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+                                                $ir_id = $row4['ir_id'];
+                                                $isc_name = $row4['isc_name'];
+                                                $ist_name = $row4['ist_name'];
+                                                $user_name = $row4['user_name'];
+                                                $dp_name = $row4['dp_name'];
+                                                $ir_detail = $row4['ir_detail'];
+                                                $request_date = $row4['request_date'];
 
-                                    ?>
+                                        ?>
 
 
 
-                                            <tr>
-                                                <td><?php echo "$ir_id"; ?></td>
-                                                <td><?php echo "$isc_name"; ?></td>
-                                                <td><?php echo "$ist_name"; ?></td>
-                                                <td><?php echo "$user_name"; ?></td>
-                                                <td><?php echo "$dp_name"; ?></td>
-                                                <td><?php echo "$ir_detail"; ?></td>
-                                                <td><?php echo "$request_date"; ?></td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                                        </a>
+                                                <tr>
+                                                    <td><?php echo "$ir_id"; ?></td>
+                                                    <td><?php echo "$isc_name"; ?></td>
+                                                    <td><?php echo "$ist_name"; ?></td>
+                                                    <td><?php echo "$user_name"; ?></td>
+                                                    <td><?php echo "$dp_name"; ?></td>
+                                                    <td><?php echo "$ir_detail"; ?></td>
+                                                    <td><?php echo "$request_date"; ?></td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                                            </a>
 
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="edit-issue-request.php?ir_id=<?php echo $row4['ir_id']; ?>">ແກ້ໄຂ</a>
-                                                            <a class="dropdown-item" type="button" id="deleterequest" data-id='<?php echo $row4['ir_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
+                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                                <a class="dropdown-item" href="edit-issue-request.php?ir_id=<?php echo $row4['ir_id']; ?>">ແກ້ໄຂ</a>
+                                                                <a class="dropdown-item" type="button" id="deleterequest" data-id='<?php echo $row4['ir_id']; ?>' class="btn btn-danger btn-sm">ລືບ</a>
 
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
 
 
-                                    <?php
+                                        <?php
+                                            }
                                         }
-                                    }
-                                    ?>
+                                        ?>
 
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
 
+                            </div>
                         </div>
-                    </div>
 
+
+                    </div>
 
                 </div>
 
+                <?php include "footer.php"; ?>
             </div>
-
-            <?php include "footer.php"; ?>
         </div>
-    </div>
 
 
 
 
 
-    <?php include("../setting/calljs.php"); ?>
+        <?php include("../setting/calljs.php"); ?>
 
-    <script>
-        // Add staff user 
-        $(document).on("submit", "#addrequest", function() {
-            $.post("../query/add-issue-request.php", $(this).serialize(), function(data) {
+        <script>
+            // Add staff user 
+            $(document).on("submit", "#addrequest", function() {
+                $.post("../query/add-issue-request.php", $(this).serialize(), function(data) {
 
-                if (data.res == "exist") {
-                    Swal.fire(
-                        'ຂໍ້ມູນບໍ່ຄົບຖວນ',
-                        'ໃສ່ຂໍ້ມູນໃຫ້ຄົບ',
-                        'error'
-                    )
-                } else if (data.res == "success") {
-                    Swal.fire(
-                        'ສຳເລັດ',
-                        'ແຈ້ງບັນຫາສຳເລັດ',
-                        'success'
-                    )
-                    setTimeout(
-                        function() {
-                            location.reload();
-                        }, 1000);
-                }
-            }, 'json')
-            return false;
-        });
-        // delete 
-        $(document).on("click", "#deleterequest", function(e) {
-            e.preventDefault();
-            var ir_id = $(this).data("id");
-            $.ajax({
-                type: "post",
-                url: "../query/delete-issue-request.php",
-                dataType: "json",
-                data: {
-                    ir_id: ir_id
-                },
-                cache: false,
-                success: function(data) {
-                    if (data.res == "success") {
+                    if (data.res == "exist") {
+                        Swal.fire(
+                            'ຂໍ້ມູນບໍ່ຄົບຖວນ',
+                            'ໃສ່ຂໍ້ມູນໃຫ້ຄົບ',
+                            'error'
+                        )
+                    } else if (data.res == "success") {
                         Swal.fire(
                             'ສຳເລັດ',
-                            'ລືບສຳເລັດ',
+                            'ແຈ້ງບັນຫາສຳເລັດ',
                             'success'
                         )
                         setTimeout(
                             function() {
-                                window.location.href = 'issue-request.php';
+                                location.reload();
                             }, 1000);
-
                     }
-                },
-                error: function(xhr, ErrorStatus, error) {
-                    console.log(status.error);
-                }
-
+                }, 'json')
+                return false;
             });
+            // delete 
+            $(document).on("click", "#deleterequest", function(e) {
+                e.preventDefault();
+                var ir_id = $(this).data("id");
+                $.ajax({
+                    type: "post",
+                    url: "../query/delete-issue-request.php",
+                    dataType: "json",
+                    data: {
+                        ir_id: ir_id
+                    },
+                    cache: false,
+                    success: function(data) {
+                        if (data.res == "success") {
+                            Swal.fire(
+                                'ສຳເລັດ',
+                                'ລືບສຳເລັດ',
+                                'success'
+                            )
+                            setTimeout(
+                                function() {
+                                    window.location.href = 'issue-request.php';
+                                }, 1000);
+
+                        }
+                    },
+                    error: function(xhr, ErrorStatus, error) {
+                        console.log(status.error);
+                    }
+
+                });
 
 
-            return false;
-        });
-    </script>
+                return false;
+            });
+        </script>
 
 
-    <!--  -->
+        <!--  -->
 
 
 </body>
