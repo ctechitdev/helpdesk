@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2023 at 11:59 AM
+-- Generation Time: Oct 24, 2023 at 10:55 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -50,6 +50,26 @@ INSERT INTO `tbl_depart` (`dp_id`, `dp_name`) VALUES
 (11, 'Toto'),
 (12, 'Yamaha'),
 (13, 'ຢາງ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_email_status`
+--
+
+CREATE TABLE `tbl_email_status` (
+  `email_status_id` int(11) NOT NULL,
+  `email_status_name` varchar(120) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_email_status`
+--
+
+INSERT INTO `tbl_email_status` (`email_status_id`, `email_status_name`) VALUES
+(1, 'ດຳເນີນການ'),
+(2, 'ເປີດນຳໃຊ້'),
+(3, 'ປີດນຳໃຊ້');
 
 -- --------------------------------------------------------
 
@@ -113,10 +133,13 @@ CREATE TABLE `tbl_issue_history` (
 --
 
 INSERT INTO `tbl_issue_history` (`ih_id`, `ir_id`, `ir_state`, `ih_detail`, `update_by`, `update_date`) VALUES
-(1, 1, 1, 'ເຂົ້າເຊີເວີບໍ່ໄດ້', NULL, NULL),
-(2, 1, 3, 'ຫົວແລນຫົ່ມ ຕ້ອງເຂົ້າໃໝ່', 1, '2023-08-17'),
-(3, 2, 1, 'test', NULL, NULL),
-(4, 2, 3, 'test', 1, '2023-08-17');
+(8, 8, 1, 'testing', 15, '2023-10-24'),
+(9, 9, 1, 'ເປີດບໍ່ໄດ້', 15, '2023-10-24'),
+(10, 9, 1, 'ຕິດຕາມ', 2, '2023-10-24'),
+(11, 9, 2, 'ແກ້ໄຂສຳເລັດ', 2, '2023-10-24'),
+(12, 8, 1, 'ແກ້ໄຂບໍ່ໄດ້', 2, '2023-10-24'),
+(13, 8, 3, 'ສົ່ງແກ້', 2, '2023-10-24'),
+(14, 8, 2, 'ແກ້ໄຂສຳເລັດ', 2, '2023-10-24');
 
 -- --------------------------------------------------------
 
@@ -126,6 +149,7 @@ INSERT INTO `tbl_issue_history` (`ih_id`, `ir_id`, `ir_state`, `ih_detail`, `upd
 
 CREATE TABLE `tbl_issue_request` (
   `ir_id` int(11) NOT NULL,
+  `issue_category_id` int(11) DEFAULT NULL,
   `ist_id` int(11) DEFAULT NULL,
   `ir_state` int(11) DEFAULT NULL,
   `ir_detail` text DEFAULT NULL,
@@ -140,9 +164,9 @@ CREATE TABLE `tbl_issue_request` (
 -- Dumping data for table `tbl_issue_request`
 --
 
-INSERT INTO `tbl_issue_request` (`ir_id`, `ist_id`, `ir_state`, `ir_detail`, `reqeust_by`, `request_date`, `assign_by`, `assign_date`, `rate_point`) VALUES
-(1, 16, 3, 'ເຂົ້າເຊີເວີບໍ່ໄດ້', 1, '2023-08-17', 1, '2023-08-17', NULL),
-(2, 3, 3, 'test', 3, '2023-08-17', 1, '2023-08-17', NULL);
+INSERT INTO `tbl_issue_request` (`ir_id`, `issue_category_id`, `ist_id`, `ir_state`, `ir_detail`, `reqeust_by`, `request_date`, `assign_by`, `assign_date`, `rate_point`) VALUES
+(8, 1, 3, 2, 'testing', 15, '2023-10-24', 2, '2023-10-24', NULL),
+(9, 3, 16, 2, 'ເປີດບໍ່ໄດ້', 15, '2023-10-24', 2, '2023-10-24', NULL);
 
 -- --------------------------------------------------------
 
@@ -160,10 +184,9 @@ CREATE TABLE `tbl_issue_status` (
 --
 
 INSERT INTO `tbl_issue_status` (`is_id`, `is_name`) VALUES
-(1, 'ລໍຖ້າຮັບ'),
-(2, 'ກຳລັງດຳເນີນການ'),
-(3, 'ປິດບັນຫາ'),
-(4, 'ລໍຖ້າແກ້ໄຂ');
+(1, 'ກຳລັງດຳເນີນການ'),
+(2, 'ປິດບັນຫາ'),
+(3, 'ລໍຖ້າແກ້ໄຂ');
 
 -- --------------------------------------------------------
 
@@ -287,11 +310,10 @@ INSERT INTO `tbl_page_title` (`pt_id`, `pt_name`, `ptf_name`, `st_id`) VALUES
 (4, 'ຜູ້ໃຊ້', 'user-staff.php', 3),
 (5, 'ຈັດການສິດ', 'role-manage.php ', 3),
 (15, 'ແຈ້ງບ້ນຫາ', 'issue-request.php', 1),
-(17, 'ຮັບບັນຫາ', 'issue-recieve.php', 1),
+(17, 'ລາຍການບັນຫາ', 'issue-list.php', 1),
 (18, 'ຄຳຂໍນຳໃຊ້ອີເມວ', 'form-request-email.php', 2),
 (19, 'ລາຍລະອຽດອີເມວ', 'form-email-update.php', 2),
-(20, 'ປິດບັນຫາ', 'Closing-rating.php', 1),
-(21, 'ອັຟເດດບັນຫາ', 'issue-update-follow.php', 1),
+(20, 'ອັຟເດດບັນຫາ', 'issue-update.php', 1),
 (22, 'ຟອມຄຳຂໍນຳໃຊ້ອຸປະກອນ', 'form-request-item-use.php', 2),
 (23, 'ລາຍການຂໍອຸປະກອນ', 'view-item-request-list.php', 2);
 
@@ -317,7 +339,8 @@ CREATE TABLE `tbl_request_email` (
 --
 
 INSERT INTO `tbl_request_email` (`re_id`, `user_id`, `user_email`, `pass_email`, `date_request`, `update_by`, `date_update`, `state`) VALUES
-(1, 3, 'soukthivavnh@kplaocompany.com', '123', '2023-08-17', 1, '2023-08-17', 1);
+(4, 3, 'soukthivavnh@kplaocompany.com', '1234', '2023-10-24', 3, '2023-10-24', 2),
+(5, 15, 'mayeena@kplaocompany.com', '1234', '2023-10-24', 3, '2023-10-24', 2);
 
 -- --------------------------------------------------------
 
@@ -360,7 +383,8 @@ CREATE TABLE `tbl_request_use_item` (
 INSERT INTO `tbl_request_use_item` (`rui_id`, `rui_bill_number`, `rs_id`, `depart_id`, `request_by`, `reqeust_date`) VALUES
 (2, NULL, 1, 3, 6, '2023-08-16'),
 (3, NULL, 1, 1, 1, '2023-08-17'),
-(4, '$', 1, 1, 1, '2023-08-17');
+(4, '$', 1, 1, 1, '2023-08-17'),
+(6, '$', 1, 1, 3, '2023-10-24');
 
 -- --------------------------------------------------------
 
@@ -384,7 +408,9 @@ INSERT INTO `tbl_request_use_item_detail` (`riud_id`, `rui_id`, `item_id`, `item
 (3, 3, 37, 1),
 (4, 3, 17, 3),
 (5, 4, 17, 34),
-(6, 4, 17, 12);
+(6, 4, 17, 12),
+(9, 6, 37, 123),
+(10, 6, 20, 12);
 
 -- --------------------------------------------------------
 
@@ -448,34 +474,32 @@ CREATE TABLE `tbl_role_page` (
 --
 
 INSERT INTO `tbl_role_page` (`rp_id`, `role_id`, `ht_id`, `st_id`, `pt_id`) VALUES
-(39, 1, 3, 4, 1),
-(38, 1, 2, 3, 5),
-(37, 1, 2, 3, 4),
-(36, 1, 2, 3, 3),
-(35, 1, 1, 2, 23),
-(34, 1, 1, 2, 22),
-(33, 1, 1, 2, 19),
-(32, 1, 1, 2, 18),
-(31, 1, 1, 1, 21),
-(30, 1, 1, 1, 20),
-(29, 1, 1, 1, 17),
-(28, 1, 1, 1, 15),
+(52, 1, 3, 4, 2),
+(51, 1, 3, 4, 1),
+(50, 1, 2, 3, 5),
+(49, 1, 2, 3, 4),
+(48, 1, 2, 3, 3),
+(47, 1, 1, 2, 23),
+(46, 1, 1, 2, 22),
+(45, 1, 1, 2, 19),
+(44, 1, 1, 2, 18),
+(43, 1, 1, 1, 20),
+(42, 1, 1, 1, 17),
 (13, 2, 1, 1, 15),
 (14, 2, 1, 2, 18),
 (15, 2, 1, 2, 22),
-(16, 3, 1, 1, 15),
-(17, 3, 1, 1, 17),
-(18, 3, 1, 1, 20),
-(19, 3, 1, 1, 21),
-(20, 3, 1, 2, 18),
-(21, 3, 1, 2, 19),
-(22, 3, 1, 2, 22),
-(23, 3, 2, 3, 3),
-(24, 3, 2, 3, 4),
-(25, 3, 2, 3, 5),
-(26, 3, 3, 4, 1),
-(27, 3, 3, 4, 2),
-(40, 1, 3, 4, 2);
+(63, 3, 3, 4, 2),
+(62, 3, 3, 4, 1),
+(61, 3, 2, 3, 5),
+(60, 3, 2, 3, 4),
+(59, 3, 2, 3, 3),
+(58, 3, 1, 2, 22),
+(57, 3, 1, 2, 19),
+(56, 3, 1, 2, 18),
+(55, 3, 1, 1, 20),
+(54, 3, 1, 1, 17),
+(53, 3, 1, 1, 15),
+(41, 1, 1, 1, 15);
 
 -- --------------------------------------------------------
 
@@ -497,7 +521,7 @@ CREATE TABLE `tbl_staff_ative_status` (
 
 INSERT INTO `tbl_staff_ative_status` (`staff_ative_status_id`, `staff_name`, `active_status`, `user_id`, `phone_number`) VALUES
 (1, 'ສຸກນາວີ', 1, 2, 22224584),
-(2, 'ສຸກທິວາວັນ', 2, 3, 55609011),
+(2, 'ສຸກທິວາວັນ', 1, 3, 55609011),
 (3, 'ນະພາວັນ', 1, 0, 22224539),
 (4, 'ພຸດທາ', 1, 5, 77775829),
 (5, 'ໂອເຄ', 1, 4, 55110607);
@@ -564,7 +588,7 @@ INSERT INTO `tbl_user` (`usid`, `full_name`, `user_name`, `user_password`, `role
 (12, 'ພົງວະດີ', 'phongvady@kplaocompany.com', '123', 2, 13, 1, 1, '2023-08-16'),
 (13, 'ສຸກພະໄຊ', 'soukphaxay@kplaocompany.com', '123', 2, 6, 1, 1, '2023-08-16'),
 (14, 'ປານິນ', 'panin@kplaocompany.com', '123', 2, 11, 1, 1, '2023-08-16'),
-(15, 'ມາຢີນາ', 'mayeena@kplaoconpany.com', '123', 2, 8, 1, 1, '2023-08-16'),
+(15, 'ມາຢີນາ', 'mayeena@kplaocompany.com', '123', 2, 8, 1, 1, '2023-08-16'),
 (16, 'ອາລິສາ', 'alisa@kplaocompany.com', '123', 2, 6, 1, 1, '2023-08-16'),
 (17, 'ອຸໄທ', 'outhai@kplaocompany.com', '123', 2, 8, 1, 1, '2023-08-16');
 
@@ -577,6 +601,12 @@ INSERT INTO `tbl_user` (`usid`, `full_name`, `user_name`, `user_password`, `role
 --
 ALTER TABLE `tbl_depart`
   ADD PRIMARY KEY (`dp_id`);
+
+--
+-- Indexes for table `tbl_email_status`
+--
+ALTER TABLE `tbl_email_status`
+  ADD PRIMARY KEY (`email_status_id`);
 
 --
 -- Indexes for table `tbl_header_title`
@@ -697,6 +727,12 @@ ALTER TABLE `tbl_depart`
   MODIFY `dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `tbl_email_status`
+--
+ALTER TABLE `tbl_email_status`
+  MODIFY `email_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tbl_header_title`
 --
 ALTER TABLE `tbl_header_title`
@@ -712,13 +748,13 @@ ALTER TABLE `tbl_issue_category`
 -- AUTO_INCREMENT for table `tbl_issue_history`
 --
 ALTER TABLE `tbl_issue_history`
-  MODIFY `ih_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ih_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_issue_request`
 --
 ALTER TABLE `tbl_issue_request`
-  MODIFY `ir_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ir_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_issue_status`
@@ -748,7 +784,7 @@ ALTER TABLE `tbl_page_title`
 -- AUTO_INCREMENT for table `tbl_request_email`
 --
 ALTER TABLE `tbl_request_email`
-  MODIFY `re_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `re_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_request_status`
@@ -760,13 +796,13 @@ ALTER TABLE `tbl_request_status`
 -- AUTO_INCREMENT for table `tbl_request_use_item`
 --
 ALTER TABLE `tbl_request_use_item`
-  MODIFY `rui_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `rui_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_request_use_item_detail`
 --
 ALTER TABLE `tbl_request_use_item_detail`
-  MODIFY `riud_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `riud_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`
@@ -784,7 +820,7 @@ ALTER TABLE `tbl_role_level`
 -- AUTO_INCREMENT for table `tbl_role_page`
 --
 ALTER TABLE `tbl_role_page`
-  MODIFY `rp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `rp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `tbl_staff_ative_status`

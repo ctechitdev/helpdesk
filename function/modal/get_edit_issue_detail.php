@@ -3,7 +3,7 @@
 include("../../setting/checksession.php");
 include("../../setting/conn.php");
 
-$staffid = $_POST['staffid'];
+$issue_id = $_POST['issue_id'];
 
 ?>
 
@@ -22,21 +22,23 @@ $staffid = $_POST['staffid'];
     });
 </script>
 
-<form id="addrequest">
+<form id="update-request">
     <div class="modal-body pt-0">
         <div class="row no-gutters">
 
-            <input type="hidden" name="staffid" value='<?php echo "$staffid"; ?>'>
+            <input type="hidden" name="issue_id" value='<?php echo "$issue_id"; ?>'>
 
             <?php
-            $row_staff = $conn->query("SELECT * FROM tbl_staff_ative_status where staff_ative_status_id = '$staffid' ")->fetch(PDO::FETCH_ASSOC);
+            $edit_row = $conn->query("SELECT full_name,issue_category_id,ist_id,ir_detail
+            FROM tbl_issue_request a
+            left join tbl_user b on a.assign_by = b.usid 
+            where ir_id = '$issue_id' ")->fetch(PDO::FETCH_ASSOC);
 
-            $status_staff = $row_staff['active_status'];
-            $staff_user = $row_staff['user_id'];
+            $issue_category_id = $edit_row['issue_category_id'];
+            $issue_type_id = $edit_row['ist_id'];
+            $ir_detail = $edit_row['ir_detail'];
 
             ?>
-
-            <input type="hidden" name="staff_user" value='<?php echo "$staff_user"; ?>'>
 
             <div class="col-md-6">
                 <div class="profile-content-left px-4">
@@ -46,7 +48,7 @@ $staffid = $_POST['staffid'];
                         </div>
 
                         <div class="card-body">
-                            <h4><?php echo $row_staff['staff_name']; ?></h4>
+                            <h4><?php echo $edit_row['full_name']; ?></h4>
                         </div>
                     </div>
 
@@ -54,16 +56,7 @@ $staffid = $_POST['staffid'];
 
 
                         <div class="card-body">
-                            <button type="submit" class="btn btn-primary mb-2 btn-pill" <?php if ($status_staff == 2) {
-                                                                                            echo "disabled";
-                                                                                        } ?>>
-                                <?php
-                                if ($status_staff == 2) {
-                                    echo "ບໍ່ວ່າງ";
-                                } else {
-                                    echo "ແຈ້ງບັນຫາ";
-                                } ?>
-                            </button>
+                            <button type="submit" class="btn btn-primary mb-2 btn-pill">ແກ້ໄຂ</button>
                         </div>
                     </div>
                 </div>
@@ -82,7 +75,9 @@ $staffid = $_POST['staffid'];
                                 $stmt->execute();
                                 if ($stmt->rowCount() > 0) {
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                ?> <option value="<?php echo $row['isc_id']; ?>"> <?php echo $row['isc_name']; ?></option>
+                                ?> <option value="<?php echo $row['isc_id']; ?>" <?php if ($issue_category_id == $row['isc_id']) {
+                                                                                        echo "selected";
+                                                                                    } ?>> <?php echo $row['isc_name']; ?></option>
                                 <?php
                                     }
                                 }
@@ -97,6 +92,18 @@ $staffid = $_POST['staffid'];
 
                             <select class="form-control  font" name="ist_id" id="ist_id" required>
                                 <option value=""> ເລືອກໝວດໝູ່ </option>
+                                <?php
+                                $stmt1 = $conn->prepare(" SELECT * FROM tbl_issue_type where isc_id = '$issue_category_id' order by ist_id asc");
+                                $stmt1->execute();
+                                if ($stmt1->rowCount() > 0) {
+                                    while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+                                ?> <option value="<?php echo $row1['ist_id']; ?>" <?php if ($issue_type_id ==  $row1['ist_id']) {
+                                                                                        echo "selected";
+                                                                                    } ?>> <?php echo $row1['ist_name']; ?></option>
+                                <?php
+                                    }
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -106,7 +113,7 @@ $staffid = $_POST['staffid'];
 
                     <div class="form-group col-lg-12">
                         <label class="text-dark font-weight-medium"> ລາຍລະອຽດບັນຫາ </label>
-                        <textarea id="ir_detail" name="ir_detail" class="form-control" cols="30" rows="3" required></textarea>
+                        <textarea id="ir_detail" name="ir_detail" class="form-control" cols="30" rows="3" required><?php echo "$ir_detail";?></textarea>
                     </div>
                 </div>
             </div>

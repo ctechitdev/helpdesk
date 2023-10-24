@@ -15,8 +15,8 @@ include("../setting/conn.php");
 
  
     
-	$insCourse = $conn->query("INSERT INTO tbl_request_email(user_id,date_request)
-	VALUES('$id_users',now())");
+	$insCourse = $conn->query("INSERT INTO tbl_request_email(user_id,date_request,state)
+	VALUES('$id_users',now(),'1')");
 	
 if($insCourse)
 	{

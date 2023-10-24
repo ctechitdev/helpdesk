@@ -70,72 +70,51 @@ $header_click = "2";
                                                         <th>ອີເມວ</th>
                                                         <th>ລະຫັດ</th>
                                                         <th>ສະຖານະ</th>
-                                                        <th>ວັນທີເປີດນຳໃຊ້</th>
-                                                        <th></th>
+                                                        <th>ວັນທີເປີດນຳໃຊ້</th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $stmt4 = $conn->prepare("select user_id,state,re_id,user_email,pass_email,date_update,full_name,dp_name 
+                                                    $stmt4 = $conn->prepare("select user_id,state,re_id,
+                                                    date_update,full_name,dp_name,email_status_name,full_name,
+                                                    user_email,pass_email,date_update
+
                                                     from tbl_request_email a 
                                                     left join tbl_user b on a.user_id = b.usid
-                                                    left join tbl_depart c on b.depart_id = c.dp_id 
+                                                    left join tbl_depart c on b.depart_id = c.dp_id
+                                                    left join tbl_email_status d on a.state = d.email_status_id 
                                                     where user_id ='$id_users'
                                                     order by re_id desc; ");
                                                     $stmt4->execute();
                                                     if ($stmt4->rowCount() > 0) {
                                                         while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
                                                             $re_id = $row4['re_id'];
-                                                            $user_email = $row4['user_email'];
-                                                            $user_id = $row4['user_id'];
-                                                            $pass_email = $row4['pass_email'];
-                                                            $state = $row4['state'];
-                                                            $date_update = $row4['date_update'];
                                                             $full_name = $row4['full_name'];
-                                                            $dp_name = $row4['dp_name'];
+                                                            $dp_name = $row4['dp_name']; 
+                                                            $email_status_name = $row4['email_status_name']; 
+                                                            $state = $row4['state'];
+
+                                                            if ($state == 1) {
+                                                                $user_email = "ດຳເນີນການ";
+                                                                $pass_email = "ດຳເນີນການ";
+                                                                $date_update = "ດຳເນີນການ";
+                                                            } else {
+                                                                $user_email = $row4['user_email'];
+                                                                $pass_email = $row4['pass_email'];
+                                                                $date_update = $row4['date_update'];
+                                                            }
+
+
+
                                                     ?>
                                                             <tr>
                                                                 <td><?php echo "$re_id"; ?></td>
-                                                                <td><?php if (empty($user_id)){
-                                                                    echo"ປິດນຳໃຊ້";
-                                                                }else {echo "$full_name";}
-                                                                ?></td> 
-                                                                 <td><?php if (empty($dp_name)){echo "ປິດນຳໃຊ້";
-                                                                }else{echo"$dp_name";}
-                                                                 ?></td>
-                                                                <td><?php
-                                                                    if (empty($user_email)) {
-                                                                        echo "ກຳລັງດຳເນີນການ";
-                                                                    } else {
-                                                                        echo "$user_email";
-                                                                    }
-                                                                    ?>
-                                                                </td>
-                                                                <td><?php if (empty($pass_email)){
-                                                                    echo "ກຳລັງດຳເນີນການ";
-                                                                }else {
-                                                                    echo "$pass_email";
-                                                                }
-                                                                
-                                                                ; ?></td>
-                                                                 <td><?php if ($state >=2){
-                                                                    echo "ປິດນຳໃຊ້";
-                                                                }else {
-                                                                    echo "ດຳເນີນການ";
-                                                                }
-                                                                
-                                                                ; ?></td>
-
-                                                                <td><?php if (empty($date_update)){
-                                                                    echo "ກຳລັງດຳເນີນການ";
-                                                                }else {
-                                                                    echo "$date_update";
-                                                                }
-                                                                
-                                                                ; ?></td>
-                                                                <td>
-
-                                                                </td>
+                                                                <td><?php echo "$full_name"; ?></td>
+                                                                <td><?php echo "$dp_name"; ?></td>
+                                                                <td><?php echo "$user_email"; ?></td>
+                                                                <td><?php echo "$pass_email"; ?></td>
+                                                                <td><?php echo "$email_status_name"; ?></td>
+                                                                <td><?php echo "$date_update"; ?></td>
                                                             </tr>
                                                     <?php
                                                         }
@@ -166,9 +145,9 @@ $header_click = "2";
                 if (data.res == "exist") {
                     Swal.fire(
                         'ລົງທະບຽນຊ້ຳ',
-                        'ຜູ້ໃຊ້ນີ້ຖືກລົງທະບຽນແລ້ວ',
+                        'ສາມາດຂໍໄດ້ພຽງຄັງດຽວ',
                         'error'
-                    )  
+                    )
                 } else if (data.res == "success") {
                     Swal.fire(
                         'ສຳເລັດ',

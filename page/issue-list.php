@@ -2,7 +2,7 @@
 include("../setting/checksession.php");
 include("../setting/conn.php");
 
-$header_name = "ຮັບບັນຫາ";
+$header_name = "ລາຍການບັນຫາ";
 $header_click = "1";
 
 
@@ -28,6 +28,21 @@ $header_click = "1";
 
 </head>
 <script src="../plugins/nprogress/nprogress.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+
+<script>
+    $(document).on("click", "#editrequest", function(e) {
+        e.preventDefault();
+        var issueid = $(this).data("issueid");
+
+        $.post('../function/modal/get_issue_detail.php', {
+                issue_id: issueid
+            },
+            function(output) {
+                $('.show_data_edit').html(output).show();
+            });
+    });
+</script>
 
 <body class="navbar-fixed sidebar-fixed" id="body">
 
@@ -52,7 +67,7 @@ $header_click = "1";
 
 
 
-                            <div class="    ">
+                            <div class="">
                                 <div class="  p-4 p-xl-5">
                                     <div class="email-body-head mb-6 ">
                                         <h4 class="text-dark">ລາຍການແຈ້ງບັນຫາ</h4>
@@ -72,10 +87,9 @@ $header_click = "1";
                                                     <th>ປະເພດບັນຫາ</th>
                                                     <th>ຊື່ຜູ້ແຈ້ງ</th>
                                                     <th>ພະແນກ</th>
-                                                    <th>ຊື່ຜູ້ຮັບ</th>
-                                                    <th>ສະຖານະ</th>
+                                                    <th>ສະຖານະບັນຫາ</th>
                                                     <th>ລາຍລະອຽດ</th>
-                                                    <th>ວັນທີມອບບັນຫາ</th>
+                                                    <th>ວັນທີ</th>
                                                     <th></th>
 
                                                 </tr>
@@ -83,14 +97,15 @@ $header_click = "1";
                                             <tbody>
 
                                                 <?php
-                                                $stmt4 = $conn->prepare("SELECT ir_id,is_name,isc_name,ist_name,ir_detail,request_date,dp_name,full_name,assign_by,reqeust_by FROM tbl_issue_request a 
-                                               left join tbl_issue_type b on a.ist_id = b.ist_id 
-                                               left join tbl_issue_category c on b.isc_id = c.isc_id 
-                                               left join tbl_issue_status d on a.ir_state=d.is_id 
-                                               left join tbl_user e on a.reqeust_by = e.usid 
-                                               left JOIN tbl_depart f on e.depart_id = f.dp_id
-                                               where ir_state ='1'
-                                                order by ir_id desc;");
+                                                $stmt4 = $conn->prepare(" select ir_id,isc_name,ist_name,ir_detail,request_date,full_name,dp_name,is_name
+                                                from tbl_issue_request a
+                                                left join tbl_issue_category b on a.issue_category_id = b.isc_id
+                                                left join tbl_issue_type c on a.ist_id = c.ist_id 
+                                                left join tbl_user d on a.reqeust_by = d.usid 
+                                                left join tbl_depart e on d.depart_id = e.dp_id
+                                                left join tbl_issue_status f on a.ir_state = f.is_id
+                                                where assign_by = '$id_users' 
+                                                order by ir_id desc ");
                                                 $stmt4->execute();
                                                 if ($stmt4->rowCount() > 0) {
                                                     while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
@@ -98,9 +113,9 @@ $header_click = "1";
                                                         $isc_name = $row4['isc_name'];
                                                         $ist_name = $row4['ist_name'];
                                                         $is_name = $row4['is_name'];
+                                                        
                                                         $dp_name = $row4['dp_name'];
                                                         $request = $row4['full_name'];
-                                                        $assy_by = $row4['assign_by'];
                                                         $ir_detail = $row4['ir_detail'];
                                                         $request_date = $row4['request_date'];
                                                 ?>
@@ -110,26 +125,16 @@ $header_click = "1";
                                                             <td><?php echo "$ist_name"; ?></td>
                                                             <td><?php echo "$request"; ?></td>
                                                             <td><?php echo "$dp_name"; ?></td>
-                                                            <td><?php if (empty($assy_by)) {
-                                                                    echo "ລໍຖ້າຮັບ";
-                                                                } else {
-                                                                    echo "$full_name";
-                                                                }
-
-                                                                ?>
-
-
-                                                            </td>
-
                                                             <td><?php echo "$is_name"; ?></td>
+
                                                             <td><?php echo mb_strimwidth("$ir_detail", 0, 15, "..."); ?></td>
                                                             <td><?php echo "$request_date"; ?></td>
                                                             <td>
                                                                 <div class="dropdown">
-                                                                    <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                                                    </a>
+                                                                    <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
                                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                                        <a class="dropdown-item" href="problem-detail.php?ir_id=<?php echo $row4['ir_id']; ?>">ລາຍລະອຽດ</a>
+                                                                        <a href="javascript:0" class="dropdown-item" id="editrequest" data-issueid='<?php echo "$ir_id"; ?>' data-toggle="modal" data-target="#modal-issue">ສະແດງລາຍລະອຽດ</a>
+
 
                                                                     </div>
                                                                 </div>
@@ -151,6 +156,30 @@ $header_click = "1";
 
 
                                 </div>
+
+                                <!-- edit request modal -->
+                                <div class="modal fade" id="modal-issue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header justify-content-end border-bottom-0">
+                                                 
+
+                                                <button type="button" class="btn-close-icon" data-dismiss="modal" aria-label="Close">
+                                                    <i class="mdi mdi-close"></i>
+                                                </button>
+                                            </div>
+
+                                            <div class="show_data_edit">
+
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
 
 
                             </div>

@@ -27,6 +27,20 @@ $header_click = "2";
 <script src="../plugins/nprogress/nprogress.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 
+<script>
+    $(document).on("click", "#editrequest", function(e) {
+        e.preventDefault();
+        var emailid = $(this).data("emailid");
+
+        $.post('../function/modal/get_requestor_email.php', {
+                request_email_id: emailid
+            },
+            function(output) {
+                $('.show_data_edit').html(output).show();
+            });
+    });
+</script>
+
 
 <body class="navbar-fixed sidebar-fixed" id="body">
 
@@ -66,60 +80,42 @@ $header_click = "2";
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $stmt4 = $conn->prepare("select user_id,state,re_id,user_email,pass_email,date_request,full_name,dp_name from tbl_request_email a 
+                                                $stmt4 = $conn->prepare("
+                                                select user_id,state,re_id,
+                                                    date_update,full_name,dp_name,email_status_name,full_name,
+                                                    user_email,pass_email,date_update 
+                                                    from tbl_request_email a 
                                                     left join tbl_user b on a.user_id = b.usid
-                                                    left join tbl_depart c on b.depart_id = c.dp_id order by re_id desc; ");
+                                                    left join tbl_depart c on b.depart_id = c.dp_id
+                                                    left join tbl_email_status d on a.state = d.email_status_id 
+                                                    order by re_id desc; ");
                                                 $stmt4->execute();
                                                 if ($stmt4->rowCount() > 0) {
                                                     while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
                                                         $re_id = $row4['re_id'];
-                                                        $user_email = $row4['user_email'];
-                                                        $user_id = $row4['user_id'];
-                                                        $pass_email = $row4['pass_email'];
-                                                        $state = $row4['state'];
-                                                        $date_request = $row4['date_request'];
                                                         $full_name = $row4['full_name'];
                                                         $dp_name = $row4['dp_name'];
+                                                        $email_status_name = $row4['email_status_name'];
+                                                        $state = $row4['state'];
+
+                                                        if ($state == 1) {
+                                                            $user_email = "ດຳເນີນການ";
+                                                            $pass_email = "ດຳເນີນການ";
+                                                            $date_update = "ດຳເນີນການ";
+                                                        } else {
+                                                            $user_email = $row4['user_email'];
+                                                            $pass_email = $row4['pass_email'];
+                                                            $date_update = $row4['date_update'];
+                                                        }
                                                 ?>
                                                         <tr>
                                                             <td><?php echo "$re_id"; ?></td>
-                                                            <td><?php if (empty($user_id)) {
-                                                                    echo "ປິດນຳໃຊ້";
-                                                                } else {
-                                                                    echo "$full_name";
-                                                                }
-                                                                ?></td>
-                                                            <td><?php if (empty($dp_name)) {
-                                                                    echo "ປິດນຳໃຊ້";
-                                                                } else {
-                                                                    echo "$dp_name";
-                                                                }
-                                                                ?></td>
-                                                            <td><?php
-                                                                if (empty($user_email)) {
-                                                                    echo "ກຳລັງດຳເນີນການ";
-                                                                } else {
-                                                                    echo "$user_email";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td><?php if (empty($pass_email)) {
-                                                                    echo "ກຳລັງດຳເນີນການ";
-                                                                } else {
-                                                                    echo "$pass_email";
-                                                                }; ?></td>
-                                                            <td><?php if ($state >= 2) {
-                                                                    echo "ປິດນຳໃຊ້";
-                                                                } else {
-                                                                    echo "ດຳເນີນການ";
-                                                                }; ?></td>
-
-                                                            <td><?php if (empty($date_request)) {
-                                                                    echo "ກຳລັງດຳເນີນການ";
-                                                                } else {
-                                                                    echo "$date_request";
-                                                                }; ?></td>
-
+                                                            <td><?php echo "$full_name"; ?></td>
+                                                            <td><?php echo "$dp_name"; ?></td>
+                                                            <td><?php echo "$user_email"; ?></td>
+                                                            <td><?php echo "$pass_email"; ?></td>
+                                                            <td><?php echo "$email_status_name"; ?></td>
+                                                            <td><?php echo "$date_update"; ?></td>
 
                                                             <td>
                                                                 <div class="dropdown">
@@ -127,8 +123,8 @@ $header_click = "2";
                                                                     </a>
 
                                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                                        <a class="dropdown-item" href="edit-gmail.php?re_id=<?php echo $row4['re_id']; ?>">ອະນຸຍາດນຳໃຊ້</a>
-                                                                        <a class="dropdown-item" type="button" id="cancelgmail" data-id='<?php echo $row4['re_id']; ?>' class="btn btn-danger btn-sm">ຍົກເລີກນຳໃຊ້</a>
+                                                                        <a href="javascript:0" class="dropdown-item" id="editrequest" data-emailid='<?php echo $row4['re_id'];  ?>' data-toggle="modal" data-target="#modal-email">ຈັດການ</a>
+
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -141,6 +137,29 @@ $header_click = "2";
                                         </table>
 
                                     </div>
+
+                                    <!-- edit request modal -->
+                                    <div class="modal fade" id="modal-email" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header justify-content-end border-bottom-0">
+
+
+                                                    <button type="button" class="btn-close-icon" data-dismiss="modal" aria-label="Close">
+                                                        <i class="mdi mdi-close"></i>
+                                                    </button>
+                                                </div>
+
+                                                <div class="show_data_edit">
+
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -151,8 +170,8 @@ $header_click = "2";
 
                 <script>
                     // Add staff user 
-                    $(document).on("submit", "#addgmail", function() {
-                        $.post("../query/add-gmail.php", $(this).serialize(), function(data) {
+                    $(document).on("submit", "#email-update", function() {
+                        $.post("../query/update-email-data.php", $(this).serialize(), function(data) {
                             if (data.res == "exist") {
                                 Swal.fire(
                                     'ລົງທະບຽນຊ້ຳ',
