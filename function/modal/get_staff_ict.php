@@ -32,11 +32,11 @@ $staff_user_id = $_POST['staffid'];
 
             $status_staff = $row_staff['active_status'];
             $staff_user = $row_staff['usid'];
-
+            $token_line = $row_staff['token_line'];
             ?>
 
             <input type="hidden" name="staff_user" value='<?php echo "$staff_user"; ?>'>
-
+            <input type="hidden" name="token_line" value='<?php echo "$token_line"; ?>'>
             <div class="col-md-6">
                 <div class="profile-content-left px-4">
                     <div class="card text-center px-0 border-0">

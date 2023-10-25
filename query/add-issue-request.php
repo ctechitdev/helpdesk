@@ -49,7 +49,7 @@ if (empty($ist_id)) {
 
 
                 $url = 'https://notify-api.line.me/api/notify';
-                $token      = "5ckKBtA2JoIlj7A2OyF6jXWgLSDJISQHdBry58WVPbI";
+                $token      = "$token_line";
                 $headers    = [
                     'Content-Type: application/x-www-form-urlencoded',
                     'Authorization: Bearer ' . $token
