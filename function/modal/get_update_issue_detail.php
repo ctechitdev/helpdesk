@@ -10,17 +10,7 @@ $issue_id = $_POST['issue_id'];
 <script src="../plugins/nprogress/nprogress.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 
-<script>
-    $('#isc_id').change(function() {
-        var isc_id = $('#isc_id').val();
-        $.post('../function/dynamic_dropdown/get_district_name.php', {
-                isc_id: isc_id
-            },
-            function(output) {
-                $('#ist_id').html(output).show();
-            });
-    });
-</script>
+ 
 
 <form id="update-issue">
     <div class="modal-body pt-0">

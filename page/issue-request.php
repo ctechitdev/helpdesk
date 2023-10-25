@@ -80,14 +80,16 @@ $header_click = "1";
 
 
                                 <?php
-                                $stmt = $conn->prepare(" SELECT staff_ative_status_id,staff_name,phone_number,active_status,
+                                $stmt = $conn->prepare("
+                                SELECT usid,full_name,phone_number,active_status,
                                 (case when active_status = 1 then 'ວ່າງ' else 'ບໍ່ວ່າງ' end) as status_name
-                                 FROM tbl_staff_ative_status ");
+                                 FROM tbl_user 
+                                 where active_status is not null ");
                                 $stmt->execute();
                                 if ($stmt->rowCount() > 0) {
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-                                        $staff_ative_status_id = $row['staff_ative_status_id'];
+                                        $staff_user_id = $row['usid'];
 
                                         $active_status = $row['active_status'];
 
@@ -102,11 +104,11 @@ $header_click = "1";
 
                                         <div class="col-lg-6 col-xl-4">
                                             <div class="card card-default p-4">
-                                                <a href="javascript:0" id="modalstaff" data-staffid='<?php echo "$staff_ative_status_id"; ?>' class="media text-secondary" data-toggle="modal" data-target="#modal-contact">
+                                                <a href="javascript:0" id="modalstaff" data-staffid='<?php echo "$staff_user_id"; ?>' class="media text-secondary" data-toggle="modal" data-target="#modal-contact">
                                                     <img src="../images/logo-support.png" class="mr-3 img-fluid rounded" alt="Avatar Image" />
 
                                                     <div class="media-body">
-                                                        <h5 class="mt-0 mb-2 text-dark"><?php echo $row['staff_name']; ?></h5>
+                                                        <h5 class="mt-0 mb-2 text-dark"><?php echo $row['full_name']; ?></h5>
                                                         <ul class="list-unstyled text-smoke text-smoke">
                                                             <li class="d-flex">
                                                                 <i class='mdi <?php echo "$show_icon"; ?> mr-1'></i>

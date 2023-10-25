@@ -3,7 +3,7 @@
 include("../../setting/checksession.php");
 include("../../setting/conn.php");
 
-$staffid = $_POST['staffid'];
+$staff_user_id = $_POST['staffid'];
 
 ?>
 
@@ -26,13 +26,12 @@ $staffid = $_POST['staffid'];
     <div class="modal-body pt-0">
         <div class="row no-gutters">
 
-            <input type="hidden" name="staffid" value='<?php echo "$staffid"; ?>'>
-
+           
             <?php
-            $row_staff = $conn->query("SELECT * FROM tbl_staff_ative_status where staff_ative_status_id = '$staffid' ")->fetch(PDO::FETCH_ASSOC);
+            $row_staff = $conn->query("SELECT * FROM tbl_user where usid = '$staff_user_id' ")->fetch(PDO::FETCH_ASSOC);
 
             $status_staff = $row_staff['active_status'];
-            $staff_user = $row_staff['user_id'];
+            $staff_user = $row_staff['usid'];
 
             ?>
 
@@ -46,7 +45,7 @@ $staffid = $_POST['staffid'];
                         </div>
 
                         <div class="card-body">
-                            <h4><?php echo $row_staff['staff_name']; ?></h4>
+                            <h4><?php echo $row_staff['full_name']; ?></h4>
                         </div>
                     </div>
 

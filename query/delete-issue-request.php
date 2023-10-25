@@ -29,7 +29,7 @@ if ($check_state['check_staff'] > 0) {
         $delete2 =  $conn->query(" delete from tbl_issue_history where ir_id = '$ir_id' ");
 
         if ($delete2) {
-            $update_state =  $conn->query(" update tbl_staff_ative_status set active_status = '1' where user_id = '$staff_user' ");
+            $update_state =  $conn->query(" update tbl_user set active_status = '1' where usid = '$staff_user' ");
 
             if ($update_state) {
                 $res = array("res" => "success");

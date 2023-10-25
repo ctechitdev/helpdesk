@@ -12,7 +12,7 @@ if ($update_issue) {
     ( '$issue_id', '$issue_status_id' ,'$update_detail_area' ,'$id_users ',now() ); ");
 
     if ($insert_history) {
-        $update_staff_status = $conn->query(" update tbl_staff_ative_status set active_status ='1'   WHERE user_id = '$id_users'  ");
+        $update_staff_status = $conn->query(" update tbl_user set active_status ='1'   WHERE usid = '$id_users'  ");
 
         if ($update_staff_status) {
             $res = array("res" => "success");
